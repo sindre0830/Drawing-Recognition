@@ -15,7 +15,7 @@ jobs:
         go-version: 1.16
 
     - name: Build
-      run: go build -v ./Data-collection/...
+      run: go build -v ./Data-collection/main.go
 
     - name: Test
       run: go test -v ./Data-collection/...
