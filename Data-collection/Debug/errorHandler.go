@@ -1,6 +1,10 @@
 package debug
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+	"time"
+)
 
 // Debug structure stores information about errors.
 //
@@ -23,4 +27,18 @@ func (debug *Debug) Update(status int, loc string, err string, reason string) {
 	} else {
 		debug.PossibleReason = "Unknown"
 	}
+}
+
+// Print sends structure to console.
+func (debug *Debug) Print(w http.ResponseWriter) {
+	//send output to console
+	fmt.Printf(
+		"%v {\n" +
+		"    status_code:     %v,\n" +
+		"    location:        %s,\n" +
+		"    raw_error:       %s,\n" +
+		"    possible_reason: %s \n" +
+		"}\n", 
+		time.Now().Format("2006-01-02 15:04:05"), debug.StatusCode, debug.Location, debug.RawError, debug.PossibleReason,
+	)
 }
