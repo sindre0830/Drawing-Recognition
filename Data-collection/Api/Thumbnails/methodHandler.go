@@ -9,7 +9,8 @@ import (
 func MethodHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		Handler(w, r)
+		var googleImages GoogleImages
+		googleImages.Handler(w, r)
 	default:
 		var debug debug2.Debug
 
