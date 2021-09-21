@@ -5,11 +5,12 @@ import (
 	debug2 "main/Debug"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
 // Handler handle the http request
-func Handler(w http.ResponseWriter, r *http.Request) {
+func (googleImages *GoogleImages) Handler(w http.ResponseWriter, r *http.Request) {
 	// Parse URL to retrieve path parameters
 	path := strings.Split(r.URL.Path, "/")
 
@@ -39,15 +40,25 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 // WriteToFile writes all the image thumbnails to a file
 func (thumbnails Thumbnails) WriteToFile(name string) error {
-	file, err := os.Create("./data/" + name + ".txt")
-	if err != nil {
-		return err
-	}
-	defer file.Close()
+	path := filepath.Join("data", name)
 
-	// Write every value to the file, each on a new line
-	for _, val := range thumbnails {
-		fmt.Fprintln(file, val)
+	// Create the data directory if it does not already exist
+	if _, err := os.Stat("data"); os.IsNotExist(err) {
+		os.MkdirAll("data", 0700)
+	}
+
+	// Create and write to a new file if it does not already exist
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		file, err := os.Create(path)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
+		// Write every value to the file, each on a new line
+		for _, val := range thumbnails {
+			fmt.Fprintln(file, val)
+		}
 	}
 
 	return nil
