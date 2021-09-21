@@ -9,7 +9,7 @@ import (
 func MethodHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
-		// Fetch data
+		Handler(w, r)
 	default:
 		var debug debug2.Debug
 
