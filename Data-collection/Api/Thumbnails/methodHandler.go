@@ -1,4 +1,4 @@
-package Api
+package thumbnails
 
 import (
 	debug2 "main/Debug"
