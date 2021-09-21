@@ -1,4 +1,4 @@
-package Api
+package api
 
 // Images stores image thumbnails
 type Images struct {
