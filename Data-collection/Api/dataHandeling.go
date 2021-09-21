@@ -4,6 +4,7 @@ import (
 	"errors"
 	"io/ioutil"
 	"net/http"
+	"time"
 )
 
 // requestData gets raw data from REST services based on URL.
@@ -12,6 +13,10 @@ func RequestData(url string) ([]byte, int, error) {
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, req.Response.StatusCode, err
+	}
+	//timeout after 2 seconds
+	apiClient := http.Client{
+		Timeout: time.Second * 4,
 	}
 	//get response and branch if an error occurred
 	res, err := apiClient.Do(req)
