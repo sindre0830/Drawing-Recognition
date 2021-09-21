@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// MethodHandler handles the method of a http request
 func MethodHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
@@ -17,7 +18,7 @@ func MethodHandler(w http.ResponseWriter, r *http.Request) {
 			"MethodHandler() -> Validating method",
 			"validating method: wrong method",
 			"Method not valid.",
-			)
+		)
 
 		debug.Print(w)
 	}
