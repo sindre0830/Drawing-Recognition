@@ -8,4 +8,4 @@ type GoogleImages struct {
 }
 
 // Thumbnails stores image thumbnails in a cleaner format
-var Thumbnails []string
+type Thumbnails []string
