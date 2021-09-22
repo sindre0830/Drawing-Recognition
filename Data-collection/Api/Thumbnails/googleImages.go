@@ -7,6 +7,7 @@ import (
 	"net/http"
 )
 
+// get will get data for structure.
 func (googleImages *GoogleImages) get(searchQuery string) (int, error) {
 	url := dict.GetGoogleImagesURL(searchQuery)
 	//gets json output from API and branch if an error occurred
@@ -17,6 +18,7 @@ func (googleImages *GoogleImages) get(searchQuery string) (int, error) {
 	return http.StatusOK, nil
 }
 
+// req will request data from API.
 func (googleImages *GoogleImages) req(url string) (int, error) {
 	//gets raw data from API and branch if an error occurred
 	output, status, err := api.RequestData(url)
