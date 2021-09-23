@@ -11,6 +11,9 @@ import (
 
 // Handler handles the request
 func (thumbnails *Thumbnails) Handler(searchQuery string) {
+	// Make sure every word in the query is separated by ONE space
+	searchQuery = strings.Join(strings.Fields(searchQuery), " ")
+	// All spaces needs to be replaced with "+" because of the Google Images API
 	searchQuery = strings.ReplaceAll(searchQuery, " ", "+")
 
 	fmt.Println(searchQuery)
@@ -34,6 +37,8 @@ func (thumbnails *Thumbnails) Handler(searchQuery string) {
 		//debug.Print()
 	}
 }
+
+
 
 // WriteToFile writes all the image thumbnails to a file
 func (thumbnails Thumbnails) WriteToFile(name string) error {
