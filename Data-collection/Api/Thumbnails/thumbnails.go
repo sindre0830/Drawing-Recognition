@@ -34,7 +34,7 @@ func (googleImages *GoogleImages) Handler(w http.ResponseWriter, r *http.Request
 			err.Error(),
 			"Unknown",
 		)
-		debug.Print(w)
+		debug.Print()
 	}
 }
 

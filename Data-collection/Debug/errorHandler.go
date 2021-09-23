@@ -30,7 +30,7 @@ func (debug *Debug) Update(status int, loc string, err string, reason string) {
 }
 
 // Print sends structure to console.
-func (debug *Debug) Print(w http.ResponseWriter) {
+func (debug *Debug) Print() {
 	//send output to console
 	fmt.Printf(
 		"%v {\n" +
