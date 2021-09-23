@@ -2,32 +2,32 @@ package thumbnails
 
 import (
 	"fmt"
-	debug2 "main/Debug"
+	debug "main/Debug"
 	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
-// Handler handle the http request
-func (googleImages *GoogleImages) Handler(w http.ResponseWriter, r *http.Request) {
-	// Parse URL to retrieve path parameters
-	path := strings.Split(r.URL.Path, "/")
+// Handler handles the request
+func (thumbnails *Thumbnails) Handler(searchQuery string) {
+	// Make sure every word in the query is separated by ONE space
+	searchQuery = strings.Join(strings.Fields(searchQuery), " ")
+	// All spaces needs to be replaced with "+" because of the Google Images API
+	searchQuery = strings.ReplaceAll(searchQuery, " ", "+")
 
-	// TODO: check if length of path is correct
+	fmt.Println(searchQuery)
 
-	word := path[1]
-
-	var thumbnails Thumbnails
-
-	// TODO: replace this with actual data
-	thumbnails = make([]string, 4)
-	thumbnails = []string{"test 1", "test 2", "test 3", "test 4"}
+	*thumbnails = []string{"test 1", "test 2", "test 3", "test 4"}
+	/*err := thumbnails.get(searchQuery)
+	if err != nil {
+		// Handle error
+	}*/
 
 	// Write result to a file
-	err := thumbnails.WriteToFile(strings.ToLower(word))
+	err := thumbnails.WriteToFile(strings.ToLower(strings.ReplaceAll(searchQuery, "+", "_")))
 	if err != nil {
-		var debug debug2.Debug
+		var debug debug.Debug
 		debug.Update(
 			http.StatusInternalServerError,
 			"Handler() -> WriteToFile() -> Writing thumbnails to file",
@@ -37,6 +37,8 @@ func (googleImages *GoogleImages) Handler(w http.ResponseWriter, r *http.Request
 		debug.Print()
 	}
 }
+
+
 
 // WriteToFile writes all the image thumbnails to a file
 func (thumbnails Thumbnails) WriteToFile(name string) error {
