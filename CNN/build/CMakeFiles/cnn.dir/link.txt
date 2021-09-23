@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/cnn.dir/src/main.cpp.o -o cnn  /usr/lib64/libzmq.so 

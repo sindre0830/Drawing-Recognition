@@ -12,7 +12,7 @@ import (
 / Send()
 / I am not sure how we want to pass the data to this function - stored on file, in array, etc, so will need to modify
 */
-func Send(array []string) error {
+func Send(message string) error {
 	ctx, err := zmq.NewContext()
 	if err != nil {
 		return err
@@ -29,8 +29,10 @@ func Send(array []string) error {
 	fmt.Printf("Connecting to server...")
 	socket.Connect("tcp://localhost:5555")
 
-	for _, element := range array {
-		socket.Send(element, 0)
-	}
+	socket.Send(message, 0)
+
+	reply, _ := socket.Recv(0)
+	println("Received ", string(reply))
+
 	return nil
 }

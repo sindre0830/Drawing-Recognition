@@ -1,0 +1,3 @@
+/home/rickard/Documents/Integrasjonsprosjekt/Drawing-Recognition/CNN/build/CMakeFiles/edit_cache.dir
+/home/rickard/Documents/Integrasjonsprosjekt/Drawing-Recognition/CNN/build/CMakeFiles/rebuild_cache.dir
+/home/rickard/Documents/Integrasjonsprosjekt/Drawing-Recognition/CNN/build/CMakeFiles/cnn.dir
