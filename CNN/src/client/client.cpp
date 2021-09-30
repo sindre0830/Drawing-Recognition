@@ -1,24 +1,16 @@
+// Header file
 #include <zmq.hpp>
 #include <string>
 #include <iostream>
-#ifndef _WIN32
-#include <unistd.h>
-#else
-#include <windows.h>
 
-#include <../zeromqConfig.h>
-
-#define sleep(n)	Sleep(n)
-#endif
-
-// Basic ZMQ server!
-int main () {
-    //  Prepare our context and socket
+// Code for Cpp zeromq client here
+// this does nothing atm lol
+int client() {
     zmq::context_t context (1);
     zmq::socket_t socket (context, ZMQ_REQ);
 
     std::cout << "Connecting to hello world server..." << std::endl;
-    socket.connect ("tcp://localhost:5555");
+    socket.connect ("tcp://*:5555");
 
     //  Do 10 requests, waiting each time for a response
     for (int request_nbr = 0; request_nbr != 10; request_nbr++) {

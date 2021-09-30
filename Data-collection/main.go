@@ -21,12 +21,7 @@ func init() {
 // Main program.
 func main() {
 	fmt.Println("Starting...")
-	//go server.RunServer()
-	go zeromq.Send("test")
-
-	time.Sleep(time.Second * 2)
-
-	go zeromq.Send("test2")
+	go zeromq.Server()
 
 	time.Sleep(time.Second * 10)
 	fmt.Println("\n\tClosing!")

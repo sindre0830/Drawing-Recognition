@@ -4,35 +4,56 @@ package zeromq
 // and it's midnight sunday + we need to discuss how to implement
 import (
 	"fmt"
+	"time"
 
 	zmq "github.com/pebbe/zmq4"
 )
 
 /*
-/ Send()
-/ I am not sure how we want to pass the data to this function - stored on file, in array, etc, so will need to modify
+/ Server()
+/ Waits for contact
 */
-func Send(message string) error {
-	ctx, err := zmq.NewContext()
-	if err != nil {
-		return err
-	}
+func Server() error {
 
-	socket, err := ctx.NewSocket(zmq.REQ)
-	if err != nil {
-		return err
-	}
+	context, _ := zmq.NewContext()
+	socket, _ := context.NewSocket(zmq.REP)
 
-	defer ctx.Term()
+	defer context.Term()
 	defer socket.Close()
 
-	fmt.Printf("Connecting to server...")
-	socket.Connect("tcp://localhost:5555")
+	fmt.Printf("\nConnecting to server...")
+	socket.Bind("tcp://*:5555")
 
-	socket.Send(message, 0)
+	for {
+		msg, _ := socket.Recv(0)
+		println("\nReceived ", string(msg))
 
-	reply, _ := socket.Recv(0)
-	println("Received ", string(reply))
+		time.Sleep(time.Second)
 
-	return nil
+		socket.Send("World", 0)
+	}
 }
+
+// ctx, err := zmq.NewContext()
+// if err != nil {
+// 	return err
+// }
+
+// socket, err := ctx.NewSocket(zmq.REQ)
+// if err != nil {
+// 	return err
+// }
+
+// defer ctx.Term()
+// defer socket.Close()
+
+// fmt.Printf("Connecting to server...")
+// socket.Connect("tcp://localhost:5555")
+
+// socket.Send(message, 0)
+
+// reply, _ := socket.Recv(0)
+// println("Received ", string(reply))
+
+// return nil
+//}
