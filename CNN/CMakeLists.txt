@@ -16,8 +16,8 @@ target_include_directories(cnn PUBLIC
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(MLPACK REQUIRED)
 
-add_executable(mlpack_sample src/main.cpp)
-target_link_libraries(mlpack_sample ${MLPACK_LIBRARY})
+# add_executable(cnn mlpack_sample src/main.cpp client/client.cpp)
+# target_link_libraries(mlpack_sample ${MLPACK_LIBRARY})
 
 #find cppzmq wrapper, installed by make of cppzmq
 find_package(cppzmq)
