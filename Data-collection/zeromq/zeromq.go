@@ -4,7 +4,6 @@ package zeromq
 // and it's midnight sunday + we need to discuss how to implement
 import (
 	"fmt"
-	"time"
 
 	zmq "github.com/pebbe/zmq4"
 )
@@ -13,47 +12,33 @@ import (
 / Server()
 / Waits for contact
 */
-func Server() error {
+func Server(exit chan<- bool) error {
+	ctx, err := zmq.NewContext()
+	if err != nil {
+		return err
+	}
 
-	context, _ := zmq.NewContext()
-	socket, _ := context.NewSocket(zmq.REP)
+	socket, err := ctx.NewSocket(zmq.REP)
+	if err != nil {
+		return err
+	}
 
-	defer context.Term()
+	defer ctx.Term()
 	defer socket.Close()
 
-	fmt.Printf("\nConnecting to server...")
+	fmt.Printf("Running server...")
 	socket.Bind("tcp://*:5555")
 
 	for {
-		msg, _ := socket.Recv(0)
+		msg, err := socket.Recv(0)
+		if err != nil {
+			return err
+		}
+
+		// This is where we start working instead of just receiving!
 		println("\nReceived ", string(msg))
 
-		time.Sleep(time.Second)
-
-		socket.Send("World", 0)
+		// returns on channel when contact is made
+		exit <- true
 	}
 }
-
-// ctx, err := zmq.NewContext()
-// if err != nil {
-// 	return err
-// }
-
-// socket, err := ctx.NewSocket(zmq.REQ)
-// if err != nil {
-// 	return err
-// }
-
-// defer ctx.Term()
-// defer socket.Close()
-
-// fmt.Printf("Connecting to server...")
-// socket.Connect("tcp://localhost:5555")
-
-// socket.Send(message, 0)
-
-// reply, _ := socket.Recv(0)
-// println("Received ", string(reply))
-
-// return nil
-//}
