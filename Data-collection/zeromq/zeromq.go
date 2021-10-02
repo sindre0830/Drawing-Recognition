@@ -12,13 +12,13 @@ import (
 / Send()
 / I am not sure how we want to pass the data to this function - stored on file, in array, etc, so will need to modify
 */
-func Send(message string) error {
+func Server(exit chan<- bool) error {
 	ctx, err := zmq.NewContext()
 	if err != nil {
 		return err
 	}
 
-	socket, err := ctx.NewSocket(zmq.REQ)
+	socket, err := ctx.NewSocket(zmq.REP)
 	if err != nil {
 		return err
 	}
@@ -26,13 +26,19 @@ func Send(message string) error {
 	defer ctx.Term()
 	defer socket.Close()
 
-	fmt.Printf("Connecting to server...")
-	socket.Connect("tcp://localhost:5555")
+	fmt.Printf("Running server...")
+	socket.Bind("tcp://*:5555")
 
-	socket.Send(message, 0)
+	for {
+		msg, err := socket.Recv(0)
+		if err != nil {
+			return err
+		}
 
-	reply, _ := socket.Recv(0)
-	println("Received ", string(reply))
+		// This is where we start working instead of just receiving!
+		println("\nReceived ", string(msg))
 
-	return nil
+		// returns on channel when contact is made
+		exit <- true
+	}
 }

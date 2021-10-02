@@ -3,19 +3,17 @@ package main
 import (
 	"fmt"
 	"main/zeromq"
-	"time"
 )
+
+// We use the channel to keep server running until it receives contact - might change
+var exit = make(chan bool)
 
 // Main program.
 func main() {
 	fmt.Println("Starting...")
-	//go server.RunServer()
-	go zeromq.Send("test")
 
-	time.Sleep(time.Second * 2)
+	go zeromq.Server(exit)
+	<-exit
 
-	go zeromq.Send("test2")
-
-	time.Sleep(time.Second * 10)
 	fmt.Println("\n\tClosing!")
 }
