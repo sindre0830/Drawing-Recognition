@@ -17,9 +17,8 @@ void client() {
     zmq::socket_t socket (context, ZMQ_REQ);
     socket.connect ("tcp://localhost:5555");
 
-
     zmq::message_t request;
 
-    //  Send reply back to client
-    socket.send(zmq::str_buffer("world"), zmq::send_flags::none);
+    //  Send request
+    socket.send(zmq::str_buffer("Exec"), zmq::send_flags::none);
 }
