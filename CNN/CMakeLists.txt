@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 # Name of the project
-project(cnn VERSION 1.0)
+project(cnn VERSION 1.0 LANGUAGES CXX)
 
 # Add all the source files needed to build the executable
 add_executable(cnn src/main.cpp client/client.cpp)
@@ -16,12 +16,11 @@ target_include_directories(cnn PUBLIC
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 find_package(MLPACK REQUIRED)
 
-# add_executable(cnn mlpack_sample src/main.cpp client/client.cpp)
-# target_link_libraries(mlpack_sample ${MLPACK_LIBRARY})
-
 #find cppzmq wrapper, installed by make of cppzmq
-find_package(cppzmq)
-target_link_libraries(cnn cppzmq)
+find_package(cppzmq REQUIRED)
+find_package(OpenMP REQUIRED)
+
+target_link_libraries(cnn cppzmq OpenMP::OpenMP_CXX)
 
 # Include the directory where MyLibrary project is. Otherwise, we can't use the
 # library
