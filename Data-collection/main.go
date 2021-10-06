@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	dict "main/Dict"
-	"main/zeromq"
+	zeromq "main/Zeromq"
 )
 
 // init runs once at startup.

@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.8)
 project(cnn VERSION 1.0 LANGUAGES CXX)
 
 # Add all the source files needed to build the executable
-add_executable(cnn src/main.cpp client/client.cpp)
+add_executable(cnn Src/main.cpp Library/zeromq.cpp)
 
 configure_file(cnnConfig.h.in cnnConfig.h)
 
