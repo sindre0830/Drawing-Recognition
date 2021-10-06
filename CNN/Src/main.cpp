@@ -7,7 +7,7 @@
 int main () {
     //read file and exit upon error
     std::string filename = "apple_drawing.txt";
-    std::list<std::string> urls;
+    std::vector<std::string> urls;
     int err = readFile(filename, urls);
     if (err != 0) {
         std::cout << "Failed to read file '" + filename + "'. Exiting program..." << std::endl;
