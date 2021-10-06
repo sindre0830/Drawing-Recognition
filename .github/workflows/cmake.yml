@@ -1,0 +1,26 @@
+name: CNN
+
+on: [push, pull_request]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: setup environment
+      working-directory: ./CNN
+      run: sudo apt-get install g++ libmlpack-dev mlpack-bin libarmadillo-dev cmake && mkdir Build
+
+    #- name: Configure CMake
+    #  working-directory: ./CNN/Build
+    #  run: cmake ./..
+
+    #- name: Build
+    #  working-directory: ./CNN
+    #  run: cmake --build .
