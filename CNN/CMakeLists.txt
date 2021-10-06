@@ -10,6 +10,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 add_executable(${PROJECT_NAME} 
     Src/main.cpp 
     Library/zeromq.cpp Library/Header/zeromq.h
+    Library/functionality.cpp Library/Header/functionality.h
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
