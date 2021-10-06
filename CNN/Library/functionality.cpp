@@ -6,7 +6,7 @@ int readFile(const std::string filename, std::vector<std::string>& urls) {
     //reset list
     urls.clear();
     //open file and exit upon error
-    std::ifstream file("../../Data-collection/Data/" + filename);
+    std::ifstream file("../../Data-collection/Data/" + filename + ".txt");
     if (!file) {
         return -1;
     }

@@ -6,7 +6,7 @@
  */
 int main () {
     //read file and exit upon error
-    std::string filename = "apple_drawing.txt";
+    std::string filename = "apple_drawing";
     std::vector<std::string> urls;
     int err = readFile(filename, urls);
     if (err != 0) {
