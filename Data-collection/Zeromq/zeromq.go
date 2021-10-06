@@ -38,7 +38,13 @@ func Server(exit chan<- bool) error {
 		// This is where we start working instead of just receiving!
 		println("\nReceived ", string(msg))
 
-		// returns on channel when contact is made
+		// We want to wait for work to be done
+
+		// replies with path to text-file with urls
+		reply := "/home/test/fake-path/imagefile.txt"
+		socket.Send(reply, 0)
+
+		// returns on channel when reply is made
 		exit <- true
 	}
 }
