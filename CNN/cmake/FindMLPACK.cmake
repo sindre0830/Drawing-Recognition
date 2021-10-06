@@ -26,14 +26,14 @@
 include(FindPackageHandleStandardArgs)
 
 # UNIX paths are standard, no need to specify them.
-find_library(MLPACK_LIBRARY
-  NAMES mlpack
-  PATHS "$ENV{ProgramFiles}/mlpack/lib"  "$ENV{ProgramFiles}/mlpack/lib64" "$ENV{ProgramFiles}/mlpack"
-)
-find_path(MLPACK_INCLUDE_DIR
-  NAMES mlpack/core.hpp mlpack/prereqs.hpp
-  PATHS "$ENV{ProgramFiles}/mlpack"
-)
+# find_library(MLPACK_LIBRARY
+#   NAMES mlpack
+#   PATHS "$ENV{ProgramFiles}/mlpack/lib"  "$ENV{ProgramFiles}/mlpack/lib64" "$ENV{ProgramFiles}/mlpack"
+# )
+# find_path(MLPACK_INCLUDE_DIR
+#   NAMES mlpack/core.hpp mlpack/prereqs.hpp
+#   PATHS "$ENV{ProgramFiles}/mlpack"
+# )
 
 
 if(MLPACK_INCLUDE_DIR)

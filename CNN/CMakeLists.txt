@@ -1,5 +1,5 @@
 # Minimum version of CMake required to build this project
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.8)
 
 # Name of the project
 project(cnn VERSION 1.0 LANGUAGES CXX)
@@ -14,17 +14,16 @@ target_include_directories(cnn PUBLIC
                            )
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-find_package(MLPACK REQUIRED)
+find_package(mlpack REQUIRED)
 
 #find cppzmq wrapper, installed by make of cppzmq
+find_package(Armadillo REQUIRED)
 find_package(cppzmq REQUIRED)
 find_package(OpenMP REQUIRED)
 
-target_link_libraries(cnn cppzmq OpenMP::OpenMP_CXX)
-
-# Include the directory where MyLibrary project is. Otherwise, we can't use the
 # library
 #add_subdirectory(libraries/MyLibrary)
 
 # Link the executable and the library together
-#target_link_libraries(zeromq MyLibrary)
+target_link_libraries(cnn /usr/local/lib64/libmlpack.so /usr/lib64/libarmadillo.so cppzmq OpenMP::OpenMP_CXX)
+add_compile_options(-Wall -Wextra -O3 -DNDEBUG -fopenmp)
