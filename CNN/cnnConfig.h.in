@@ -1,3 +1,0 @@
-// the configured options and settings for Tutorial
-#define cnn_VERSION_MAJOR @Tutorial_cnn_MAJOR@
-#define cnn_VERSION_MINOR @Tutorial_cnn_MINOR@
