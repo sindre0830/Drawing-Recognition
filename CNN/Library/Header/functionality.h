@@ -1,5 +1,5 @@
-#ifndef __FUNCTION_H
-#define __FUNCTION_H
+#ifndef __FUNCTIONALITY_H
+#define __FUNCTIONALITY_H
 /* library */
 #include <string>
 #include <vector>
@@ -12,6 +12,15 @@
  * @return Error code 
  */
 int readFile(const std::string filename, std::vector<std::string>& urls);
+
+/**
+ * @brief Downloads a set of images.
+ * 
+ * @param urls          List of URLs.
+ * @param datasetName   Name of path location.
+ * @return Error code
+ */
+int downloadDataset(const std::vector<std::string> urls, const std::string datasetName);
 
 /**
  * @brief Downloads image from URL to file location.

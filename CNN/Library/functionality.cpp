@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <curl/curl.h>
+#include <filesystem>
 
 int readFile(const std::string filename, std::vector<std::string>& urls) {
     //reset list
@@ -16,6 +17,19 @@ int readFile(const std::string filename, std::vector<std::string>& urls) {
     std::string url;
     while (getline(file, url)) {
         urls.push_back(url);
+    }
+    return 0;
+}
+
+int downloadDataset(const std::vector<std::string> urls, const std::string datasetName) {
+    //create directory
+    std::filesystem::create_directories("../Data/" + datasetName);
+    //download images and exit upon error
+    for (int i = 0; i < urls.size(); i++) {
+        int err = downloadImage(urls[i], "../Data/" + datasetName + "/" + std::to_string(i + 1) + ".png");
+        if (err != 0) {
+            return -1;
+        }
     }
     return 0;
 }
