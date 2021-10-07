@@ -12,4 +12,14 @@
  * @return Error code 
  */
 int readFile(const std::string filename, std::vector<std::string>& urls);
+
+/**
+ * @brief Downloads image from URL to file location.
+ * 
+ * @param url       Location to image to download.
+ * @param filename  Path to save image.
+ * @return Error code  
+ */
+int downloadImage(const std::string url, const std::string filename);
+
 #endif

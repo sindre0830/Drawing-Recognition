@@ -1,6 +1,8 @@
 /* library */
 #include "functionality.h"
 #include <fstream>
+#include <iostream>
+#include <curl/curl.h>
 
 int readFile(const std::string filename, std::vector<std::string>& urls) {
     //reset list
@@ -15,5 +17,41 @@ int readFile(const std::string filename, std::vector<std::string>& urls) {
     while (getline(file, url)) {
         urls.push_back(url);
     }
+    return 0;
+}
+
+int downloadImage(const std::string url, const std::string filename) {
+    CURL *curlImage;
+    CURLcode res;
+    FILE *fp;
+    //initiate curl pipeline and exit upon error
+    curlImage = curl_easy_init();
+    if (!curlImage) {
+        std::cout << "Failed to initiate curl..." << std::endl;
+        return -1;
+    }
+    //create/open file and exit upon error
+    fp = fopen(filename.c_str(), "wb");
+    if (!fp) {
+        std::cout << "Failed to create/open file..." << std::endl;
+        curl_easy_cleanup(curlImage);
+        return -1;
+    }
+    //configure curl pipeline
+    curl_easy_setopt(curlImage, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curlImage, CURLOPT_WRITEFUNCTION, NULL);
+    curl_easy_setopt(curlImage, CURLOPT_WRITEDATA, fp);
+    //run curl pipeline and exit upon error
+    res = curl_easy_perform(curlImage);
+    if (res != CURLE_OK) {
+        fprintf(stderr, "\nlibcurl: (%d) ", res);
+        std::cout << "Failed to receive image from URL..." << std::endl;
+        curl_easy_cleanup(curlImage);
+        fclose(fp);
+        return -1;
+    }
+    //perform cleanup
+    curl_easy_cleanup(curlImage);
+    fclose(fp);
     return 0;
 }
