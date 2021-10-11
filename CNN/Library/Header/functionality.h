@@ -31,4 +31,6 @@ int downloadDataset(const std::vector<std::string> urls, const std::string datas
  */
 int downloadImage(const std::string url, const std::string filename);
 
+int getImageSize(const std::string path);
+
 #endif

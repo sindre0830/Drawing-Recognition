@@ -19,5 +19,7 @@ int main () {
         std::cout << "Failed to download dataset '" + filename + "'. Exiting program..." << std::endl;
         return -1;
     }
+    //get image size
+    err = getImageSize(filename + "/1");
     return 0;
 }

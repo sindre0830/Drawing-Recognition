@@ -70,3 +70,11 @@ int downloadImage(const std::string url, const std::string filename) {
     fclose(fp);
     return 0;
 }
+
+int getImageSize(const std::string path) {
+    cimg_library::CImg<float> image;
+    std::string fullPath = "../Data/" + path + ".jpg";
+    image.load(fullPath.c_str());
+    std::cout << std::to_string(image.height()) + "x" + std::to_string(image.width()) << std::endl;
+    return 0;
+}
