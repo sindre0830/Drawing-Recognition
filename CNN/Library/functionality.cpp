@@ -26,7 +26,7 @@ int downloadDataset(const std::vector<std::string> urls, const std::string datas
     std::filesystem::create_directories("../Data/" + datasetName);
     //download images and exit upon error
     for (int i = 0; i < urls.size(); i++) {
-        int err = downloadImage(urls[i], "../Data/" + datasetName + "/" + std::to_string(i + 1) + ".png");
+        int err = downloadImage(urls[i], "../Data/" + datasetName + "/" + std::to_string(i + 1) + ".jpg");
         if (err != 0) {
             return -1;
         }
