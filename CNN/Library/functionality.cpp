@@ -1,5 +1,6 @@
 /* library */
 #include "functionality.h"
+#include "CImg.h"
 #include <fstream>
 #include <iostream>
 #include <curl/curl.h>
