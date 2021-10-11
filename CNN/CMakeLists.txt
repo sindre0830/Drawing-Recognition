@@ -32,6 +32,7 @@ target_link_libraries(${PROJECT_NAME}
     cppzmq 
     OpenMP::OpenMP_CXX 
     ${CURL_LIBRARIES} 
+    -lX11
 )
 
 add_compile_options(-Wall -Wextra -O3 -DNDEBUG -fopenmp)
