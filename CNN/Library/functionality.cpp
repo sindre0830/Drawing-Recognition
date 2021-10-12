@@ -83,13 +83,3 @@ int parseImageToMatrix(const std::vector<std::string> datasetPaths, arma::mat &m
     }
     return 0;
 }
-
-int getImageSize(const std::string path) {
-    mlpack::data::ImageInfo info;
-    arma::mat matrix;
-    mlpack::data::Load(path, matrix, info);
-
-    std::cout << std::to_string(info.Height()) + "x" + std::to_string(info.Width()) << std::endl;
-
-    return 0;
-}
