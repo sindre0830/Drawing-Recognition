@@ -4,8 +4,6 @@
 #include <iostream>
 #include <curl/curl.h>
 #include <filesystem>
-#include <mlpack/core.hpp>
-#include <armadillo>
 
 int readFile(const std::string filename, std::vector<std::string>& urls) {
     //reset list
@@ -76,6 +74,14 @@ void getDatasetPaths(const std::string dataset, std::vector<std::string> &datase
     for (int i = 1; i <= 100; i++) {
         datasetPaths.push_back("../Data/" + dataset + "/" + std::to_string(i) + ".jpg");
     }
+}
+
+int parseImageToMatrix(const std::vector<std::string> datasetPaths, arma::mat &matrix, mlpack::data::ImageInfo &imageMetadata) {
+    bool err = mlpack::data::Load(datasetPaths, matrix, imageMetadata);
+    if (err != true) {
+        return -1;
+    }
+    return 0;
 }
 
 int getImageSize(const std::string path) {

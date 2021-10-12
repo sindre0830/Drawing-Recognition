@@ -23,7 +23,13 @@ int main() {
     //get image paths for the dataset
     std::vector<std::string> datasetPaths;
     getDatasetPaths(filename, datasetPaths);
-    //get image size
-    err = getImageSize(datasetPaths[1]);
+    //parse dataset to matrixes
+    arma::mat matrix;
+    mlpack::data::ImageInfo imageMetadata;
+    err = parseImageToMatrix(datasetPaths, matrix, imageMetadata);
+    if (err != 0) {
+        std::cout << "Failed to parse image to matrix. Exiting program..." << std::endl;
+        return -1;
+    }
     return 0;
 }
