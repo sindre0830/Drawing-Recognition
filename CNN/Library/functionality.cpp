@@ -1,10 +1,11 @@
 /* library */
 #include "functionality.h"
-#include "CImg.h"
 #include <fstream>
 #include <iostream>
 #include <curl/curl.h>
 #include <filesystem>
+#include <mlpack/core.hpp>
+#include <armadillo>
 
 int readFile(const std::string filename, std::vector<std::string>& urls) {
     //reset list
@@ -72,9 +73,12 @@ int downloadImage(const std::string url, const std::string filename) {
 }
 
 int getImageSize(const std::string path) {
-    cimg_library::CImg<float> image;
-    std::string fullPath = "../Data/" + path + ".jpg";
-    image.load(fullPath.c_str());
-    std::cout << std::to_string(image.height()) + "x" + std::to_string(image.width()) << std::endl;
+    const std::string fullPath = "../Data/" + path + ".jpg";
+    mlpack::data::ImageInfo info;
+    arma::mat matrix;
+    mlpack::data::Load(fullPath, matrix, info);
+
+    std::cout << std::to_string(info.Height()) + "x" + std::to_string(info.Width()) << std::endl;
+
     return 0;
 }

@@ -15,7 +15,6 @@ add_executable(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/Library/Header
-    ${CMAKE_SOURCE_DIR}/External
 )
 
 find_package(mlpack REQUIRED)
@@ -31,8 +30,7 @@ target_link_libraries(${PROJECT_NAME}
     /usr/lib64/libarmadillo.so 
     cppzmq 
     OpenMP::OpenMP_CXX 
-    ${CURL_LIBRARIES} 
-    -lX11
+    ${CURL_LIBRARIES}
 )
 
 add_compile_options(-Wall -Wextra -O3 -DNDEBUG -fopenmp)

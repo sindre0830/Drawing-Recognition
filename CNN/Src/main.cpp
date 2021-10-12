@@ -14,11 +14,11 @@ int main () {
         return -1;
     }
     //download dataset and exit upon error
-    err = downloadDataset(urls, filename);
-    if (err != 0) {
-        std::cout << "Failed to download dataset '" + filename + "'. Exiting program..." << std::endl;
-        return -1;
-    }
+    // err = downloadDataset(urls, filename);
+    // if (err != 0) {
+    //     std::cout << "Failed to download dataset '" + filename + "'. Exiting program..." << std::endl;
+    //     return -1;
+    // }
     //get image size
     err = getImageSize(filename + "/1");
     return 0;
