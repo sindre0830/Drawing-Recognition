@@ -72,11 +72,16 @@ int downloadImage(const std::string url, const std::string filename) {
     return 0;
 }
 
+void getDatasetPaths(const std::string dataset, std::vector<std::string> &datasetPaths) {
+    for (int i = 1; i <= 100; i++) {
+        datasetPaths.push_back("../Data/" + dataset + "/" + std::to_string(i) + ".jpg");
+    }
+}
+
 int getImageSize(const std::string path) {
-    const std::string fullPath = "../Data/" + path + ".jpg";
     mlpack::data::ImageInfo info;
     arma::mat matrix;
-    mlpack::data::Load(fullPath, matrix, info);
+    mlpack::data::Load(path, matrix, info);
 
     std::cout << std::to_string(info.Height()) + "x" + std::to_string(info.Width()) << std::endl;
 

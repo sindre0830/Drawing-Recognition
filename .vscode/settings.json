@@ -68,7 +68,9 @@
         "cfenv": "cpp",
         "typeindex": "cpp",
         "variant": "cpp",
-        "armadillo": "cpp"
+        "armadillo": "cpp",
+        "csignal": "cpp",
+        "valarray": "cpp"
     },
     "cmake.configureOnOpen": true
 }

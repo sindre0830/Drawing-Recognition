@@ -31,6 +31,14 @@ int downloadDataset(const std::vector<std::string> urls, const std::string datas
  */
 int downloadImage(const std::string url, const std::string filename);
 
+/**
+ * @brief Stores image paths for specified dataset.
+ * 
+ * @param dataset       Dataset to create paths for.
+ * @param datasetPaths  List to save dataset paths to.
+ */
+void getDatasetPaths(const std::string dataset, std::vector<std::string> &datasetPaths);
+
 int getImageSize(const std::string path);
 
 #endif
