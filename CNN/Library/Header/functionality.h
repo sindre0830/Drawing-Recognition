@@ -3,6 +3,7 @@
 /* library */
 #include <string>
 #include <vector>
+#include <map>
 #include <mlpack/core.hpp>
 #include <armadillo>
 
@@ -50,5 +51,29 @@ void getDatasetPaths(const std::string dataset, std::vector<std::string> &datase
  * @return Error code 
  */
 int parseImageToMatrix(const std::vector<std::string> datasetPaths, arma::mat &matrix, mlpack::data::ImageInfo &imageMetadata);
+
+/**
+ * @brief Generate array of labels
+ * 
+ * @param mapLabel  Stores information between key and value.
+ * @param key       Specific key.
+ * @param labels    List to save output to.
+ * @return Error code 
+ */
+int getLabels(const std::map<std::string, int> mapLabel, const std::string key, arma::rowvec &labels);
+
+/**
+ * @brief Performs train/test split.
+ * 
+ * @param data          Dataset.
+ * @param labels        Labels.
+ * @param trainData     Training dataset.
+ * @param testData      Testing dataset.
+ * @param trainLabel    Training labels.
+ * @param testLabel     Testing labels.
+ * @param ratio         Train/test ratio.
+ * @param flagShuffle   Wether to shuffle or not.
+ */
+void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &trainData, arma::mat &testData, arma::rowvec &trainLabel, arma::rowvec &testLabel, const double ratio, const bool flagShuffle);
 
 #endif

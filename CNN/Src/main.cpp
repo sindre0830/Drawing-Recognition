@@ -31,5 +31,18 @@ int main() {
         std::cout << "Failed to parse image to matrix. Exiting program..." << std::endl;
         return -1;
     }
+    //store labels
+    std::map<std::string, int> mapLabel;
+    mapLabel.insert(std::make_pair("apple", 0));
+    //get labels
+    arma::rowvec labels;
+    err = getLabels(mapLabel, "apple", labels);
+    if (err != 0) {
+        return -1;
+    }
+    //train test split
+    arma::mat trainData, testData;
+    arma::rowvec trainLabel, testLabel;
+    trainTestSplit(matrix, labels, trainData, testData, trainLabel, testLabel, 0.3, true);
     return 0;
 }

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <curl/curl.h>
 #include <filesystem>
+#include <mlpack/core/data/split_data.hpp>
 
 int readFile(const std::string filename, std::vector<std::string>& urls) {
     //reset list
@@ -82,4 +83,19 @@ int parseImageToMatrix(const std::vector<std::string> datasetPaths, arma::mat &m
         return -1;
     }
     return 0;
+}
+
+int getLabels(const std::map<std::string, int> mapLabel, const std::string key, arma::rowvec &labels) {
+    auto it = mapLabel.find(key);
+    std::vector<int> arrLabels(100, it->second);
+    if (it == mapLabel.end()) {
+        return -1;
+    }
+    labels = arma::conv_to<arma::rowvec>::from(arrLabels);
+    return 0;
+}
+
+void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &trainData, arma::mat &testData, arma::rowvec &trainLabel, arma::rowvec &testLabel, const double ratio, const bool flagShuffle) {
+    mlpack::math::RandomSeed(100);
+    mlpack::data::Split(data, labels, trainData, testData, trainLabel, testLabel, ratio, flagShuffle);
 }
