@@ -6,23 +6,23 @@
  */
 int main() {
     int err;
-    std::string filename = "apple_drawing";
+    std::vector<std::string> datasets = { "apple_drawing", "banana" };
     //read file and exit upon error
-    std::vector<std::string> urls;
-    err = readFile(filename, urls);
+    std::vector<std::vector<std::string>> urls;
+    err = readFile(datasets, urls);
     if (err != 0) {
-        std::cout << "Failed to read file '" + filename + ".txt'. Exiting program..." << std::endl;
+        std::cout << "Failed to open file. Exiting program..." << std::endl;
         return -1;
     }
     //download dataset and exit upon error
-    err = downloadDataset(urls, filename);
+    err = downloadDataset(urls, datasets);
     if (err != 0) {
-        std::cout << "Failed to download dataset '" + filename + "'. Exiting program..." << std::endl;
+        std::cout << "Failed to download datasets. Exiting program..." << std::endl;
         return -1;
     }
     //get image paths for the dataset
     std::vector<std::string> datasetPaths;
-    getDatasetPaths(filename, datasetPaths);
+    getDatasetPaths(datasets, datasetPaths);
     //parse dataset to matrixes
     arma::mat matrix;
     mlpack::data::ImageInfo imageMetadata;
@@ -33,13 +33,12 @@ int main() {
     }
     //store labels
     std::map<std::string, int> mapLabel;
-    mapLabel.insert(std::make_pair("apple", 0));
+    for(int i = 0; i < datasets.size(); i++) {
+        mapLabel.insert(std::make_pair(datasets[i], i));
+    }
     //get labels
     arma::rowvec labels;
-    err = getLabels(mapLabel, "apple", labels);
-    if (err != 0) {
-        return -1;
-    }
+    getLabels(mapLabel, labels);
     //train test split
     arma::mat trainData, testData;
     arma::rowvec trainLabel, testLabel;
