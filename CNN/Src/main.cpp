@@ -34,7 +34,7 @@ int main() {
     //store labels
     std::map<std::string, int> mapLabel;
     for(int i = 0; i < datasets.size(); i++) {
-        mapLabel.insert(std::make_pair(datasets[i], i));
+        mapLabel.insert(std::make_pair(datasets[i], i + 1));
     }
     //get labels
     arma::rowvec labels;
@@ -43,12 +43,7 @@ int main() {
     arma::mat trainData, testData;
     arma::rowvec trainLabel, testLabel;
     trainTestSplit(matrix, labels, trainData, testData, trainLabel, testLabel, 0.3, true);
-    // Defines model
-    constexpr int MAX_ITERATIONS = 0; // set to zero to allow infinite iterations.
-    constexpr double STEP_SIZE = 1.2e-3;// step size for Adam optimizer.
-    constexpr int BATCH_SIZE = 50;
-        constexpr size_t EPOCH = 2;
-    // Width = 245, Height = 205
+    //define model
     mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> model;
     model.Add<mlpack::ann::Convolution<> >(1, 8, 5, 5, 1, 1, 0, 0, static_cast<int>(imageMetadata.Width()), static_cast<int>(imageMetadata.Height()));
     model.Add<mlpack::ann::ReLULayer<> >();
@@ -56,77 +51,44 @@ int main() {
     model.Add<mlpack::ann::Convolution<> >(8, 12, 2, 2);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::MaxPooling<> >(2, 2, 2, 2);
-    model.Add<mlpack::ann::Linear<> >(62, 52);
+    model.Add<mlpack::ann::Linear<> >(33408, 20);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::Linear<> >(20, 10);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::Linear<> >(10, 2);
-    model.Add<mlpack::ann::LogSoftMax<> >();
-    // model.Add<mlpack::ann::Convolution<>>(1,  // Number of input activation maps.
-    //                         6,  // Number of output activation maps.
-    //                         5,  // Filter width.
-    //                         5,  // Filter height.
-    //                         1,  // Stride along width.
-    //                         1,  // Stride along height.
-    //                         0,  // Padding width.
-    //                         0,  // Padding height.
-    //                         imageMetadata.Width(), // Input width.
-    //                         imageMetadata.Height()  // Input height.
-    // );
-
-    // model.Add<mlpack::ann::ReLULayer<>>();
-
-    // model.Add<mlpack::ann::MaxPooling<>>(2, // Width of field.
-    //                         2, // Height of field.
-    //                         2, // Stride along width.
-    //                         2, // Stride along height.
-    //                         true);
-
-    // model.Add<mlpack::ann::Convolution<>>(6, // Number of input activation maps.
-    //                         16, // Number of output activation maps.
-    //                         5, // Filter width.
-    //                         5, // Filter height.
-    //                         1, // Stride along width.
-    //                         1, // Stride along height.
-    //                         0, // Padding width.
-    //                         0, // Padding height.
-    //                         imageMetadata.Width() / 2, // Input width.
-    //                         imageMetadata.Height() / 2  // Input height.
-    // );
-
-    // model.Add<mlpack::ann::ReLULayer<>>();
-                            
-    // model.Add<mlpack::ann::MaxPooling<>>(2, 2, 2, 2, true);
-                            
-    // model.Add<mlpack::ann::Linear<>>(16 * 4 * 4, 10);
-                        
-    // model.Add<mlpack::ann::LogSoftMax<>>();                         
-    //Train model on dataset
+    model.Add<mlpack::ann::LogSoftMax<> >();                   
+    //define optimizer
+    constexpr int MAX_ITERATIONS = 500; // set to zero to allow infinite iterations.
+    constexpr double STEP_SIZE = 1.2e-3;// step size for Adam optimizer.
+    constexpr int BATCH_SIZE = 50;
+    constexpr size_t EPOCH = 2;
     ens::Adam optimizer(
-    STEP_SIZE,  // Step size of the optimizer.
-    BATCH_SIZE, // Batch size. Number of data points that are used in each iteration.
-    0.9,        // Exponential decay rate for the first moment estimates.
-    0.999, // Exponential decay rate for the weighted infinity norm estimates.
-    1e-8,  // Value used to initialise the mean squared gradient parameter.
-    MAX_ITERATIONS, // Max number of iterations.
-    1e-8, // Tolerance.
-    true);
-
-    model.Train(trainData,
-            trainLabel,
-            optimizer,
-            ens::PrintLoss(),
-            ens::ProgressBar(),
-            ens::EarlyStopAtMinLoss(EPOCH),
-            ens::EarlyStopAtMinLoss(
-                [&](const arma::mat& /* param */)
-                {
-                    double validationLoss = model.Evaluate(testData, testLabel);
-                    std::cout << "Validation loss: " << validationLoss
-                        << "." << std::endl;
-                    return validationLoss;
-                }));
-    // Results
+        STEP_SIZE,  // Step size of the optimizer.
+        BATCH_SIZE, // Batch size. Number of data points that are used in each iteration.
+        0.9,        // Exponential decay rate for the first moment estimates.
+        0.999, // Exponential decay rate for the weighted infinity norm estimates.
+        1e-8,  // Value used to initialise the mean squared gradient parameter.
+        MAX_ITERATIONS, // Max number of iterations.
+        1e-8, // Tolerance.
+        true
+    );
+    //train on model
+    model.Train(
+        trainData,
+        trainLabel,
+        optimizer,
+        ens::PrintLoss(),
+        ens::ProgressBar(),
+        ens::EarlyStopAtMinLoss(EPOCH),
+        ens::EarlyStopAtMinLoss(
+            [&](const arma::mat& /* param */) {
+                double validationLoss = model.Evaluate(testData, testLabel);
+                std::cout << "Validation loss: " << validationLoss << "." << std::endl;
+                return validationLoss;
+            }
+        )
+    );
+    //results
     //arma::mat predOut;
     //model.Predict(trainData, predOut);
     // predOut.print();
