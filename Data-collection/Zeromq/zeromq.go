@@ -41,7 +41,8 @@ func Server(exit chan<- bool) error {
 		// We want to wait for work to be done
 
 		// replies with path to text-file with urls
-		reply := "/home/test/fake-path/imagefile.txt"
+		// only need name of file without type
+		reply := "imagefile"
 		socket.Send(reply, 0)
 
 		// returns on channel when reply is made
