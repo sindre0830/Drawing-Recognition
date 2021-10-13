@@ -1,6 +1,7 @@
-#ifndef ZEROMQ.H
-#define ZEROMQ.H
+#ifndef __ZEROMQ_H
+#define __ZEROMQ_H
+#include <string>
 
-void client();
+std::string getDataset(std::string term);
 
 #endif
