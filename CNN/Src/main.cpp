@@ -58,7 +58,7 @@ int main() {
     model.Add<mlpack::ann::Linear<> >(10, 2);
     model.Add<mlpack::ann::LogSoftMax<> >();                   
     //define optimizer
-    constexpr int MAX_ITERATIONS = 500; // set to zero to allow infinite iterations.
+    constexpr int MAX_ITERATIONS = 0; // set to zero to allow infinite iterations.
     constexpr double STEP_SIZE = 1.2e-3;// step size for Adam optimizer.
     constexpr int BATCH_SIZE = 50;
     constexpr size_t EPOCH = 2;

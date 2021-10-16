@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.17)
 
 project(CNN)
 
@@ -6,6 +6,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/CMake")
+set(CMAKE_CXX_FLAGS "-O3")
 
 add_executable(${PROJECT_NAME} 
     Src/main.cpp 
@@ -17,20 +18,24 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/Library/Header
 )
 
-find_package(mlpack REQUIRED)
 find_package(Armadillo REQUIRED)
+find_package(mlpack REQUIRED)
+find_package(CURL REQUIRED) 
 find_package(cppzmq REQUIRED)
 find_package(OpenMP REQUIRED)
-find_package(CURL REQUIRED) 
 
+include_directories(${ARMADILLO_INCLUDE_DIRS})
+include_directories(${MLPACK_INCLUDE_DIRS})
 include_directories(${CURL_INCLUDE_DIR})
 
 target_link_libraries(${PROJECT_NAME} 
-    /usr/local/lib64/libmlpack.so 
-    /usr/lib64/libarmadillo.so 
+    ${ARMADILLO_LIBRARIES} 
+    ${MLPACK_LIBRARIES} 
+    ${CURL_LIBRARIES} 
     cppzmq 
     OpenMP::OpenMP_CXX 
-    ${CURL_LIBRARIES}
 )
 
-add_compile_options(-Wall -Wextra -O3 -DNDEBUG -fopenmp)
+add_compile_options(
+    -DNDEBUG 
+)
