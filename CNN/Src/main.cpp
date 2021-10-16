@@ -2,14 +2,12 @@
 #include "functionality.h"
 #include <iostream>
 
-arma::Row<size_t> getLabels(arma::mat predOut)
-{
-  arma::Row<size_t> predLabels(predOut.n_cols);
-  for (arma::uword i = 0; i < predOut.n_cols; ++i)
-  {
-    predLabels(i) = predOut.col(i).index_max();
-  }
-  return predLabels;
+arma::Row<size_t> getLabels(arma::mat predOut) {
+    arma::Row<size_t> predLabels(predOut.n_cols);
+    for (arma::uword i = 0; i < predOut.n_cols; ++i) {
+        predLabels(i) = predOut.col(i).index_max();
+    }
+    return predLabels;
 }
 
 /**
@@ -117,11 +115,10 @@ int main() {
     arma::mat predOut;
     model.Predict(trainData, predOut);
     arma::Row<size_t> predLabels = getLabels(predOut);
-    double trainAccuracy = arma::accu(predLabels == trainLabel) / ( double )trainLabel.n_elem * 100;
+    double trainAccuracy = arma::accu(predLabels == trainLabel) / (double)trainLabel.n_elem * 100;
     model.Predict(testData, predOut);
     predLabels = getLabels(predOut);
-    double validAccuracy = arma::accu(predLabels == testLabel) / ( double )testLabel.n_elem * 100;
+    double validAccuracy = arma::accu(predLabels == testLabel) / (double)testLabel.n_elem * 100;
     std::cout << "Accuracy: train = " << trainAccuracy << "%,"<< "\t valid = " << validAccuracy << "%" << std::endl;
-
     return 0;
 }
