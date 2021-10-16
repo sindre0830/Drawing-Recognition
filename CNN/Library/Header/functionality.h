@@ -47,6 +47,15 @@ int downloadImage(const std::string url, const std::string filename);
 void getDatasetPaths(const std::vector<std::string> datasets, std::vector<std::string> &datasetPaths);
 
 /**
+ * @brief Checks if we can access a file - does not account
+ *        for files existing but being inaccessible
+ * 
+ * @param name          Path to file being checked
+ * @return 1 if exists, else 0
+ */
+bool model_exists (const std::string& name);
+
+/**
  * @brief Parses images to a matrix.
  * 
  * @param datasetPaths  Paths to images in dataset.

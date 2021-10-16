@@ -83,6 +83,10 @@ void getDatasetPaths(const std::vector<std::string> datasets, std::vector<std::s
     }
 }
 
+bool model_exists (const std::string& name) {
+    return ( access( name.c_str(), F_OK ) != -1 );
+}
+
 int parseImageToMatrix(const std::vector<std::string> datasetPaths, arma::mat &matrix, mlpack::data::ImageInfo &imageMetadata) {
     bool err = mlpack::data::Load(datasetPaths, matrix, imageMetadata);
     if (err != true) {
@@ -105,3 +109,4 @@ void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &
     mlpack::math::RandomSeed(100);
     mlpack::data::Split(data, labels, trainData, testData, trainLabel, testLabel, ratio, flagShuffle);
 }
+
