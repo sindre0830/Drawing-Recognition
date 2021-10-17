@@ -154,3 +154,23 @@ void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::a
         )
     );
 }
+
+void predictModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, double &trainAccuracy, double &validAccuracy, arma::mat trainData, arma::rowvec trainLabel, arma::mat testData, arma::rowvec testLabel) {
+    arma::mat predOut;
+    //get train accuracy
+    model.Predict(trainData, predOut);
+    arma::Row<size_t> predLabels = getLabels(predOut);
+    trainAccuracy = arma::accu(predLabels == trainLabel) / (double)trainLabel.n_elem * 100;
+    //get test accuracy
+    model.Predict(testData, predOut);
+    predLabels = getLabels(predOut);
+    validAccuracy = arma::accu(predLabels == testLabel) / (double)testLabel.n_elem * 100;
+}
+
+arma::Row<size_t> getLabels(arma::mat predOut) {
+    arma::Row<size_t> predLabels(predOut.n_cols);
+    for (arma::uword i = 0; i < predOut.n_cols; ++i) {
+        predLabels(i) = predOut.col(i).index_max();
+    }
+    return predLabels;
+}

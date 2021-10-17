@@ -106,4 +106,17 @@ void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::
  */
 void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, arma::mat testData, arma::rowvec testLabel);
 
+/**
+ * @brief Predict model.
+ * 
+ * @param model         Model to predict on.
+ * @param trainAccuracy Training accuracy.
+ * @param validAccuracy Testing accuracy.
+ * @param trainData     Trainable data.
+ * @param trainLabel    Trainable labels.
+ * @param testData      Testable data.
+ * @param testLabel     Testable labels.
+ */
+void predictModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, double &trainAccuracy, double &validAccuracy, arma::mat trainData, arma::rowvec trainLabel, arma::mat testData, arma::rowvec testLabel);
+
 #endif
