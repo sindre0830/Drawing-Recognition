@@ -65,19 +65,10 @@ int main() {
         mlpack::data::Load("../Data/model.txt", "model", model);
     } else {
         std::cout << "No model found, training new..." << std::endl;
+        //define model
         defineModel(model, imageMetadata);
-        ens::Adam optimizer(
-            STEP_SIZE,  // Step size of the optimizer.
-            BATCH_SIZE, // Batch size. Number of data points that are used in each iteration.
-            0.9,        // Exponential decay rate for the first moment estimates.
-            0.999, // Exponential decay rate for the weighted infinity norm estimates.
-            1e-8,  // Value used to initialise the mean squared gradient parameter.
-            MAX_ITERATIONS, // Max number of iterations.
-            1e-8, // Tolerance.
-            true
-        );
-        //train on model
-        trainModel(model, trainData, trainLabel, optimizer, testData, testLabel);
+        //train model
+        trainModel(model, trainData, trainLabel, testData, testLabel);
         mlpack::data::Save("../Data/model.txt", "model", model);
     }
 

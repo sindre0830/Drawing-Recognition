@@ -101,10 +101,9 @@ void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::
  * @param model         Model to train.
  * @param trainData     Trainable data.
  * @param trainLabel    Trainable labels.
- * @param optimizer     Model optimizer.
  * @param testData      Testable data.
  * @param testLabel     Testable labels.
  */
-void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, ens::Adam optimizer, arma::mat testData, arma::rowvec testLabel);
+void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, arma::mat testData, arma::rowvec testLabel);
 
 #endif

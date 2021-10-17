@@ -126,7 +126,18 @@ void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::
     model.Add<mlpack::ann::LogSoftMax<> >(); 
 }
 
-void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, ens::Adam optimizer, arma::mat testData, arma::rowvec testLabel) {
+void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, arma::mat testData, arma::rowvec testLabel) {
+    ens::Adam optimizer(
+        STEP_SIZE,  // Step size of the optimizer.
+        BATCH_SIZE, // Batch size. Number of data points that are used in each iteration.
+        0.9,        // Exponential decay rate for the first moment estimates.
+        0.999, // Exponential decay rate for the weighted infinity norm estimates.
+        1e-8,  // Value used to initialise the mean squared gradient parameter.
+        MAX_ITERATIONS, // Max number of iterations.
+        1e-8, // Tolerance.
+        true
+    );
+    
     model.Train(
         trainData,
         trainLabel,
