@@ -117,18 +117,18 @@ void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &
     mlpack::data::Split(data, labels, trainData, testData, trainLabel, testLabel, ratio, flagShuffle);
 }
 
-void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const mlpack::data::ImageInfo imageMetadata) {
+void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const mlpack::data::ImageInfo imageMetadata, const int outputSize) {
     model.Add<mlpack::ann::Convolution<> >(1, 8, 5, 5, 1, 1, 0, 0, static_cast<int>(imageMetadata.Width()), static_cast<int>(imageMetadata.Height()));
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::MaxPooling<> >(8, 8, 2, 2);
     model.Add<mlpack::ann::Convolution<> >(8, 12, 2, 2);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::MaxPooling<> >(2, 2, 2, 2);
-    model.Add<mlpack::ann::Linear<> >(33408, 20);
+    model.Add<mlpack::ann::Linear<> >(33708, 20);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::Linear<> >(20, 10);
     model.Add<mlpack::ann::ReLULayer<> >();
-    model.Add<mlpack::ann::Linear<> >(10, 2);
+    model.Add<mlpack::ann::Linear<> >(10, outputSize);
     model.Add<mlpack::ann::LogSoftMax<> >(); 
 }
 

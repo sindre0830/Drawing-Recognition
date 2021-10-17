@@ -9,7 +9,7 @@
  */
 int main() {
     int err;
-    std::vector<std::string> datasets = { "apple_drawing", "banana", "pear" };
+    std::vector<std::string> datasets = {"apple_drawing", "banana", "pear"};
     for (auto dataset : datasets) {
         getDataset(dataset);
     }
@@ -62,7 +62,7 @@ int main() {
     } else {
         std::cout << "No model found, training new..." << std::endl;
         //define model
-        defineModel(model, imageMetadata);
+        defineModel(model, imageMetadata, datasets.size());
         //train model
         trainModel(model, trainData, trainLabel, testData, testLabel);
         mlpack::data::Save("../Data/model.txt", "model", model);
