@@ -95,4 +95,16 @@ void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &
  */
 void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const mlpack::data::ImageInfo imageMetadata);
 
+/**
+ * @brief Train model.
+ * 
+ * @param model         Model to train.
+ * @param trainData     Trainable data.
+ * @param trainLabel    Trainable labels.
+ * @param optimizer     Model optimizer.
+ * @param testData      Testable data.
+ * @param testLabel     Testable labels.
+ */
+void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, ens::Adam optimizer, arma::mat testData, arma::rowvec testLabel);
+
 #endif

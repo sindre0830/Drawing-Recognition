@@ -1,5 +1,6 @@
 /* library */
 #include "functionality.h"
+#include "dictionary.h"
 #include <iostream>
 
 arma::Row<size_t> getLabels(arma::mat predOut) {
@@ -65,11 +66,6 @@ int main() {
     } else {
         std::cout << "No model found, training new..." << std::endl;
         defineModel(model, imageMetadata);
-        //define optimizer
-        constexpr int MAX_ITERATIONS = 0; // set to zero to allow infinite iterations.
-        constexpr double STEP_SIZE = 1.2e-3;// step size for Adam optimizer.
-        constexpr int BATCH_SIZE = 50;
-        constexpr size_t EPOCH = 2;
         ens::Adam optimizer(
             STEP_SIZE,  // Step size of the optimizer.
             BATCH_SIZE, // Batch size. Number of data points that are used in each iteration.
@@ -81,21 +77,7 @@ int main() {
             true
         );
         //train on model
-        model.Train(
-            trainData,
-            trainLabel,
-            optimizer,
-            ens::PrintLoss(),
-            ens::ProgressBar(),
-            ens::EarlyStopAtMinLoss(EPOCH),
-            ens::EarlyStopAtMinLoss(
-                [&](const arma::mat& /* param */) {
-                    double validationLoss = model.Evaluate(testData, testLabel);
-                    std::cout << "Validation loss: " << validationLoss << "." << std::endl;
-                    return validationLoss;
-                }
-            )
-        );
+        trainModel(model, trainData, trainLabel, optimizer, testData, testLabel);
         mlpack::data::Save("../Data/model.txt", "model", model);
     }
 

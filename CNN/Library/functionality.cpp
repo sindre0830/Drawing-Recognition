@@ -1,5 +1,6 @@
 /* library */
 #include "functionality.h"
+#include "dictionary.h"
 #include <fstream>
 #include <iostream>
 #include <curl/curl.h>
@@ -123,4 +124,22 @@ void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::Linear<> >(10, 2);
     model.Add<mlpack::ann::LogSoftMax<> >(); 
+}
+
+void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, arma::mat trainData, arma::rowvec trainLabel, ens::Adam optimizer, arma::mat testData, arma::rowvec testLabel) {
+    model.Train(
+        trainData,
+        trainLabel,
+        optimizer,
+        ens::PrintLoss(),
+        ens::ProgressBar(),
+        ens::EarlyStopAtMinLoss(EPOCH),
+        ens::EarlyStopAtMinLoss(
+            [&](const arma::mat& /* param */) {
+                double validationLoss = model.Evaluate(testData, testLabel);
+                std::cout << "Validation loss: " << validationLoss << "." << std::endl;
+                return validationLoss;
+            }
+        )
+    );
 }
