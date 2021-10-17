@@ -119,4 +119,12 @@ void trainModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::a
  */
 void predictModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, double &trainAccuracy, double &validAccuracy, arma::mat trainData, arma::rowvec trainLabel, arma::mat testData, arma::rowvec testLabel);
 
+/**
+ * @brief Transform matrix to row.
+ * 
+ * @param predOut Prediction results.
+ * @return Prediction as a row.
+ */
+arma::Row<size_t> getLabels(arma::mat predOut);
+
 #endif
