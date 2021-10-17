@@ -23,10 +23,12 @@ find_package(mlpack REQUIRED)
 find_package(CURL REQUIRED) 
 find_package(cppzmq REQUIRED)
 find_package(OpenMP REQUIRED)
+FIND_PACKAGE(OpenCV REQUIRED)
 
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 include_directories(${MLPACK_INCLUDE_DIRS})
-include_directories(${CURL_INCLUDE_DIR})
+include_directories(${CURL_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} 
     ${ARMADILLO_LIBRARIES} 
@@ -34,6 +36,7 @@ target_link_libraries(${PROJECT_NAME}
     ${CURL_LIBRARIES} 
     cppzmq 
     OpenMP::OpenMP_CXX 
+    ${OpenCV_LIBS} 
 )
 
 add_compile_options(
