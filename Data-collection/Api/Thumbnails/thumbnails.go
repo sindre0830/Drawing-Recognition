@@ -29,9 +29,10 @@ func (thumbnails *Thumbnails) Handler(searchQuery string) string {
 
 	// All spaces needs to be replaced with "+" because of the way Google Images API handles multiple words
 	searchQuery = strings.ReplaceAll(searchQuery, " ", "+")
+	searchQuery = strings.ReplaceAll(searchQuery, "_", "+")
 
 	fileName := strings.ToLower(strings.ReplaceAll(searchQuery, "+", "_")) + ".txt"
-	path := filepath.Join("./Data-collection/Data", fileName)
+	path := filepath.Join("./Data", fileName)
 
 	// Return the filename if the file already exists
 	if _, err := os.Stat(path); err == nil {
@@ -84,8 +85,8 @@ func (thumbnails *Thumbnails) get(searchQuery string) (int, error) {
 // WriteToFile writes all the image thumbnails to a file
 func (thumbnails *Thumbnails) WriteToFile(path string) (int, error) {
 	// Create a data folder if it does not already exist
-	if _, err := os.Stat("./Data-collection/Data"); os.IsNotExist(err)  {
-		err = os.MkdirAll("./Data-collection/Data", 0700)
+	if _, err := os.Stat("./Data"); os.IsNotExist(err) {
+		err = os.MkdirAll("./Data", 0700)
 		if err != nil {
 			return http.StatusInternalServerError, err
 		}

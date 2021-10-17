@@ -1,5 +1,6 @@
 /* library */
 #include "functionality.h"
+#include "zeromq.h"
 #include "dictionary.h"
 #include <iostream>
 
@@ -8,20 +9,23 @@
  */
 int main() {
     int err;
-    std::vector<std::string> datasets = { "apple_drawing", "banana" };
+    std::vector<std::string> datasets = { "apple_drawing", "banana", "pear" };
+    for (auto dataset : datasets) {
+        getDataset(dataset);
+    }
     //read file and exit upon error
-    // std::vector<std::vector<std::string>> urls;
-    // err = readFile(datasets, urls);
-    // if (err != 0) {
-    //     std::cout << "Failed to open file. Exiting program..." << std::endl;
-    //     return -1;
-    // }
-    // //download dataset and exit upon error
-    // err = downloadDataset(urls, datasets);
-    // if (err != 0) {
-    //     std::cout << "Failed to download datasets. Exiting program..." << std::endl;
-    //     return -1;
-    // }
+    std::vector<std::vector<std::string>> urls;
+    err = readFile(datasets, urls);
+    if (err != 0) {
+        std::cout << "Failed to open file. Exiting program..." << std::endl;
+        return -1;
+    }
+    //download dataset and exit upon error
+    err = downloadDataset(urls, datasets);
+    if (err != 0) {
+        std::cout << "Failed to download datasets. Exiting program..." << std::endl;
+        return -1;
+    }
     //get image paths for the dataset
     std::vector<std::string> datasetPaths;
     getDatasetPaths(datasets, datasetPaths);

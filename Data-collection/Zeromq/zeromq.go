@@ -4,6 +4,7 @@ package zeromq
 // and it's midnight sunday + we need to discuss how to implement
 import (
 	"fmt"
+	thumbnails "main/Api/Thumbnails"
 
 	zmq "github.com/pebbe/zmq4"
 )
@@ -37,15 +38,15 @@ func Server(exit chan<- bool) error {
 
 		// This is where we start working instead of just receiving!
 		println("\nReceived ", string(msg))
-
-		// We want to wait for work to be done
+		var dataset thumbnails.Thumbnails
+		dataset.Handler(string(msg))
 
 		// replies with path to text-file with urls
 		// only need name of file without type
-		reply := "imagefile"
+		reply := "done"
 		socket.Send(reply, 0)
 
-		// returns on channel when reply is made
-		exit <- true
+		// returns on channel when reply is made - not needed atm
+		//exit <- true
 	}
 }
