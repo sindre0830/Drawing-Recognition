@@ -8,4 +8,6 @@ constexpr double STEP_SIZE = 1.2e-3;// step size for Adam optimizer.
 constexpr int BATCH_SIZE = 50;
 constexpr size_t EPOCH = 2;
 
+const int IMAGE_SIZE = 128;
+
 #endif

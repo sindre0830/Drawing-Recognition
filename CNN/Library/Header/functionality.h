@@ -91,7 +91,7 @@ void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &
  * @param imageMetadata Keeps size of image.
  * @param outputSize    Size of output layer.
  */
-void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const mlpack::data::ImageInfo imageMetadata, const int outputSize);
+void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const int outputSize);
 
 /**
  * @brief Train model.

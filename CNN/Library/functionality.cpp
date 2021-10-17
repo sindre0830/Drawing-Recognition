@@ -8,6 +8,7 @@
 #include <mlpack/core/data/split_data.hpp>
 #include <mlpack/methods/ann/layer/layer.hpp>
 #include <ensmallen.hpp>
+//#include <opencv2/opencv.hpp>
 
 int readFile(const std::vector<std::string> filenames, std::vector<std::vector<std::string>>& urls) {
     //open file and exit upon error
@@ -79,6 +80,11 @@ int downloadImage(const std::string url, const std::string filename) {
     //perform cleanup
     curl_easy_cleanup(curlImage);
     fclose(fp);
+    //resize image
+    // cv::Mat inpImage, outImage;
+    // inpImage = cv::imread(filename);
+    // cv::resize(inpImage, outImage, cv::Size(IMAGE_SIZE, IMAGE_SIZE));
+    // cv::imwrite(filename, outImage);
     return 0;
 }
 
@@ -117,14 +123,14 @@ void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &
     mlpack::data::Split(data, labels, trainData, testData, trainLabel, testLabel, ratio, flagShuffle);
 }
 
-void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const mlpack::data::ImageInfo imageMetadata, const int outputSize) {
-    model.Add<mlpack::ann::Convolution<> >(1, 8, 5, 5, 1, 1, 0, 0, static_cast<int>(imageMetadata.Width()), static_cast<int>(imageMetadata.Height()));
+void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const int outputSize) {
+    model.Add<mlpack::ann::Convolution<> >(1, 8, 5, 5, 1, 1, 0, 0, IMAGE_SIZE, IMAGE_SIZE);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::MaxPooling<> >(8, 8, 2, 2);
     model.Add<mlpack::ann::Convolution<> >(8, 12, 2, 2);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::MaxPooling<> >(2, 2, 2, 2);
-    model.Add<mlpack::ann::Linear<> >(33708, 20);
+    model.Add<mlpack::ann::Linear<> >(10092, 20);
     model.Add<mlpack::ann::ReLULayer<> >();
     model.Add<mlpack::ann::Linear<> >(20, 10);
     model.Add<mlpack::ann::ReLULayer<> >();

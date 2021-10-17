@@ -36,7 +36,7 @@ target_link_libraries(${PROJECT_NAME}
     ${CURL_LIBRARIES} 
     cppzmq 
     OpenMP::OpenMP_CXX 
-    ${OpenCV_LIBS} 
+    #${OpenCV_LIBS} 
 )
 
 add_compile_options(
