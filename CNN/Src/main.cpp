@@ -64,20 +64,9 @@ int main() {
         mlpack::data::Load("../Data/model.txt", "model", model);
     } else {
         std::cout << "No model found, training new..." << std::endl;
-        model.Add<mlpack::ann::Convolution<> >(1, 8, 5, 5, 1, 1, 0, 0, static_cast<int>(imageMetadata.Width()), static_cast<int>(imageMetadata.Height()));
-        model.Add<mlpack::ann::ReLULayer<> >();
-        model.Add<mlpack::ann::MaxPooling<> >(8, 8, 2, 2);
-        model.Add<mlpack::ann::Convolution<> >(8, 12, 2, 2);
-        model.Add<mlpack::ann::ReLULayer<> >();
-        model.Add<mlpack::ann::MaxPooling<> >(2, 2, 2, 2);
-        model.Add<mlpack::ann::Linear<> >(33408, 20);
-        model.Add<mlpack::ann::ReLULayer<> >();
-        model.Add<mlpack::ann::Linear<> >(20, 10);
-        model.Add<mlpack::ann::ReLULayer<> >();
-        model.Add<mlpack::ann::Linear<> >(10, 2);
-        model.Add<mlpack::ann::LogSoftMax<> >();                   
+        defineModel(model, imageMetadata);
         //define optimizer
-        constexpr int MAX_ITERATIONS = 500; // set to zero to allow infinite iterations.
+        constexpr int MAX_ITERATIONS = 0; // set to zero to allow infinite iterations.
         constexpr double STEP_SIZE = 1.2e-3;// step size for Adam optimizer.
         constexpr int BATCH_SIZE = 50;
         constexpr size_t EPOCH = 2;

@@ -87,4 +87,12 @@ void getLabels(const std::map<std::string, int> mapLabel, arma::rowvec &labels);
  */
 void trainTestSplit(const arma::mat data, const arma::rowvec labels, arma::mat &trainData, arma::mat &testData, arma::rowvec &trainLabel, arma::rowvec &testLabel, const double ratio, const bool flagShuffle);
 
+/**
+ * @brief Define model.
+ * 
+ * @param model         Model to define.
+ * @param imageMetadata Keeps size of image.
+ */
+void defineModel(mlpack::ann::FFN<mlpack::ann::NegativeLogLikelihood<>, mlpack::ann::RandomInitialization> &model, const mlpack::data::ImageInfo imageMetadata);
+
 #endif
