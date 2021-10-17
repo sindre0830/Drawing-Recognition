@@ -29,6 +29,10 @@ int readFile(const std::vector<std::string> filenames, std::vector<std::vector<s
 
 int downloadDataset(const std::vector<std::vector<std::string>> urls, const std::vector<std::string> datasetNames) {
     for (int i = 0; i < datasetNames.size(); i++) {
+        //check if dataset is already downloaded
+        if (std::filesystem::exists("../Data/" + datasetNames[i])) {
+            continue;
+        }
         //create directory
         std::filesystem::create_directories("../Data/" + datasetNames[i]);
         //download images and exit upon error
