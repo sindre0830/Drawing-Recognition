@@ -6,6 +6,8 @@
 #include <curl/curl.h>
 #include <filesystem>
 #include <mlpack/core/data/split_data.hpp>
+#include <mlpack/methods/ann/layer/layer.hpp>
+#include <ensmallen.hpp>
 
 int readFile(const std::vector<std::string> filenames, std::vector<std::vector<std::string>>& urls) {
     //open file and exit upon error
