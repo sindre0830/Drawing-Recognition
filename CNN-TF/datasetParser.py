@@ -1,3 +1,5 @@
+# import local modules
+import dictionary as dict
 # import foreign modules
 import requests
 import os
@@ -15,9 +17,12 @@ def parseDatasetFile(dataset):
 def downloadDatasets(datasets):
     # iterate through datasets and request each dataset
     for dataset in datasets:
-        # get list of URLs
-        arrDatasetsURL = parseDatasetFile(dataset)
-        downloadDataset(dataset, arrDatasetsURL)
+        dict.printOperation("Downloading '" + dataset + "' dataset...")
+        if os.path.exists("Data/" + dataset) is False:
+            # get list of URLs
+            arrDatasetsURL = parseDatasetFile(dataset)
+            downloadDataset(dataset, arrDatasetsURL)
+        print(dict.DONE)
 
 
 # Download dataset from list of URLs.
