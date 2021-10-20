@@ -31,16 +31,32 @@ def generateModel():
         keras.layers.core.Dense(units=dict.DATASET_AMOUNT, activation='sigmoid')
     ])
     model.compile(
-        optimizer=tensorflow.keras.optimizers.Adam(learning_rate=0.01),
+        optimizer=tensorflow.keras.optimizers.Adam(learning_rate=dict.LEARNING_RATE),
         loss='categorical_crossentropy',
         metrics=['accuracy']
     )
     return model
 
 
-# Perform tain-test-split
+# Perform tain-test-split.
 def splitData(data, labels):
     xTrain, xTest, yTrain, yTest = sklearn.train_test_split(data, labels, train_size=dict.TRAIN_SIZE, random_state=0)
-    yTrain = keras.utils.np_utils.to_categorical(yTrain, num_classes=dict.DATASET_AMOUNT + 1)
-    yTest = keras.utils.np_utils.to_categorical(yTest, num_classes=dict.DATASET_AMOUNT + 1)
+    yTrain = keras.utils.np_utils.to_categorical(yTrain, num_classes=dict.DATASET_AMOUNT)
+    yTest = keras.utils.np_utils.to_categorical(yTest, num_classes=dict.DATASET_AMOUNT)
     return xTrain, xTest, yTrain, yTest
+
+
+# Train model and evaluate when finished.
+def trainModel(model: keras.models.Sequential, xTrain, xTest, yTrain, yTest):
+    # fit model by parameters
+    results = model.fit(
+        xTrain,
+        yTrain,
+        batch_size=dict.BATCH_SIZE,
+        epochs=dict.EPOCHS,
+        verbose=True,
+        validation_data=(xTest, yTest)
+    )
+    # evaluate model and output results
+    model.evaluate(xTest, yTest)
+    return model, results

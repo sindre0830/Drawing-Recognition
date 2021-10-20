@@ -3,7 +3,8 @@ import dictionary as dict
 import datasetParser
 from model import (
     generateModel,
-    splitData
+    splitData,
+    trainModel
 )
 # import foreign modules
 import os
@@ -37,6 +38,7 @@ else:
     datasetParser.cacheData(data, labels)
 # generate model and print design
 model = generateModel()
-model.summary()
 # split data into training- and testing set
 xTrain, xTest, yTrain, yTest = splitData(data, labels)
+# train model
+model, results = trainModel(model, xTrain, xTest, yTrain, yTest)
