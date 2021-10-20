@@ -10,6 +10,8 @@ for dataset in dict.DATASET_INTEGER_CONVERTER:
 # download datasets
 datasetParser.downloadDatasets(datasets)
 # parse datasets
-images, labels = datasetParser.parseDatasets(datasets)
+data, labels = datasetParser.parseDatasets(datasets)
 # resize images
-images = datasetParser.resizeImages(images)
+data = datasetParser.resizeImages(data)
+# cache data
+datasetParser.cacheData(data)

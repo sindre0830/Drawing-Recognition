@@ -61,3 +61,10 @@ def resizeImages(images):
         images[index] = np.array(skimage.transform.resize(image, (dict.IMAGE_SIZE, dict.IMAGE_SIZE), mode="constant"))
     print(dict.DONE)
     return np.array(images)
+
+
+# Cache dataset.
+def cacheData(data):
+    dict.printOperation("Caching data...")
+    np.save("Data/cachedData.npy", data)
+    print(dict.DONE)
