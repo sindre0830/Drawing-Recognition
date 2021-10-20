@@ -25,4 +25,4 @@ jobs:
 
     - name: Syntax checker
       working-directory: ./CNN-TF
-      run: flake8 . --max-line-length 128
+      run: flake8 . --max-line-length 150

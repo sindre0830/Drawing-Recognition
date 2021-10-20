@@ -4,7 +4,8 @@ import datasetParser
 from model import (
     generateModel,
     splitData,
-    trainModel
+    trainModel,
+    predictModel
 )
 # import foreign modules
 import os
@@ -42,3 +43,5 @@ model = generateModel()
 xTrain, xTest, yTrain, yTest = splitData(data, labels)
 # train model
 model, results = trainModel(model, xTrain, xTest, yTrain, yTest)
+# output prediction results
+predictModel(model, xTest, yTest, datasets)

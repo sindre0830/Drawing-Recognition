@@ -6,8 +6,10 @@ import keras.layers.convolutional
 import keras.layers.pooling
 import keras.layers.core
 import tensorflow.keras.optimizers
-import sklearn.model_selection as sklearn
+import sklearn.model_selection
+import sklearn.metrics
 import keras.utils.np_utils
+import numpy as np
 
 
 # Generate convolutional neural network model.
@@ -40,7 +42,7 @@ def generateModel():
 
 # Perform tain-test-split.
 def splitData(data, labels):
-    xTrain, xTest, yTrain, yTest = sklearn.train_test_split(data, labels, train_size=dict.TRAIN_SIZE, random_state=0)
+    xTrain, xTest, yTrain, yTest = sklearn.model_selection.train_test_split(data, labels, train_size=dict.TRAIN_SIZE, random_state=0)
     yTrain = keras.utils.np_utils.to_categorical(yTrain, num_classes=dict.DATASET_AMOUNT)
     yTest = keras.utils.np_utils.to_categorical(yTest, num_classes=dict.DATASET_AMOUNT)
     return xTrain, xTest, yTrain, yTest
@@ -60,3 +62,15 @@ def trainModel(model: keras.models.Sequential, xTrain, xTest, yTrain, yTest):
     # evaluate model and output results
     model.evaluate(xTest, yTest)
     return model, results
+
+
+# Predict model and output classification report and confusion matrix
+def predictModel(model: keras.models.Sequential, xTest, yTest, datasets):
+    # predict dataset on model
+    yPred = model.predict(xTest)
+    # flatten each array to get index of highest value
+    yPred = np.argmax(yPred, axis=1)
+    yTest = np.argmax(yTest, axis=1)
+    # print classification report and confusion matrix
+    print(sklearn.metrics.classification_report(yTest, yPred, target_names=datasets, zero_division=1))
+    print(sklearn.metrics.confusion_matrix(yTest, yPred))
