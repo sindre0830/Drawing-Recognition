@@ -3,15 +3,6 @@ import requests
 import os
 
 
-# Parses each dataset file to a lists of URLs.
-def parseDatasetsFile(datasets):
-    arrDatasetsURL = []
-    # iterate through datasets and parses their list of URLs
-    for dataset in datasets:
-        arrDatasetsURL.append(parseDatasetFile(dataset))
-    return arrDatasetsURL
-
-
 # Parses dataset file to a list of URLs.
 def parseDatasetFile(dataset):
     # open file in read-mode and output each line to a list
@@ -21,10 +12,12 @@ def parseDatasetFile(dataset):
 
 
 # Download datasets.
-def downloadDatasets(datasets, arrUrls):
+def downloadDatasets(datasets):
     # iterate through datasets and request each dataset
-    for index, dataset in enumerate(datasets):
-        downloadDataset(dataset, arrUrls[index])
+    for dataset in datasets:
+        # get list of URLs
+        arrDatasetsURL = parseDatasetFile(dataset)
+        downloadDataset(dataset, arrDatasetsURL)
 
 
 # Download dataset from list of URLs.
