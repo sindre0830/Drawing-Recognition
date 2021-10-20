@@ -21,7 +21,7 @@ jobs:
 
     - name: Build
       working-directory: ./CNN-TF
-      run: python ./main.py
+      run: python -m py_compile ./main.py
 
     - name: Syntax checker
       working-directory: ./CNN-TF
