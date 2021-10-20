@@ -1,6 +1,9 @@
 # import local modules
 import dictionary as dict
 import datasetParser
+from model import (
+    generateModel
+)
 
 
 # get dataset names from dictionary
@@ -19,3 +22,6 @@ else:
     data = datasetParser.resizeImages(data)
     # cache data
     datasetParser.cacheData(data, labels)
+# generate model and print design
+model = generateModel()
+model.summary()

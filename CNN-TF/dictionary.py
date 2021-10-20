@@ -11,6 +11,8 @@ SUCCESS = 'SUCCESS'
 FAILED = 'FAILED'
 # set parameters
 IMAGE_SIZE = 128
+SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 3)
+DATASET_AMOUNT = len(DATASET_INTEGER_CONVERTER)
 
 
 # print operation that allows status message on the same line
