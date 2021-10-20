@@ -20,4 +20,4 @@ jobs:
 
     - name: Syntax checker
       working-directory: ./CNN-TF
-      run: sudo pip install flake 8 && flake8 ./main.py
+      run: sudo pip install flake8 && flake8 ./main.py
