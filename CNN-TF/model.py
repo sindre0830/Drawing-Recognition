@@ -11,6 +11,7 @@ import sklearn.model_selection
 import sklearn.metrics
 import keras.utils.np_utils
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # Generate convolutional neural network model.
@@ -65,7 +66,7 @@ def trainModel(model: keras.models.Sequential, xTrain, xTest, yTrain, yTest):
     return model, results
 
 
-# Predict model and output classification report and confusion matrix
+# Predict model and output classification report and confusion matrix.
 def predictModel(model: keras.models.Sequential, xTest, yTest, datasets):
     # predict dataset on model
     yPred = model.predict(xTest)
@@ -91,3 +92,31 @@ def calculateCrossValidation(data, labels):
     results = sklearn.model_selection.cross_val_score(crossValidationModel, data, labels, cv=kfold)
     print("Cross validation results: " + str(results))
     print("%0.2f accuracy with a standard deviation of %0.2f" % (results.mean(), results.std()))
+
+
+# Plots a graph with the results from model training.
+def plotResults(results):
+    # get values from results
+    history_dict = results.history
+    loss_values = history_dict['loss']
+    val_loss_values = history_dict['val_loss']
+    val_accuracy = history_dict['val_accuracy']
+    epochs = range(1, (len(history_dict['loss']) + 1))
+    # plot training and validation loss
+    plt.clf()
+    plt.plot(epochs, loss_values, label='Training loss', c='lightgreen')
+    plt.plot(epochs, val_loss_values, label='Validation loss')
+    plt.title('Training and validation loss')
+    plt.xlabel('Epochs')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.show()
+    # plot validation accuracy
+    plt.clf()
+    plt.plot(epochs, val_accuracy, label='Validation accuracy', c='red')
+    plt.title('Validation accuracy')
+    plt.xlabel('Epochs')
+    plt.ylabel('Accuracy')
+    plt.ylim(0, 1)
+    plt.legend()
+    plt.show()

@@ -6,7 +6,8 @@ from model import (
     splitData,
     trainModel,
     predictModel,
-    calculateCrossValidation
+    calculateCrossValidation,
+    plotResults
 )
 # import foreign modules
 import os
@@ -58,3 +59,4 @@ dict.printDivider()
 
 # output prediction results
 predictModel(model, xTest, yTest, datasets)
+plotResults(results)
