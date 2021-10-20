@@ -19,6 +19,11 @@ BATCH_SIZE = 500
 EPOCHS = 50
 
 
-# print operation that allows status message on the same line
+# Print operation that allows status message on the same line.
 def printOperation(message):
     print('{:<40s}'.format(message), end="", flush=True)
+
+
+# Print divider in console.
+def printDivider():
+    print("\n")

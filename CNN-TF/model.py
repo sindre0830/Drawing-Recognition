@@ -56,7 +56,7 @@ def trainModel(model: keras.models.Sequential, xTrain, xTest, yTrain, yTest):
         yTrain,
         batch_size=dict.BATCH_SIZE,
         epochs=dict.EPOCHS,
-        verbose=True,
+        verbose=False,
         validation_data=(xTest, yTest)
     )
     # evaluate model and output results

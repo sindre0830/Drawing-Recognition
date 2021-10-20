@@ -13,14 +13,13 @@ import tensorflow as tf
 
 # suppress info and warnings outputted by tensorflow
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
 # enable memory growth for gpu devices
 # source: https://stackoverflow.com/a/55541385/8849692
 gpu_devices = tf.config.experimental.list_physical_devices('GPU')
 if gpu_devices:
     for devices in gpu_devices:
         tf.config.experimental.set_memory_growth(devices, True)
-
+dict.printDivider()
 # get dataset names from dictionary
 datasets = []
 for dataset in dict.DATASET_INTEGER_CONVERTER:
@@ -37,11 +36,13 @@ else:
     data = datasetParser.resizeImages(data)
     # cache data
     datasetParser.cacheData(data, labels)
-# generate model and print design
+dict.printDivider()
+# generate model
 model = generateModel()
 # split data into training- and testing set
 xTrain, xTest, yTrain, yTest = splitData(data, labels)
 # train model
 model, results = trainModel(model, xTrain, xTest, yTrain, yTest)
+dict.printDivider()
 # output prediction results
 predictModel(model, xTest, yTest, datasets)
