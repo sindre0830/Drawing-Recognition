@@ -3,6 +3,7 @@ import dictionary as dict
 # import foreign modules
 import requests
 import os
+import cv2
 
 
 # Parses dataset file to a list of URLs.
@@ -34,3 +35,18 @@ def downloadDataset(dataset, urls):
     for index, url in enumerate(urls, start=1):
         req = requests.get(url)
         open(path + str(index) + ".jpg", "wb").write(req.content)
+
+
+# Parse datasets to a list of matrixes and labels.
+def parseDatasets(datasets):
+    images = []
+    labels = []
+    for dataset in datasets:
+        dict.printOperation("Parsing '" + dataset + "' dataset...")
+        for filename in os.listdir("Data/" + dataset):
+            img = cv2.imread(os.path.join("Data/" + dataset, filename))
+            if img is not None:
+                images.append(img)
+                labels.append(dict.DATASET_INTEGER_CONVERTER[dataset])
+        print(dict.DONE)
+    return images, labels
