@@ -6,6 +6,7 @@ import os
 import cv2
 import numpy as np
 import skimage.transform
+import pickle
 
 
 # Parses dataset file to a list of URLs.
@@ -63,8 +64,31 @@ def resizeImages(images):
     return np.array(images)
 
 
-# Cache dataset.
-def cacheData(data):
+# Cache data.
+def cacheData(data, labels):
     dict.printOperation("Caching data...")
     np.save("Data/cachedData.npy", data)
+    with open("Data/cachedLabels.txt", "wb") as file:
+        pickle.dump(labels, file)
     print(dict.DONE)
+
+
+# Load cached data.
+def loadCachedData():
+    dict.printOperation("Loading cached data...")
+    data = np.load("Data/cachedData.npy")
+    with open("Data/cachedLabels.txt", "rb") as file:
+        labels = pickle.load(file)
+    print(dict.DONE)
+    return data, labels
+
+
+# Check if data is cached
+def isCached():
+    dict.printOperation("Checking if data is cached...")
+    if os.path.exists("Data/cachedData.npy") and os.path.exists("Data/cachedLabels.txt"):
+        print(dict.SUCCESS)
+        return True
+    else:
+        print(dict.FAILED)
+        return False

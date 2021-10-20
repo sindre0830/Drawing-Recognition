@@ -7,11 +7,15 @@ import datasetParser
 datasets = []
 for dataset in dict.DATASET_INTEGER_CONVERTER:
     datasets.append(dataset)
-# download datasets
-datasetParser.downloadDatasets(datasets)
-# parse datasets
-data, labels = datasetParser.parseDatasets(datasets)
-# resize images
-data = datasetParser.resizeImages(data)
-# cache data
-datasetParser.cacheData(data)
+# check if data is cached
+if datasetParser.isCached():
+    data, labels = datasetParser.loadCachedData()
+else:
+    # download datasets
+    datasetParser.downloadDatasets(datasets)
+    # parse datasets
+    data, labels = datasetParser.parseDatasets(datasets)
+    # resize images
+    data = datasetParser.resizeImages(data)
+    # cache data
+    datasetParser.cacheData(data, labels)
