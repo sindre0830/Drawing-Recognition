@@ -5,6 +5,11 @@ from model import (
     generateModel,
     splitData
 )
+# import foreign modules
+import os
+
+# suppress info and warnings outputted by tensorflow
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
 # get dataset names from dictionary
