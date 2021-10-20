@@ -6,6 +6,7 @@ import keras.layers.convolutional
 import keras.layers.pooling
 import keras.layers.core
 import tensorflow.keras.optimizers
+import tensorflow.keras.wrappers.scikit_learn
 import sklearn.model_selection
 import sklearn.metrics
 import keras.utils.np_utils
@@ -74,3 +75,19 @@ def predictModel(model: keras.models.Sequential, xTest, yTest, datasets):
     # print classification report and confusion matrix
     print(sklearn.metrics.classification_report(yTest, yPred, target_names=datasets, zero_division=1))
     print(sklearn.metrics.confusion_matrix(yTest, yPred))
+
+
+def calculateCrossValidation(data, labels):
+    labels = keras.utils.np_utils.to_categorical(labels, num_classes=dict.DATASET_AMOUNT)
+    # set parameters for cross validation model
+    crossValidationModel = tensorflow.keras.wrappers.scikit_learn.KerasClassifier(
+        build_fn=generateModel,
+        batch_size=dict.BATCH_SIZE,
+        epochs=dict.EPOCHS,
+        verbose=False
+    )
+    kfold = sklearn.model_selection.KFold(n_splits=5, shuffle=True, random_state=0)
+    # calculate cross validation and output results
+    results = sklearn.model_selection.cross_val_score(crossValidationModel, data, labels, cv=kfold)
+    print("Cross validation results: " + str(results))
+    print("%0.2f accuracy with a standard deviation of %0.2f" % (results.mean(), results.std()))

@@ -5,7 +5,8 @@ from model import (
     generateModel,
     splitData,
     trainModel,
-    predictModel
+    predictModel,
+    calculateCrossValidation
 )
 # import foreign modules
 import os
@@ -39,6 +40,10 @@ else:
 dict.printDivider()
 # generate model
 model = generateModel()
+model.summary()
+dict.printDivider()
+# calculate cross validation on dataset
+calculateCrossValidation(data, labels)
 # split data into training- and testing set
 xTrain, xTest, yTrain, yTest = splitData(data, labels)
 # train model
