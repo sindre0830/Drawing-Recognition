@@ -1,4 +1,6 @@
 # local imports
 import datasetParser
 
-datasetParser.parseDatasetFile("pear")
+datasets = ["apple_drawing", "banana", "pear", "strawberry"]
+
+arrDatasetsURL = datasetParser.parseDatasetsFiles(datasets)
