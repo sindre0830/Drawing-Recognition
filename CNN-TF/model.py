@@ -6,6 +6,8 @@ import keras.layers.convolutional
 import keras.layers.pooling
 import keras.layers.core
 import tensorflow.keras.optimizers
+import sklearn.model_selection as sklearn
+import keras.utils.np_utils
 
 
 # Generate convolutional neural network model.
@@ -34,3 +36,11 @@ def generateModel():
         metrics=['accuracy']
     )
     return model
+
+
+# Perform tain-test-split
+def splitData(data, labels):
+    xTrain, xTest, yTrain, yTest = sklearn.train_test_split(data, labels, train_size=dict.TRAIN_SIZE, random_state=0)
+    yTrain = keras.utils.np_utils.to_categorical(yTrain, num_classes=dict.DATASET_AMOUNT + 1)
+    yTest = keras.utils.np_utils.to_categorical(yTest, num_classes=dict.DATASET_AMOUNT + 1)
+    return xTrain, xTest, yTrain, yTest

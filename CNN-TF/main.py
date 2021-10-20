@@ -2,7 +2,8 @@
 import dictionary as dict
 import datasetParser
 from model import (
-    generateModel
+    generateModel,
+    splitData
 )
 
 
@@ -25,3 +26,5 @@ else:
 # generate model and print design
 model = generateModel()
 model.summary()
+# split data into training- and testing set
+xTrain, xTest, yTrain, yTest = splitData(data, labels)
