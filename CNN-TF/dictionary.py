@@ -9,6 +9,8 @@ DATASET_INTEGER_CONVERTER = {
 DONE = 'DONE'
 SUCCESS = 'SUCCESS'
 FAILED = 'FAILED'
+# set parameters
+IMAGE_SIZE = 128
 
 
 # print operation that allows status message on the same line

@@ -4,6 +4,8 @@ import dictionary as dict
 import requests
 import os
 import cv2
+import numpy as np
+import skimage.transform
 
 
 # Parses dataset file to a list of URLs.
@@ -50,3 +52,12 @@ def parseDatasets(datasets):
                 labels.append(dict.DATASET_INTEGER_CONVERTER[dataset])
         print(dict.DONE)
     return images, labels
+
+
+# Resize images.
+def resizeImages(images):
+    dict.printOperation("Resizing images to " + str(dict.IMAGE_SIZE) + "x" + str(dict.IMAGE_SIZE) + "...")
+    for index, image in enumerate(images):
+        images[index] = np.array(skimage.transform.resize(image, (dict.IMAGE_SIZE, dict.IMAGE_SIZE), mode="constant"))
+    print(dict.DONE)
+    return np.array(images)

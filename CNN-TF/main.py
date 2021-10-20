@@ -11,3 +11,5 @@ for dataset in dict.DATASET_INTEGER_CONVERTER:
 datasetParser.downloadDatasets(datasets)
 # parse datasets
 images, labels = datasetParser.parseDatasets(datasets)
+# resize images
+images = datasetParser.resizeImages(images)
