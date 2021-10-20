@@ -1,0 +1,23 @@
+name: Python
+
+on: [push, pull_request]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9.7'
+
+    - name: Build
+      working-directory: ./CNN-TF
+      run: python ./main.py
+
+    - name: Syntax checker
+      working-directory: ./CNN-TF
+      run: sudo pip install flake 8 && flake8 ./main.py
