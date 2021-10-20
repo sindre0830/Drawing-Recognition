@@ -5,4 +5,4 @@ FAILED = 'FAILED'
 
 
 def printOperation(message):
-    print('{:<40s}'.format(message), end = "", flush = True)
+    print('{:<40s}'.format(message), end="", flush=True)
