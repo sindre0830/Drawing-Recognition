@@ -28,6 +28,8 @@ dict.printDivider()
 datasets = []
 for dataset in dict.DATASET_INTEGER_CONVERTER:
     datasets.append(dataset)
+# get dataset files with URLs from API
+datasetParser.getDatasets(datasets)
 # check if data is cached
 if datasetParser.isCached():
     data, labels = datasetParser.loadCachedData()
