@@ -3,7 +3,9 @@ DATASET_INTEGER_CONVERTER = {
     "apple_drawing": 1,
     "banana": 2,
     "pear": 3,
-    "strawberry": 4
+    "strawberry": 4,
+    "clock": 5,
+    "ghost_drawing": 6
 }
 # status messages
 DONE = 'DONE'

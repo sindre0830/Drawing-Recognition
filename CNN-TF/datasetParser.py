@@ -7,6 +7,17 @@ import cv2
 import numpy as np
 import skimage.transform
 import pickle
+import zmq
+
+
+# Get dataset list of urls from API.
+def getDatasets(datasets):
+    context = zmq.Context()
+    socket = context.socket(zmq.REQ)
+    socket.connect("tcp://localhost:5555")
+    for dataset in datasets:
+        socket.send_string(dataset)
+        socket.recv()
 
 
 # Parses dataset file to a list of URLs.
