@@ -13,6 +13,12 @@
 class Paintbrush {
 private:
 	std::vector<Point*> points;
+	std::vector<GLfloat> vertices;
+	std::vector<GLuint> indices;
+
+	GLuint vao, vbo, ebo, shader;
+
+	int indices_lastIndex;
 public:
 	Paintbrush();
 	~Paintbrush();
@@ -20,8 +26,10 @@ public:
 	std::vector<Point*> getPoints() { return points; }
 	int getPointsSize() { return points.size(); }
 
-	void draw();
 	void init();
+	void createPoint(double x, double y);
+	void addPoint(Point* point);
+	void draw();
 };
 
-#endif // !__POINTS_H
+#endif // !__PAINTBRUSH_H
