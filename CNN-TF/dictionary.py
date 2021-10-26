@@ -1,9 +1,10 @@
 # dataset to integer code
 DATASET_INTEGER_CONVERTER = {
-    "apple_drawing": 1,
-    "banana": 2,
-    "pear": 3,
-    "strawberry": 4
+    "red_apple_drawing": 1,
+    "single_yellow_banana_isolated": 2,
+    "single_strawberry_isolated": 3,
+    "clock": 4,
+    "ghost_drawing": 5
 }
 # status messages
 DONE = 'DONE'
