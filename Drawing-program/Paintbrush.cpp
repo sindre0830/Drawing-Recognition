@@ -19,9 +19,11 @@ Paintbrush::Paintbrush() {
 Paintbrush::~Paintbrush() {
 	while (!points.empty()) {
 		auto it = points.begin();
-		delete *it;
+		delete* it;
 		points.erase(it);
 	}
+
+	//glDeleteShaderProgram(shader);
 }
 
 /**
@@ -72,30 +74,92 @@ void Paintbrush::init() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
 }
 
-/** 
+/**
  *	Create a point.
  */
 void Paintbrush::createPoint(double x, double y) {
 	// Cast to float 
 	float xf = x, yf = y;
 
-	Point* point = new Point(calculateXCoordinate(x), calculateYCoordinate(y), 1.f);
+	Point* point = new Point(calculateXCoordinate(xf), calculateYCoordinate(yf), 0.05f);
 	points.push_back(point);
 
 	// Generate buffers if this is the first point in the vector
 	if (points.size() == 1) init();
-	else addPoint(point);
+	else createLine();
 }
 
-/** 
+/**
  *	Add points' vertices and indices to vectors.
  */
-void Paintbrush::addPoint(Point* point) {
+void Paintbrush::createLine() {
+	// Create help variables
+	int pointsSize = points.size();
+
+	// Get all involved points and their attributes
+	Point* newPoint = points[pointsSize - 1];
+	//float r = newPoint->getR(), g = newPoint->getG(), b = newPoint->getB();
+	float newPointSize = newPoint->getSize();
+
+	Point* prevPoint = points[pointsSize - 2];
+	//float pR = prevPoint->getR(), pG = prevPoint->getG(), pB = prevPoint->getB();
+	float prevPointSize = newPoint->getSize();
+
+	// Create a vector from the previous point to the newest
+	std::pair<float, float> v = {
+		newPoint->getX() - prevPoint->getX(),
+		newPoint->getY() - prevPoint->getY()
+	};
+
+	// Normalize 
+	float v0l = sqrt(pow(v.first, 2) + pow(v.second, 2));
+	v.first /= v0l; v.second /= v0l;
+
+	// Find the orthagonal 
+	std::pair<float, float> orth = {
+		v.second,
+		-v.first
+	};
+
+	// Push starting points (L and R)
+	vertices.push_back(prevPoint->getX() - orth.first * prevPointSize);
+	vertices.push_back(prevPoint->getY() - orth.second * prevPointSize);
+	//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+
+	vertices.push_back(prevPoint->getX() + orth.first * prevPointSize);
+	vertices.push_back(prevPoint->getY() + orth.second * prevPointSize);
+	//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+
+	// Push ending points (L and R)
+	vertices.push_back(newPoint->getX() + orth.first * newPointSize);
+	vertices.push_back(newPoint->getY() + orth.second * newPointSize);
+	//vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
+
+	vertices.push_back(newPoint->getX() - orth.first * newPointSize);
+	vertices.push_back(newPoint->getY() - orth.second * newPointSize);
+	//vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
+
+	indices.push_back(indices_lastIndex);
+	indices.push_back(indices_lastIndex + 1);
+	indices.push_back(indices_lastIndex + 2);
+
+	indices.push_back(indices_lastIndex);
+	indices.push_back(indices_lastIndex + 2);
+	indices.push_back(indices_lastIndex + 3);
+
+	indices_lastIndex += 4;
+
+	// Lastly, update buffers
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(std::vector<GLfloat>) + sizeof(GLfloat) * vertices.size(), &(vertices[0]), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
 
 }
 
 void Paintbrush::draw() {
 	glUseProgram(shader);
 	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, 6 * points.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

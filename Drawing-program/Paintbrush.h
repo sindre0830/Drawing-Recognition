@@ -28,7 +28,7 @@ public:
 
 	void init();
 	void createPoint(double x, double y);
-	void addPoint(Point* point);
+	void createLine();
 	void draw();
 };
 
