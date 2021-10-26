@@ -1,11 +1,16 @@
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include <vector>
 
+#include "const.h"
+
+#include <vector>
 #include <iostream>
+
+// Function headers
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 int main() {
 	// Initialize glfw
@@ -16,11 +21,7 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create window object
-	int windowWidth = 800;
-	int windowHeight = 800;
-
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Drawing Recognition", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Drawing Recognition", NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
@@ -33,19 +34,48 @@ int main() {
 	gladLoadGL();
 
 	// Change background color
-	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glfwSwapBuffers(window);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// The area to be rendered. Bottom left corner (0, 0) to top tight (windowWidth, windowHeight)
-	glViewport(0, 0, windowWidth, windowHeight);
-	
+	float t = 0.f; // Total time elapsed since start of program
 
-	// Main loop that runs until a stop condition is reached
 	while (!glfwWindowShouldClose(window)) {
+		// time
+		float dt = glfwGetTime() - t;
+		t += dt;
+
 		glfwPollEvents();
+
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		glfwSwapBuffers(window);
+
+		glfwSetMouseButtonCallback(window, mouse_button_callback);
+
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+			break;
+		}
+
+		// Limit to 30 fps
+		while (glfwGetTime() < t + 1.0 / 30) {
+		}
 	}
+
+	glUseProgram(0);
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
+
+// *************************************************************************************
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
+	double x, y;
+
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+		glfwGetCursorPos(window, &x, &y);
+
+		std::cout << "\nx: " << x << " - y: " << y;
+	}
+}
+
+
+
