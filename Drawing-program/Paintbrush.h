@@ -2,6 +2,7 @@
 #define __PAINTBRUSH_H
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 #include "Point.h"
 
@@ -19,16 +20,21 @@ private:
 	GLuint vao, vbo, ebo, shader;
 
 	int indices_lastIndex;
+
+	bool newPos;
 public:
 	Paintbrush();
 	~Paintbrush();
 
 	std::vector<Point*> getPoints() { return points; }
 	int getPointsSize() { return points.size(); }
+	void setNewPos(bool newPos) { this->newPos = newPos; }
 
 	void init();
 	void createPoint(double x, double y);
+	void createFirstPos();
 	void createLine();
+	std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
 	void draw();
 };
 

@@ -9,6 +9,7 @@
  */
 Paintbrush::Paintbrush() {
 	indices_lastIndex = 0;
+	newPos = true;
 	vao = vbo = ebo = 0;
 	shader = CompileShader(pointVertexShaderSrc, pointFragmentShaderSrc, "");
 }
@@ -23,15 +24,31 @@ Paintbrush::~Paintbrush() {
 		points.erase(it);
 	}
 
-	//glDeleteShaderProgram(shader);
+	glDeleteProgram(shader);
 }
 
 /**
  *	Generate and bind buffers the first time a point is created.
  */
 void Paintbrush::init() {
-	float x = points[0]->getX(), y = points[0]->getY();
-	float size = points[0]->getSize();
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &ebo);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(std::vector<GLfloat>) + sizeof(GLfloat) * vertices.size(), &(vertices[0]), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
+	
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 2, (const void*)0);
+}
+
+void Paintbrush::createFirstPos() {
+	float x = points[getPointsSize() - 1]->getX(), y = points[getPointsSize() - 1]->getY();
+	float size = points[getPointsSize() - 1]->getSize();
 
 	// Bottom left corner
 	vertices.push_back(x - size);
@@ -59,23 +76,23 @@ void Paintbrush::init() {
 
 	indices_lastIndex += 4;
 
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glGenBuffers(1, &vbo);
-	glGenBuffers(1, &ebo);
+	newPos = false;
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(std::vector<GLfloat>) + sizeof(GLfloat) * vertices.size(), &(vertices[0]), GL_STATIC_DRAW);
+	if (points.size() == 1) init();
+	else {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(std::vector<GLfloat>) + sizeof(GLfloat) * vertices.size(), &(vertices[0]), GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 2, (const void*)0);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
+	}
 }
 
 /**
  *	Create a point.
+ * 
+ *	@param x - The point's x coordinate
+ *	@param y - The point's y coordinate
  */
 void Paintbrush::createPoint(double x, double y) {
 	// Cast to float 
@@ -85,9 +102,11 @@ void Paintbrush::createPoint(double x, double y) {
 	points.push_back(point);
 
 	// Generate buffers if this is the first point in the vector
-	if (points.size() == 1) init();
+	if (newPos) createFirstPos();
 	else createLine();
 }
+
+
 
 /**
  *	Add points' vertices and indices to vectors.
@@ -106,20 +125,7 @@ void Paintbrush::createLine() {
 	float prevPointSize = newPoint->getSize();
 
 	// Create a vector from the previous point to the newest
-	std::pair<float, float> v = {
-		newPoint->getX() - prevPoint->getX(),
-		newPoint->getY() - prevPoint->getY()
-	};
-
-	// Normalize 
-	float v1 = sqrt(pow(v.first, 2) + pow(v.second, 2));
-	v.first /= v1; v.second /= v1;
-
-	// Find the orthagonal 
-	std::pair<float, float> orth = {
-		v.second,
-		-v.first
-	};
+	std::pair<float, float> orth = findOrthogonal(newPoint, prevPoint);
 
 	// Push starting points (L and R)
 	vertices.push_back(prevPoint->getX() - orth.first * prevPointSize);
@@ -154,21 +160,7 @@ void Paintbrush::createLine() {
 		// The third last point, part of the line to connect this line with
 		Point* prev2Point = points[points.size() - 3];
 
-		// Vector between third last point and second last point
-		v = {
-			prevPoint->getX() - prev2Point->getX(),
-			prevPoint->getY() - prev2Point->getY()
-		};
-
-		// Normalize 
-		float v1 = sqrt(pow(v.first, 2) + pow(v.second, 2));
-		v.first /= v1; v.second /= v1;
-
-		// Find the orthagonal 
-		std::pair<float, float> orth2 = {
-			v.second,
-			-v.first
-		};
+		std::pair<float, float> orth2 = findOrthogonal(prevPoint, prev2Point);
 
 		// Push back filler triangles
 		vertices.push_back(prevPoint->getX());
@@ -216,6 +208,36 @@ void Paintbrush::createLine() {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
 }
 
+/**
+ *	Create a vector between two points and finds its orthogonal.
+ * 
+ *	@param point1 - The first point
+ *	@param point2 - The second point
+ *	@return The orthogonal
+ */
+std::pair<float, float> Paintbrush::findOrthogonal(Point* point1, Point* point2) {
+	// Vector between third last point and second last point
+	std::pair<float, float> v = {
+		point1->getX() - point2->getX(),
+		point1->getY() - point2->getY()
+	};
+
+	// Normalize 
+	float v1 = sqrt(pow(v.first, 2) + pow(v.second, 2));
+	v.first /= v1; v.second /= v1;
+
+	// Find the orthogonal 
+	std::pair<float, float> orth = {
+		v.second,
+		-v.first
+	};
+
+	return orth;
+}
+
+/**
+ *	Draw the lines on screen.
+ */
 void Paintbrush::draw() {
 	glUseProgram(shader);
 	glBindVertexArray(vao);
