@@ -1,8 +1,6 @@
 #include "Paintbrush.h"
-#include "functions.h"
-#include "shaders/shader.h"
-
-#include <iostream>
+#include "../functions.h"
+#include "../shaders/pointShader.h"
 
 /**
  *	Constructor.
@@ -42,29 +40,43 @@ void Paintbrush::init() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
 	
+	// Position
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 2, (const void*)0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (const void*)0);
+
+	// Color
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (const void*)(sizeof(GL_FLOAT) * 2));
 }
 
+/**
+ *	Create either the very first position, or the first position after the mouse button is released.
+ */
 void Paintbrush::createFirstPos() {
-	float x = points[getPointsSize() - 1]->getX(), y = points[getPointsSize() - 1]->getY();
-	float size = points[getPointsSize() - 1]->getSize();
+	Point* point = points[getPointsSize() - 1];
+	float x = point->getX(), y = point->getY();
+	float size = point->getSize();
+	float r = point->getR(), g = point->getG(), b = point->getB();
 
 	// Bottom left corner
 	vertices.push_back(x - size);
 	vertices.push_back(y - size);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 
 	// Top left corner
 	vertices.push_back(x - size);
 	vertices.push_back(y + size);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 
 	// Top right corner
 	vertices.push_back(x + size);
 	vertices.push_back(y + size);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 
 	// Bottom right corner
 	vertices.push_back(x + size);
 	vertices.push_back(y - size);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 
 	indices.push_back(indices_lastIndex);
 	indices.push_back(indices_lastIndex + 1);
@@ -78,7 +90,8 @@ void Paintbrush::createFirstPos() {
 
 	newPos = false;
 
-	if (points.size() == 1) init();
+	if (points.size() == 1) 
+		init();
 	else {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(std::vector<GLfloat>) + sizeof(GLfloat) * vertices.size(), &(vertices[0]), GL_STATIC_DRAW);
@@ -93,6 +106,10 @@ void Paintbrush::createFirstPos() {
  * 
  *	@param x - The point's x coordinate
  *	@param y - The point's y coordinate
+ *	@see calculateXCoordinate(...)
+ *	@see calculateYCoordinate(...)
+ *	@see Paintbrush::createFirstPos()
+ *	@see Paintbrush::createLine()
  */
 void Paintbrush::createPoint(double x, double y) {
 	// Cast to float 
@@ -110,6 +127,8 @@ void Paintbrush::createPoint(double x, double y) {
 
 /**
  *	Add points' vertices and indices to vectors.
+ * 
+ *	@see Paintbrush::findOrthogonal(...)
  */
 void Paintbrush::createLine() {
 	// Create help variables
@@ -117,11 +136,11 @@ void Paintbrush::createLine() {
 
 	// Get all involved points and their attributes
 	Point* newPoint = points[pointsSize - 1];
-	//float r = newPoint->getR(), g = newPoint->getG(), b = newPoint->getB();
+	float nR = newPoint->getR(), nG = newPoint->getG(), nB = newPoint->getB();	// Colors
 	float newPointSize = newPoint->getSize();
 
 	Point* prevPoint = points[pointsSize - 2];
-	//float pR = prevPoint->getR(), pG = prevPoint->getG(), pB = prevPoint->getB();
+	float pR = prevPoint->getR(), pG = prevPoint->getG(), pB = prevPoint->getB();
 	float prevPointSize = newPoint->getSize();
 
 	// Create a vector from the previous point to the newest
@@ -130,20 +149,20 @@ void Paintbrush::createLine() {
 	// Push starting points (L and R)
 	vertices.push_back(prevPoint->getX() - orth.first * prevPointSize);
 	vertices.push_back(prevPoint->getY() - orth.second * prevPointSize);
-	//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+	vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 	vertices.push_back(prevPoint->getX() + orth.first * prevPointSize);
 	vertices.push_back(prevPoint->getY() + orth.second * prevPointSize);
-	//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+	vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 	// Push ending points (L and R)
 	vertices.push_back(newPoint->getX() + orth.first * newPointSize);
 	vertices.push_back(newPoint->getY() + orth.second * newPointSize);
-	//vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
+	vertices.push_back(nR); vertices.push_back(nG); vertices.push_back(nB);
 
 	vertices.push_back(newPoint->getX() - orth.first * newPointSize);
 	vertices.push_back(newPoint->getY() - orth.second * newPointSize);
-	//vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
+	vertices.push_back(nR); vertices.push_back(nG); vertices.push_back(nB);
 
 	indices.push_back(indices_lastIndex);
 	indices.push_back(indices_lastIndex + 1);
@@ -165,27 +184,27 @@ void Paintbrush::createLine() {
 		// Push back filler triangles
 		vertices.push_back(prevPoint->getX());
 		vertices.push_back(prevPoint->getY());
-		//vertices.push_back(); vertices.push_back(pG); vertices.push_back(pB);
+		vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 		vertices.push_back(prevPoint->getX() + orth2.first * prevPoint->getSize());
 		vertices.push_back(prevPoint->getY() + orth2.second * prevPoint->getSize());
-		//vertices.push_back(0); vertices.push_back(0); vertices.push_back(1);
+		vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 		vertices.push_back(prevPoint->getX() + orth.first * prevPoint->getSize());
 		vertices.push_back(prevPoint->getY() + orth.second * prevPoint->getSize());
-		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+		vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 		vertices.push_back(prevPoint->getX());
 		vertices.push_back(prevPoint->getY());
-		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+		vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 		vertices.push_back(prevPoint->getX() - orth2.first * prevPoint->getSize());
 		vertices.push_back(prevPoint->getY() - orth2.second * prevPoint->getSize());
-		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+		vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 		vertices.push_back(prevPoint->getX() - orth.first * prevPoint->getSize());
 		vertices.push_back(prevPoint->getY() - orth.second * prevPoint->getSize());
-		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+		vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
 
 		// ... And their corresponding indices
