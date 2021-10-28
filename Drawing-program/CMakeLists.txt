@@ -13,7 +13,15 @@ add_subdirectory(external/glad)
 add_subdirectory(external/glm)
 
 add_executable(${PROJECT_NAME}
-	main.cpp)
+	main.cpp
+	const.h
+	functions.h
+	functions.cpp
+	Paintbrush/Point.h
+	Paintbrush/Point.cpp
+	Paintbrush/Paintbrush.h
+	Paintbrush/Paintbrush.cpp
+	shaders/pointShader.h)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
