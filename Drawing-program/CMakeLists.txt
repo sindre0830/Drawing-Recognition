@@ -20,7 +20,8 @@ add_executable(${PROJECT_NAME}
 	Point.h
 	Point.cpp
 	Paintbrush.h
-	Paintbrush.cpp)
+	Paintbrush.cpp
+	shaders/pointShader.h)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
