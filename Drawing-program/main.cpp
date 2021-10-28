@@ -5,12 +5,11 @@
 #include "glm/gtc/type_ptr.hpp"
 
 #include "const.h"
+#include "functions.h"
+#include "Paintbrush/Paintbrush.h"
 
 #include <vector>
 #include <iostream>
-
-// Function headers
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
 
 int main() {
 	// Initialize glfw
@@ -36,20 +35,34 @@ int main() {
 	// Change background color
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
+	Paintbrush* paintbrush = new Paintbrush();
+
+	double x, y;	// Mouse position
+
 	float t = 0.f; // Total time elapsed since start of program
 
 	while (!glfwWindowShouldClose(window)) {
-		// time
+		// Time management
 		float dt = glfwGetTime() - t;
 		t += dt;
 
 		glfwPollEvents();
 
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		glfwSwapBuffers(window);
 
-		glfwSetMouseButtonCallback(window, mouse_button_callback);
+		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+			// Get mouse position
+			glfwGetCursorPos(window, &x, &y);
+
+			// Create point on mouse position
+			paintbrush->createPoint(x, y);
+		} else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+			paintbrush->setNewPos(true);
+		}
+
+		paintbrush->draw();
+
+		glfwSwapBuffers(window);
 
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			break;
@@ -66,16 +79,6 @@ int main() {
 	glfwTerminate();
 }
 
-// *************************************************************************************
-void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
-	double x, y;
-
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-		glfwGetCursorPos(window, &x, &y);
-
-		std::cout << "\nx: " << x << " - y: " << y;
-	}
-}
 
 
 
