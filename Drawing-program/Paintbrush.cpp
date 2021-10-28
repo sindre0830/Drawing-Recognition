@@ -112,8 +112,8 @@ void Paintbrush::createLine() {
 	};
 
 	// Normalize 
-	float v0l = sqrt(pow(v.first, 2) + pow(v.second, 2));
-	v.first /= v0l; v.second /= v0l;
+	float v1 = sqrt(pow(v.first, 2) + pow(v.second, 2));
+	v.first /= v1; v.second /= v1;
 
 	// Find the orthagonal 
 	std::pair<float, float> orth = {
@@ -149,13 +149,71 @@ void Paintbrush::createLine() {
 
 	indices_lastIndex += 4;
 
+	// Create filler triangles so the lines looks connected
+	if (points.size() > 2) {
+		// The third last point, part of the line to connect this line with
+		Point* prev2Point = points[points.size() - 3];
+
+		// Vector between third last point and second last point
+		v = {
+			prevPoint->getX() - prev2Point->getX(),
+			prevPoint->getY() - prev2Point->getY()
+		};
+
+		// Normalize 
+		float v1 = sqrt(pow(v.first, 2) + pow(v.second, 2));
+		v.first /= v1; v.second /= v1;
+
+		// Find the orthagonal 
+		std::pair<float, float> orth2 = {
+			v.second,
+			-v.first
+		};
+
+		// Push back filler triangles
+		vertices.push_back(prevPoint->getX());
+		vertices.push_back(prevPoint->getY());
+		//vertices.push_back(); vertices.push_back(pG); vertices.push_back(pB);
+
+		vertices.push_back(prevPoint->getX() + orth2.first * prevPoint->getSize());
+		vertices.push_back(prevPoint->getY() + orth2.second * prevPoint->getSize());
+		//vertices.push_back(0); vertices.push_back(0); vertices.push_back(1);
+
+		vertices.push_back(prevPoint->getX() + orth.first * prevPoint->getSize());
+		vertices.push_back(prevPoint->getY() + orth.second * prevPoint->getSize());
+		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+
+		vertices.push_back(prevPoint->getX());
+		vertices.push_back(prevPoint->getY());
+		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+
+		vertices.push_back(prevPoint->getX() - orth2.first * prevPoint->getSize());
+		vertices.push_back(prevPoint->getY() - orth2.second * prevPoint->getSize());
+		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+
+		vertices.push_back(prevPoint->getX() - orth.first * prevPoint->getSize());
+		vertices.push_back(prevPoint->getY() - orth.second * prevPoint->getSize());
+		//vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
+
+
+		// ... And their corresponding indices
+		indices.push_back(indices_lastIndex);
+		indices.push_back(indices_lastIndex + 1);
+		indices.push_back(indices_lastIndex + 2);
+
+		indices.push_back(indices_lastIndex + 3);
+		indices.push_back(indices_lastIndex + 4);
+		indices.push_back(indices_lastIndex + 5);
+
+		indices_lastIndex += 6;
+	}
+
 	// Lastly, update buffers
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(std::vector<GLfloat>) + sizeof(GLfloat) * vertices.size(), &(vertices[0]), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(std::vector<GLuint>) + sizeof(GLuint) * indices.size(), &(indices[0]), GL_STATIC_DRAW);
-
 }
 
 void Paintbrush::draw() {
