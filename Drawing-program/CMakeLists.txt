@@ -17,10 +17,10 @@ add_executable(${PROJECT_NAME}
 	const.h
 	functions.h
 	functions.cpp
-	Point.h
-	Point.cpp
-	Paintbrush.h
-	Paintbrush.cpp
+	Paintbrush/Point.h
+	Paintbrush/Point.cpp
+	Paintbrush/Paintbrush.h
+	Paintbrush/Paintbrush.cpp
 	shaders/pointShader.h)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
