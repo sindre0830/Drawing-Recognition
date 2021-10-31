@@ -12,6 +12,8 @@ Paintbrush::Paintbrush() {
 	newPos = true;
 	vao = vbo = ebo = 0;
 	shader = CompileShader(pointVertexShaderSrc, pointFragmentShaderSrc, "");
+	size = 0.005f;
+	color = black;
 	initColors();
 }
 
@@ -129,17 +131,20 @@ void Paintbrush::createFirstPos() {
  *	@see Paintbrush::createFirstPos()
  *	@see Paintbrush::createLine()
  */
-void Paintbrush::createPoint(double x, double y, std::string color) {
+void Paintbrush::createPoint(double x, double y) {
 	// Cast to float 
 	float xf = x, yf = y;
-	float r = 0, g = 0, b = 0;
+	rgb rgb{};
 
-	if (color == "black") r = 0.f, g = 0.f, b = 0.f;
-	else if (color == "red") r = 1.f, g = 0.f, b = 0.f;
-	else if (color == "green") r = 0.f, g = 1.f, b = 0.f;
-	else if (color == "blue") r = 0.f, g = 0.f, b = 1.f;
+	// Set rgb for the new point
+	switch (color) {
+	case black: rgb = colors.find(black)->second; break;
+	case red: rgb = colors.find(red)->second; break;
+	case green: rgb = colors.find(green)->second; break;
+	case blue: rgb = colors.find(blue)->second;
+	}
 
-	Point* point = new Point(calculateXCoordinate(xf), calculateYCoordinate(yf), 0.005f, r, g, b);
+	Point* point = new Point(calculateXCoordinate(xf), calculateYCoordinate(yf), size, rgb.r, rgb.g, rgb.b);
 	points.push_back(point);
 
 	// Generate buffers if this is the first point in the vector

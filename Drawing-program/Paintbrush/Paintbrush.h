@@ -31,24 +31,24 @@ private:
 	std::vector<GLuint> indices;
 
 	GLuint vao, vbo, ebo, shader;
-
 	int indices_lastIndex;
-
 	bool newPos;
 
-	std::map<Color, rgb> colors;
+	float size;
 	Color color;
+	std::map<Color, rgb> colors;
 public:
 	Paintbrush();
 	~Paintbrush();
 
-	void initColors();
 	std::vector<Point*> getPoints() { return points; }
 	int getPointsSize() { return points.size(); }
 	void setNewPos(bool newPos) { this->newPos = newPos; }
+	void setNewColor(Color color) { this->color = color; }
 
 	void init();
-	void createPoint(double x, double y, std::string color);
+	void initColors();
+	void createPoint(double x, double y);
 	void createFirstPos();
 	void createLine();
 	std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
