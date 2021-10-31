@@ -7,6 +7,19 @@
 #include "Point.h"
 
 #include <vector>
+#include <string>
+#include <map>
+
+enum Color {
+	black,
+	red,
+	green,
+	blue
+};
+
+struct rgb {
+	float r, g, b;
+};
 
 /**
  *	Class for controlling points.
@@ -18,10 +31,12 @@ private:
 	std::vector<GLuint> indices;
 
 	GLuint vao, vbo, ebo, shader;
-
 	int indices_lastIndex;
-
 	bool newPos;
+
+	float size;
+	Color color;
+	std::map<Color, rgb> colors;
 public:
 	Paintbrush();
 	~Paintbrush();
@@ -29,8 +44,10 @@ public:
 	std::vector<Point*> getPoints() { return points; }
 	int getPointsSize() { return points.size(); }
 	void setNewPos(bool newPos) { this->newPos = newPos; }
+	void setNewColor(Color color) { this->color = color; }
 
 	void init();
+	void initColors();
 	void createPoint(double x, double y);
 	void createFirstPos();
 	void createLine();

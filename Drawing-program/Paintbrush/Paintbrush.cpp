@@ -2,6 +2,8 @@
 #include "../functions.h"
 #include "../shaders/pointShader.h"
 
+#include <utility>      // std::pair, std::make_pair
+
 /**
  *	Constructor.
  */
@@ -10,6 +12,9 @@ Paintbrush::Paintbrush() {
 	newPos = true;
 	vao = vbo = ebo = 0;
 	shader = CompileShader(pointVertexShaderSrc, pointFragmentShaderSrc, "");
+	size = 0.005f;
+	color = black;
+	initColors();
 }
 
 /**
@@ -23,6 +28,21 @@ Paintbrush::~Paintbrush() {
 	}
 
 	glDeleteProgram(shader);
+}
+
+/**
+ *	Initialize the color map.
+ */
+void Paintbrush::initColors() {
+	rgb black = { 0.f, 0.f, 0.f };
+	rgb red = { 1.f, 0.f, 0.f };
+	rgb green = { 0.f, 1.f, 0.f };
+	rgb blue = { 0.f, 0.f, 1.f };
+
+	colors.insert({ Color::black, black });
+	colors.insert({ Color::red, red });
+	colors.insert({ Color::green, green });
+	colors.insert({ Color::blue, blue });
 }
 
 /**
@@ -114,8 +134,17 @@ void Paintbrush::createFirstPos() {
 void Paintbrush::createPoint(double x, double y) {
 	// Cast to float 
 	float xf = x, yf = y;
+	rgb rgb{};
 
-	Point* point = new Point(calculateXCoordinate(xf), calculateYCoordinate(yf), 0.05f);
+	// Set rgb for the new point
+	switch (color) {
+	case black: rgb = colors.find(black)->second; break;
+	case red: rgb = colors.find(red)->second; break;
+	case green: rgb = colors.find(green)->second; break;
+	case blue: rgb = colors.find(blue)->second;
+	}
+
+	Point* point = new Point(calculateXCoordinate(xf), calculateYCoordinate(yf), size, rgb.r, rgb.g, rgb.b);
 	points.push_back(point);
 
 	// Generate buffers if this is the first point in the vector

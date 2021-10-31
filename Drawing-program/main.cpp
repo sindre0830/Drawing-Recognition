@@ -9,7 +9,9 @@
 #include "Paintbrush/Paintbrush.h"
 
 #include <vector>
+#include <string>
 #include <iostream>
+
 
 int main() {
 	// Initialize glfw
@@ -26,6 +28,12 @@ int main() {
 		glfwTerminate();
 		return -1;
 	}
+
+	std::cout << "\n\tChange color: "
+			  << "\n\t\ta - black"
+			  << "\n\t\tr - red"
+			  << "\n\t\tg - green"
+			  << "\n\t\tb - blue";
 
 	glfwMakeContextCurrent(window);
 
@@ -64,12 +72,15 @@ int main() {
 
 		glfwSwapBuffers(window);
 
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-			break;
-		}
-
-		// Limit to 30 fps
-		while (glfwGetTime() < t + 1.0 / 30) {
+		// Change of colors, by pressing keys
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) paintbrush->setNewColor(black);
+		else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) paintbrush->setNewColor(red);
+		else if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) paintbrush->setNewColor(green);
+		else if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) paintbrush->setNewColor(blue);
+		else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
+	
+		// Limit to 60 fps
+		while (glfwGetTime() < t + 1.0 / 60) {
 		}
 	}
 
@@ -78,7 +89,5 @@ int main() {
 	glfwDestroyWindow(window);
 	glfwTerminate();
 }
-
-
 
 
