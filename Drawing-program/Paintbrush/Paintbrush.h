@@ -7,6 +7,19 @@
 #include "Point.h"
 
 #include <vector>
+#include <string>
+#include <map>
+
+enum Color {
+	black,
+	red,
+	green,
+	blue
+};
+
+struct rgb {
+	float r, g, b;
+};
 
 /**
  *	Class for controlling points.
@@ -22,16 +35,20 @@ private:
 	int indices_lastIndex;
 
 	bool newPos;
+
+	std::map<Color, rgb> colors;
+	Color color;
 public:
 	Paintbrush();
 	~Paintbrush();
 
+	void initColors();
 	std::vector<Point*> getPoints() { return points; }
 	int getPointsSize() { return points.size(); }
 	void setNewPos(bool newPos) { this->newPos = newPos; }
 
 	void init();
-	void createPoint(double x, double y);
+	void createPoint(double x, double y, std::string color);
 	void createFirstPos();
 	void createLine();
 	std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
