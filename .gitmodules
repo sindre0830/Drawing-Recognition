@@ -1,0 +1,3 @@
+[submodule "Drawing-program/external/glfw"]
+	path = Drawing-program/external/glfw
+	url = https://github.com/glfw/glfw.git
