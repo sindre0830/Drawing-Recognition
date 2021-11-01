@@ -125,4 +125,4 @@ def plotResults(results):
 def saveModel(model: keras.models.Sequential):
     inp = input("Do you want to save the model? Y/N: ")
     if inp.lower() == "y":
-        model.save("../Data/Model", save_format='h5')
+        model.save("../Data/model", save_format='h5')
