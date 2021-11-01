@@ -12,6 +12,9 @@ import sklearn.metrics
 import keras.utils.np_utils
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+import cv2
+import skimage.transform
 
 
 # Generate convolutional neural network model.
@@ -126,3 +129,11 @@ def saveModel(model: keras.models.Sequential):
     inp = input("Do you want to save the model? Y/N: ")
     if inp.lower() == "y":
         model.save("../Data/model.h5", save_format='h5')
+
+
+def predictImage(model: keras.models.Sequential, filename):
+    img = cv2.imread(os.path.join("Dummy-Data", filename))
+    img = np.array(skimage.transform.resize(img, (dict.IMAGE_SIZE, dict.IMAGE_SIZE), mode="constant"))
+    img = np.expand_dims(img, axis=0)
+    label = model.predict(img)
+    print("Dummy '" + filename + "' was predicted as: " + list(dict.DATASET_INTEGER_CONVERTER.keys())[list(dict.DATASET_INTEGER_CONVERTER.values()).index(np.argmax(label))] + " " + str(label))

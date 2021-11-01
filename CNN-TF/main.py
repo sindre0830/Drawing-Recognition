@@ -8,7 +8,8 @@ from model import (
     predictModel,
     calculateCrossValidation,
     plotResults,
-    saveModel
+    saveModel,
+    predictImage
 )
 # import foreign modules
 import os
@@ -61,6 +62,13 @@ dict.printDivider()
 # output prediction results
 predictModel(model, xTest, yTest, datasets)
 plotResults(results)
+dict.printDivider()
+
+# test model on dummy data
+predictImage(model, "apple.jpg")
+predictImage(model, "strawberry.jpg")
+predictImage(model, "banana.jpg")
+dict.printDivider()
 
 # ask user to save the model
 saveModel(model)
