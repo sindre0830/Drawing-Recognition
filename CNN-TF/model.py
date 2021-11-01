@@ -120,3 +120,9 @@ def plotResults(results):
     plt.ylim(0, 1)
     plt.legend()
     plt.show()
+
+
+def saveModel(model: keras.models.Sequential):
+    inp = input("Do you want to save the model? Y/N: ")
+    if inp.lower() == "y":
+        model.save("../Data/Model", save_format='h5')

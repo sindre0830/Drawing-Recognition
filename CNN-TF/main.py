@@ -7,7 +7,8 @@ from model import (
     trainModel,
     predictModel,
     calculateCrossValidation,
-    plotResults
+    plotResults,
+    saveModel
 )
 # import foreign modules
 import os
@@ -60,3 +61,6 @@ dict.printDivider()
 # output prediction results
 predictModel(model, xTest, yTest, datasets)
 plotResults(results)
+
+# ask user to save the model
+saveModel(model)
