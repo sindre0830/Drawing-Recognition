@@ -20,7 +20,11 @@ add_executable(${PROJECT_NAME}
 	Paintbrush/Point.cpp
 	Paintbrush/Paintbrush.h
 	Paintbrush/Paintbrush.cpp
-	shaders/pointShader.h)
+	shaders/pointShader.h
+	Navigation/Button.h
+	Navigation/Button.cpp
+	Navigation/Buttons.h
+	Navigation/Buttons.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
