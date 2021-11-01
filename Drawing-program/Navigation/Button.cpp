@@ -6,11 +6,12 @@
 /**
  *	Constructor.
  */
-Button::Button(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+Button::Button(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float r, float g, float b) {
 	this->x1 = calculateXCoordinate(x1); this->y1 = calculateYCoordinate(y1);
 	this->x2 = calculateXCoordinate(x2); this->y2 = calculateYCoordinate(y2);
 	this->x3 = calculateXCoordinate(x3); this->y3 = calculateYCoordinate(y3);
 	this->x4 = calculateXCoordinate(x4); this->y4 = calculateYCoordinate(y4);
+	this->r = r; this->g = g; this->b = b;
 
 	shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
 
@@ -21,7 +22,7 @@ Button::Button(float x1, float y1, float x2, float y2, float x3, float y3, float
  *	Deconstructor.
  */
 Button::~Button() {
-
+	glDeleteProgram(shader);
 }
 
 /**
@@ -29,9 +30,13 @@ Button::~Button() {
  */
 void Button::createRect() {
 	vertices.push_back(x1); vertices.push_back(y1);		// Top left corner
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(x2); vertices.push_back(y2);		// Bottom left corner
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(x3); vertices.push_back(y3);		// Bottom right corner
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(x4); vertices.push_back(y4);		// Top right corner
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 
 	indices.push_back(0);
 	indices.push_back(1);
@@ -54,7 +59,11 @@ void Button::createRect() {
 
 	// Position
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 2, (const void*)0);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (const void*)0);
+
+	// Color
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, (const void*)(sizeof(GLfloat) * 2));
 }
 
 /**
