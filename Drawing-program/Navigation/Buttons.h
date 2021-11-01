@@ -14,6 +14,10 @@ private:
 public:
 	Buttons();
 	~Buttons();
+
+	void addButton(Rect rect);
+	void draw();
+	void detectClick(double x, double y);
 };
 
 #endif // !__BUTTONS_H

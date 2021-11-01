@@ -8,15 +8,9 @@
 /**
  *	Constructor.
  */
-Button::Button(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float r, float g, float b) {
-	this->x1 = calculateXCoordinate(x1); this->y1 = calculateYCoordinate(y1);
-	this->x2 = calculateXCoordinate(x2); this->y2 = calculateYCoordinate(y2);
-	this->x3 = calculateXCoordinate(x3); this->y3 = calculateYCoordinate(y3);
-	this->x4 = calculateXCoordinate(x4); this->y4 = calculateYCoordinate(y4);
-	this->r = r; this->g = g; this->b = b;
-
+Button::Button(Rect rect) {
+	this->rect = rect;
 	shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
-
 	createRect();
 }
 
@@ -31,14 +25,14 @@ Button::~Button() {
  *	Create a rectangle.
  */
 void Button::createRect() {
-	vertices.push_back(x1); vertices.push_back(y1);		// Top left corner
-	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
-	vertices.push_back(x2); vertices.push_back(y2);		// Bottom left corner
-	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
-	vertices.push_back(x3); vertices.push_back(y3);		// Bottom right corner
-	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
-	vertices.push_back(x4); vertices.push_back(y4);		// Top right corner
-	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
+	vertices.push_back(rect.x1); vertices.push_back(rect.y1);		// Top left corner
+	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(rect.x2); vertices.push_back(rect.y2);		// Bottom left corner
+	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(rect.x3); vertices.push_back(rect.y3);		// Bottom right corner
+	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(rect.x4); vertices.push_back(rect.y4);		// Top right corner
+	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
 
 	indices.push_back(0);
 	indices.push_back(1);
@@ -85,7 +79,7 @@ void Button::detectClick(double x, double y) {
 		  yf = calculateYCoordinate(y);
 
 	// Checks if the coordinates are in the range of the rectangle
-	if (xf >= x1 && xf <= x4 && yf <= y1 && yf >= y2) {
+	if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {
 		// Handle event
 	}
 }
