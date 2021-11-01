@@ -3,6 +3,8 @@
 #include "../functions.h"
 #include "../shaders/buttonShader.h"
 
+#include <iostream>
+
 /**
  *	Constructor.
  */
@@ -74,3 +76,17 @@ void Button::draw() {
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }
+
+/**
+ *	Detects button click.
+ */
+void Button::detectClick(double x, double y) {
+	float xf = calculateXCoordinate(x),
+		  yf = calculateYCoordinate(y);
+
+	// Checks if the coordinates are in the range of the rectangle
+	if (xf >= x1 && xf <= x4 && yf <= y1 && yf >= y2) {
+		// Handle event
+	}
+}
+

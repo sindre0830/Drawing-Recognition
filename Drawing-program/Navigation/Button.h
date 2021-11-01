@@ -26,6 +26,7 @@ public:
 
 	void createRect();
 	void draw();
+	void detectClick(double x, double y);
 };
 
 #endif // !__BUTTON_h
