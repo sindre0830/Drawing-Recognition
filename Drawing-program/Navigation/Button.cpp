@@ -24,15 +24,14 @@ Button::~Button() {
 
 }
 
-void Button::init() {
-	
-}
-
+/**
+ *	Create a rectangle.
+ */
 void Button::createRect() {
-	vertices.push_back(x1); vertices.push_back(y1);
-	vertices.push_back(x2); vertices.push_back(y2);
-	vertices.push_back(x3); vertices.push_back(y3);
-	vertices.push_back(x4); vertices.push_back(y4);
+	vertices.push_back(x1); vertices.push_back(y1);		// Top left corner
+	vertices.push_back(x2); vertices.push_back(y2);		// Bottom left corner
+	vertices.push_back(x3); vertices.push_back(y3);		// Bottom right corner
+	vertices.push_back(x4); vertices.push_back(y4);		// Top right corner
 
 	indices.push_back(0);
 	indices.push_back(1);
@@ -59,7 +58,7 @@ void Button::createRect() {
 }
 
 /**
- *	Draws the button on the screen.
+ *	Draw the button on the screen.
  */
 void Button::draw() {
 	glUseProgram(shader);

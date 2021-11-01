@@ -15,9 +15,16 @@ private:
 		  x2, y2, 
 		  x3, y3, 
 		  x4, y4;
+
+	GLuint vao, vbo, ebo, shader;
+	std::vector<GLfloat> vertices;
+	std::vector<GLuint> indices;
 public:
 	Button(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 	~Button();
+
+	void createRect();
+	void draw();
 };
 
 #endif // !__BUTTON_h
