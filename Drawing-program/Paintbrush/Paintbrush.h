@@ -5,21 +5,10 @@
 #include <GLFW/glfw3.h>
 
 #include "Point.h"
+#include "../Colors.h"
 
 #include <vector>
 #include <string>
-#include <map>
-
-enum Color {
-	black,
-	red,
-	green,
-	blue
-};
-
-struct rgb {
-	float r, g, b;
-};
 
 /**
  *	Class for controlling points.
@@ -36,7 +25,6 @@ private:
 
 	float size;
 	Color color;
-	std::map<Color, rgb> colors;
 public:
 	Paintbrush();
 	~Paintbrush();
@@ -47,7 +35,6 @@ public:
 	void setNewColor(Color color) { this->color = color; }
 
 	void init();
-	void initColors();
 	void createPoint(double x, double y);
 	void createFirstPos();
 	void createLine();
