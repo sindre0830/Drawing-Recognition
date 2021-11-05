@@ -4,6 +4,7 @@
 #include "const.h"
 #include "functions.h"
 #include "Paintbrush/Paintbrush.h"
+#include "Colors.h"
 
 #include <vector>
 #include <string>
@@ -39,6 +40,8 @@ int main() {
 
 	// Change background color
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+	initColors();
 
 	Paintbrush* paintbrush = new Paintbrush();
 
