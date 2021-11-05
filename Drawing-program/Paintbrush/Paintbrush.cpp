@@ -118,15 +118,14 @@ void Paintbrush::createFirstPos() {
 void Paintbrush::createPoint(double x, double y) {
 	// Cast to float 
 	float xf = x, yf = y;
-	Colors colors;
 	RGB rgb{};
 
 	// Set rgb for the new point
 	switch (color) {
-	case black: rgb = colors.findColor(black); break;
-	case red: rgb = colors.findColor(red); break;
-	case green: rgb = colors.findColor(green); break;
-	case blue: rgb = colors.findColor(blue);
+	case black: rgb = findColor(black); break;
+	case red: rgb = findColor(red); break;
+	case green: rgb = findColor(green); break;
+	case blue: rgb = findColor(blue);
 	}
 
 	Point* point = new Point(calculateXCoordinate(xf), calculateYCoordinate(yf), size, rgb.r, rgb.g, rgb.b);
