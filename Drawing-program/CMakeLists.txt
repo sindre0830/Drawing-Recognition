@@ -8,8 +8,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-add_subdirectory(external/glfw)
 add_subdirectory(external/glad)
+add_subdirectory(external/glfw)
+add_subdirectory(external/glm)
 add_subdirectory(external/freetype)
 
 add_executable(${PROJECT_NAME}
@@ -35,5 +36,6 @@ target_link_libraries(${PROJECT_NAME}
   PRIVATE
   glad
   glfw
+  glm
   freetype
   OpenGL::GL)
