@@ -8,8 +8,10 @@
 /**
  *	Constructor.
  */
-Button::Button(Rect rect) {
+Button::Button(Rect rect, Color color, ButtonType type) {
 	this->rect = rect;
+	this->color = color;
+	this->type = type;
 	shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
 	createRect();
 }
@@ -25,14 +27,16 @@ Button::~Button() {
  *	Create a rectangle.
  */
 void Button::createRect() {
+	RGB rgb = findColor(color);
+	float r = rgb.r, g = rgb.g, b = rgb.b;
 	vertices.push_back(rect.x1); vertices.push_back(rect.y1);		// Top left corner
-	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(rect.x2); vertices.push_back(rect.y2);		// Bottom left corner
-	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(rect.x3); vertices.push_back(rect.y3);		// Bottom right corner
-	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(rect.x4); vertices.push_back(rect.y4);		// Top right corner
-	vertices.push_back(rect.r); vertices.push_back(rect.g); vertices.push_back(rect.b);
+	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 
 	indices.push_back(0);
 	indices.push_back(1);
@@ -74,13 +78,15 @@ void Button::draw() {
 /**
  *	Detects button click.
  */
-void Button::detectClick(double x, double y) {
+bool Button::detectClick(double x, double y) {
 	float xf = calculateXCoordinate(x),
 		  yf = calculateYCoordinate(y);
 
 	// Checks if the coordinates are in the range of the rectangle
 	if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {
-		// Handle event
+		return true;
 	}
+
+	return false;
 }
 
