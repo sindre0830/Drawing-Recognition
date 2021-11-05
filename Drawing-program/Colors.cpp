@@ -1,9 +1,11 @@
 #include "Colors.h"
 
+std::map<Color, RGB> colors;
+
 /**
- *	Constructor.
+ *	Initialize all color values.
  */
-Colors::Colors() {
+void initColors() {
 	// Create the available colors
 	RGB blackVal = { 0.f, 0.f, 0.f };
 	RGB redVal = { 1.f, 0.f, 0.f };
@@ -23,6 +25,6 @@ Colors::Colors() {
  *	@param color - The name of the color to be found
  *	@return The RGB values of the color
  */
-RGB Colors::findColor(Color color) {
+RGB findColor(Color color) {
 	return colors.find(color)->second;
 }

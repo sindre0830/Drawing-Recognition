@@ -20,17 +20,9 @@ enum Color {
 	blue
 };
 
-/**
- *	Class for storing colors.
- */
-class Colors {
-private:
-	std::map<Color, RGB> colors;
-public:
-	Colors();
-	~Colors() {}
+extern std::map<Color, RGB> colors;
 
-	RGB findColor(Color color);
-};
+void initColors();
+RGB findColor(Color color);
 
 #endif
