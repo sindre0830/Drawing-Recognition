@@ -33,7 +33,7 @@ private:
 	std::vector<GLfloat> vertices;
 	std::vector<GLuint> indices;
 public:
-	Button();
+	Button() {};
 	Button(Rect rect, Color color, ButtonType type);
 	~Button();
 

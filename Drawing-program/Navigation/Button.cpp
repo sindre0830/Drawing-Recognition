@@ -29,6 +29,7 @@ Button::~Button() {
 void Button::createRect() {
 	RGB rgb = findColor(color);
 	float r = rgb.r, g = rgb.g, b = rgb.b;
+
 	vertices.push_back(rect.x1); vertices.push_back(rect.y1);		// Top left corner
 	vertices.push_back(r); vertices.push_back(g); vertices.push_back(b);
 	vertices.push_back(rect.x2); vertices.push_back(rect.y2);		// Bottom left corner
@@ -77,6 +78,9 @@ void Button::draw() {
 
 /**
  *	Detects button click.
+ *	
+ *	@param x - The mouse's x position
+ *	@param y - The mouse's y position
  */
 bool Button::detectClick(double x, double y) {
 	float xf = calculateXCoordinate(x),
