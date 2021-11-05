@@ -16,6 +16,8 @@ add_executable(${PROJECT_NAME}
 	const.h
 	functions.h
 	functions.cpp
+	Colors.h
+	Colors.cpp
 	Paintbrush/Point.h
 	Paintbrush/Point.cpp
 	Paintbrush/Paintbrush.h
@@ -23,8 +25,8 @@ add_executable(${PROJECT_NAME}
 	shaders/pointShader.h
 	Navigation/Button.h
 	Navigation/Button.cpp
-	Navigation/Buttons.h
-	Navigation/Buttons.cpp)
+	Navigation/ColorButton.h
+	Navigation/ColorButton.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
