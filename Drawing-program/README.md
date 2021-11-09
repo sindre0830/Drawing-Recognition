@@ -1,7 +1,44 @@
 # Drawing program
 
-## How to run
-1. Run the commands "git submodule init" and "git submodule update"
-2. Create a folder called "build" and run the command "cmake .." from it
-3. Open the solution that can be found in the "build" folder
-4. Right click "drawing-recognition" in the solution explorer, and select "Set as Startup Project"
+## Dependencies
+1. Requires Git, CMake, and OpenGL
+1. Fetch submodules ```git submodule update --init --recursive .```
+
+## Instructions
+
+#### Linux
+
+```sh
+git clone https://github.com/sindre0830/Drawing-Recognition
+mkdir Drawing-Recognition/Drawing-program/Build
+cd Drawing-Recognition/Drawing-program/Build
+cmake -G "Unix Makefiles" ..
+cmake --build .
+# run binary
+bin/drawing-program
+```
+
+#### Windows
+
+```sh
+git clone https://github.com/sindre0830/Drawing-Recognition
+mkdir Drawing-Recognition/Drawing-program/Build
+cd Drawing-Recognition/Drawing-program/Build
+cmake -G "Visual Studio 15 2017" -A x64 ..
+cmake --build .
+# run binary
+bin/drawing-program
+```
+
+#### MacOS (Darwin) 
+***not tested***
+
+```sh
+git clone https://github.com/sindre0830/Drawing-Recognition
+mkdir Drawing-Recognition/Drawing-program/Build
+cd Drawing-Recognition/Drawing-program/Build
+cmake -G "XCode" ..
+cmake --build .
+# run binary
+bin/drawing-program
+```
