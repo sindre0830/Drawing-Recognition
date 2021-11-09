@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <tensorflow/c/c_api.h>  // TensorFlow C API header
 
 #include "const.h"
 #include "functions.h"
@@ -12,6 +13,7 @@
 
 
 int main() {
+	std::cout << "TensorFlow Version: " << TF_Version() << std::endl;
 	// Initialize glfw
 	glfwInit();
 
