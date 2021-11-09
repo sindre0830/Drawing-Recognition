@@ -1,11 +1,10 @@
 # dataset to integer code
 DATASET_INTEGER_CONVERTER = {
-    "apple_drawing": 1,
-    "banana": 2,
-    "pear": 3,
-    "strawberry": 4,
-    "clock": 5,
-    "ghost_drawing": 6
+    "red_apple_drawing": 1,
+    "single_yellow_banana_isolated": 2,
+    "single_strawberry_isolated": 3,
+    "clock": 4,
+    "ghost_drawing": 5
 }
 # status messages
 DONE = 'DONE'
@@ -15,7 +14,7 @@ FAILED = 'FAILED'
 IMAGE_SIZE = 128
 SHAPE = (IMAGE_SIZE, IMAGE_SIZE, 3)
 DATASET_AMOUNT = len(DATASET_INTEGER_CONVERTER) + 1
-LEARNING_RATE = 0.01
+LEARNING_RATE = 0.001
 TRAIN_SIZE = 0.80
 BATCH_SIZE = 500
 EPOCHS = 50

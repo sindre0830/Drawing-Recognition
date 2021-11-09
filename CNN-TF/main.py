@@ -1,13 +1,22 @@
 # import local modules
 import dictionary as dict
-import datasetParser
+from datasetParser import (
+    isCached,
+    loadCachedData,
+    downloadDatasets,
+    parseDatasets,
+    resizeImages,
+    cacheData
+)
 from model import (
     generateModel,
     splitData,
     trainModel,
     predictModel,
     calculateCrossValidation,
-    plotResults
+    plotResults,
+    saveModel,
+    predictImage
 )
 # import foreign modules
 import os
@@ -31,34 +40,37 @@ for dataset in dict.DATASET_INTEGER_CONVERTER:
 # get dataset files with URLs from API
 datasetParser.getDatasets(datasets)
 # check if data is cached
-if datasetParser.isCached():
-    data, labels = datasetParser.loadCachedData()
+if isCached():
+    data, labels = loadCachedData()
 else:
-    # download datasets
-    datasetParser.downloadDatasets(datasets)
-    # parse datasets
-    data, labels = datasetParser.parseDatasets(datasets)
-    # resize images
-    data = datasetParser.resizeImages(data)
-    # cache data
-    datasetParser.cacheData(data, labels)
+    downloadDatasets(datasets)
+    data, labels = parseDatasets(datasets)
+    data = resizeImages(data)
+    cacheData(data, labels)
 dict.printDivider()
 
-# generate model
 model = generateModel()
 model.summary()
 dict.printDivider()
 
-# calculate cross validation on dataset
 calculateCrossValidation(data, labels)
 dict.printDivider()
 
 # split data into training- and testing set
 xTrain, xTest, yTrain, yTest = splitData(data, labels)
-# train model
 model, results = trainModel(model, xTrain, xTest, yTrain, yTest)
 dict.printDivider()
 
-# output prediction results
+# predict on testing set and output results
 predictModel(model, xTest, yTest, datasets)
 plotResults(results)
+dict.printDivider()
+
+# test model on dummy data
+predictImage(model, "apple.jpg")
+predictImage(model, "strawberry.jpg")
+predictImage(model, "banana.jpg")
+dict.printDivider()
+
+# prompt user to save the model
+saveModel(model)

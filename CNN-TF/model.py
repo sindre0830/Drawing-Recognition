@@ -12,6 +12,9 @@ import sklearn.metrics
 import keras.utils.np_utils
 import numpy as np
 import matplotlib.pyplot as plt
+import os
+import cv2
+import skimage.transform
 
 
 # Generate convolutional neural network model.
@@ -66,7 +69,7 @@ def trainModel(model: keras.models.Sequential, xTrain, xTest, yTrain, yTest):
     return model, results
 
 
-# Predict model and output classification report and confusion matrix.
+# Predict model on testing data and output classification report and confusion matrix.
 def predictModel(model: keras.models.Sequential, xTest, yTest, datasets):
     # predict dataset on model
     yPred = model.predict(xTest)
@@ -120,3 +123,21 @@ def plotResults(results):
     plt.ylim(0, 1)
     plt.legend()
     plt.show()
+
+
+# Save model to disk in HDF5 format.
+def saveModel(model: keras.models.Sequential):
+    inp = input("Do you want to save the model? Y/N: ")
+    if inp.lower() == "y":
+        dict.printOperation("Saving model...")
+        model.save("../Data/model.h5", save_format='h5')
+        print(dict.DONE)
+
+
+# Predict an image and print the results.
+def predictImage(model: keras.models.Sequential, filename):
+    img = cv2.imread(os.path.join("Dummy-Data", filename))
+    img = np.array(skimage.transform.resize(img, (dict.IMAGE_SIZE, dict.IMAGE_SIZE), mode="constant"))
+    img = np.expand_dims(img, axis=0)
+    label = model.predict(img)
+    print(filename + ": " + str(label))
