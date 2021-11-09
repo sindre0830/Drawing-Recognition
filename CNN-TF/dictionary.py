@@ -4,7 +4,8 @@ DATASET_INTEGER_CONVERTER = {
     "single_yellow_banana_isolated": 2,
     "single_strawberry_isolated": 3,
     "clock": 4,
-    "ghost_drawing": 5
+    "ghost_drawing": 5,
+    "single_cupcake_drawing_isolated": 6
 }
 # status messages
 DONE = 'DONE'
@@ -22,7 +23,7 @@ EPOCHS = 50
 
 # Print operation that allows status message on the same line.
 def printOperation(message):
-    print('{:<40s}'.format(message), end="", flush=True)
+    print('{:<60s}'.format(message), end="", flush=True)
 
 
 # Print divider in console.

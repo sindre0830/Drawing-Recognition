@@ -6,7 +6,8 @@ from datasetParser import (
     downloadDatasets,
     parseDatasets,
     resizeImages,
-    cacheData
+    cacheData,
+    getDatasets
 )
 from model import (
     generateModel,
@@ -38,7 +39,7 @@ datasets = []
 for dataset in dict.DATASET_INTEGER_CONVERTER:
     datasets.append(dataset)
 # get dataset files with URLs from API
-datasetParser.getDatasets(datasets)
+getDatasets(datasets)
 # check if data is cached
 if isCached():
     data, labels = loadCachedData()
