@@ -1,9 +1,6 @@
-#include <glad/glad.h>
-
 #include "functions.h"
-#include "const.h"
-
 #include <iostream>
+#include "const.h"
 
 /**
  *  Transforms x coordinate.
@@ -97,4 +94,3 @@ GLuint CompileShader(const std::string& vertexShaderSrc,
 
     return shaderProgram;
 }
-

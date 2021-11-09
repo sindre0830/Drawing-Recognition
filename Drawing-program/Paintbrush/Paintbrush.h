@@ -1,45 +1,46 @@
-#ifndef __PAINTBRUSH_H
-#define __PAINTBRUSH_H
+#ifndef PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_PAINTBRUSH_PAINTBRUSH_H_
+#define PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_PAINTBRUSH_PAINTBRUSH_H_
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include <vector>
+#include <string>
+#include <utility>
 #include "Point.h"
 #include "../Colors.h"
 
-#include <vector>
-#include <string>
 
 /**
  *	Class for controlling points.
  */
 class Paintbrush {
-private:
-	std::vector<Point*> points;
-	std::vector<GLfloat> vertices;
-	std::vector<GLuint> indices;
+ private:
+    std::vector<Point*> points;
+    std::vector<GLfloat> vertices;
+    std::vector<GLuint> indices;
 
-	GLuint vao, vbo, ebo, shader;
-	int indices_lastIndex;
-	bool newPos;
+    GLuint vao, vbo, ebo, shader;
+    int indices_lastIndex;
+    bool newPos;
 
-	float size;
-	Color color;
-public:
-	Paintbrush();
-	~Paintbrush();
+    float size;
+    Color color;
 
-	std::vector<Point*> getPoints() { return points; }
-	int getPointsSize() { return points.size(); }
-	void setNewPos(bool newPos) { this->newPos = newPos; }
-	void setNewColor(Color color) { this->color = color; }
+ public:
+    Paintbrush();
+    ~Paintbrush();
 
-	void init();
-	void createPoint(double x, double y);
-	void createFirstPos();
-	void createLine();
-	std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
-	void draw();
+    std::vector<Point*> getPoints() { return points; }
+    int getPointsSize() { return points.size(); }
+    void setNewPos(bool newPos) { this->newPos = newPos; }
+    void setNewColor(Color color) { this->color = color; }
+
+    void init();
+    void createPoint(double x, double y);
+    void createFirstPos();
+    void createLine();
+    std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
+    void draw();
 };
 
-#endif // !__PAINTBRUSH_H
+#endif  // PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_PAINTBRUSH_PAINTBRUSH_H_

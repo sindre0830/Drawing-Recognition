@@ -8,8 +8,6 @@
  *	@param type - The button type
  *	@see Button::Button
  */
-ColorButton::ColorButton(Rect rect, Color color, ButtonType type) : Button(rect, color, type) {
-	colorValue = findColor(color);
+ColorButton::ColorButton(Rect rect, Color color, ButtonType type): Button(rect, color, type) {
+    colorValue = findColor(color);
 }
-
-

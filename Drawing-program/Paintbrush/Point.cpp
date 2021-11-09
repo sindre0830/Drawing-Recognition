@@ -11,11 +11,11 @@
  *	@param b - Blue
  */
 Point::Point(float x, float y, float size, float r, float g, float b) {
-	this->x = x;
-	this->y = y;
-	this->size = size;
+    this->x = x;
+    this->y = y;
+    this->size = size;
 
-	this->r = r;
-	this->g = g;
-	this->b = b;
+    this->r = r;
+    this->g = g;
+    this->b = b;
 }
