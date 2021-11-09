@@ -13,9 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: setup environment
+    - name: Setup Environment
       working-directory: ./Drawing-program
-      run: sudo apt-get install g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev && mkdir Build
+      run: |
+        sudo apt-get install g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev
+        mkdir Build
 
     - name: Configure CMake
       working-directory: ./Drawing-program/Build
@@ -25,6 +27,6 @@ jobs:
         cmake ./..
 
     - name: Build
-      working-directory: ./Drawing-program
+      working-directory: ./Drawing-program/Build
       run: cmake --build .
   
