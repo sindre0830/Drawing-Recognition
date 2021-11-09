@@ -15,11 +15,14 @@ jobs:
 
     - name: setup environment
       working-directory: ./Drawing-program
-      run: sudo apt-get install g++ cmake libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel && mkdir Build
+      run: sudo apt-get install g++ cmake libXrandr-dev libXinerama-dev libXcursor-dev libXi-dev && mkdir Build
 
     - name: Configure CMake
       working-directory: ./Drawing-program/Build
-      run: cmake ./..
+      run: |
+        git submodule init
+        git submodule update
+        cmake ./..
 
     - name: Build
       working-directory: ./Drawing-program
