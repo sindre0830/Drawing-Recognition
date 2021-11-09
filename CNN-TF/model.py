@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import os
 import cv2
 import skimage.transform
+import tensorflow as tf
 
 
 # Generate convolutional neural network model.
@@ -131,6 +132,12 @@ def saveModel(model: keras.models.Sequential):
     if inp.lower() == "y":
         dict.printOperation("Saving model...")
         model.save("../Data/model.h5", save_format='h5')
+        # convert model to tensorflow lite and save it
+        # source: https://www.tensorflow.org/lite/convert/
+        converter = tf.lite.TFLiteConverter.from_keras_model(model)
+        tflite_model = converter.convert()
+        with open("../Data/model.tflite", "wb") as file:
+            file.write(tflite_model)
         print(dict.DONE)
 
 
