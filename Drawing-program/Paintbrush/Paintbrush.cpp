@@ -2,6 +2,7 @@
 #include "../functions.h"
 #include "../shaders/pointShader.h"
 
+#include <cmath>
 #include <utility>      // std::pair, std::make_pair
 
 /**
