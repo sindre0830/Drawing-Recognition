@@ -1,5 +1,5 @@
-#ifndef PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_COLORS_H_
-#define PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_COLORS_H_
+#ifndef COLORS_H_
+#define COLORS_H_
 
 #include <map>
 
@@ -25,4 +25,4 @@ extern std::map<Color, RGB> colors;
 void initColors();
 RGB findColor(Color color);
 
-#endif  // PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_COLORS_H_
+#endif  // COLORS_H_

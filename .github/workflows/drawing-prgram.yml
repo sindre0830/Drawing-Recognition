@@ -34,5 +34,5 @@ jobs:
 
     - name: Linting Checker
       working-directory: ./Drawing-program
-      run: cpplint --linelength=100 --filter=-build/include_subdir --recursive --exclude=external/* --exclude=Build/* --exclude=shaders/* *
+      run: cpplint --root=. --linelength=100 --filter=-build/include_subdir --recursive --exclude=external/* --exclude=Build/* --exclude=shaders/* *
   

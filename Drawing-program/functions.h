@@ -1,5 +1,5 @@
-#ifndef PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_FUNCTIONS_H_
-#define PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_FUNCTIONS_H_
+#ifndef FUNCTIONS_H_
+#define FUNCTIONS_H_
 
 #include <glad/glad.h>
 #include <string>
@@ -11,4 +11,4 @@ GLuint CompileShader(const std::string& vertexShaderSrc,
                      const std::string& fragmentShaderSrc,
                      const std::string& geometryShaderSrc/*=""*/);
 
-#endif  // PROJECTS_DRAWING_RECOGNITION_DRAWING_PROGRAM_FUNCTIONS_H_
+#endif  // FUNCTIONS_H_
