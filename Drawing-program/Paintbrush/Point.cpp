@@ -1,3 +1,12 @@
+/**
+ * @file Point.cpp
+ * @author Maren Skårestuen Grindal
+ * @version 0.1
+ * @date 2021-11-09
+ *
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ */
+
 #include "Point.h"
 
 /**
@@ -11,11 +20,11 @@
  *	@param b - Blue
  */
 Point::Point(float x, float y, float size, float r, float g, float b) {
-	this->x = x;
-	this->y = y;
-	this->size = size;
+    this->x = x;
+    this->y = y;
+    this->size = size;
 
-	this->r = r;
-	this->g = g;
-	this->b = b;
+    this->r = r;
+    this->g = g;
+    this->b = b;
 }
