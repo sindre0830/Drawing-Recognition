@@ -110,7 +110,8 @@ add_executable(${PROJECT_NAME}
 	Navigation/Button.h
 	Navigation/Button.cpp
 	Navigation/ColorButton.h
-	Navigation/ColorButton.cpp)
+	Navigation/ColorButton.cpp
+    model.h model.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 

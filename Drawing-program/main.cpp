@@ -1,11 +1,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <tensorflow/c/c_api.h>  // TensorFlow C API header
 
 #include "const.h"
 #include "functions.h"
 #include "Paintbrush/Paintbrush.h"
 #include "Colors.h"
+#include "model.h"
 
 #include <vector>
 #include <string>
@@ -13,7 +13,12 @@
 
 
 int main() {
-	std::cout << "TensorFlow Version: " << TF_Version() << std::endl;
+	// initialize model
+	Model* model = new Model();
+	if (model->init() == EXIT_FAILURE) {
+		return EXIT_FAILURE;
+	}
+
 	// Initialize glfw
 	glfwInit();
 
