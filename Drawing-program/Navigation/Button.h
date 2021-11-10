@@ -1,3 +1,12 @@
+/**
+ * @file Button.h
+ * @author Maren Skårestuen Grindal
+ * @version 0.1
+ * @date 2021-11-09
+ *
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ */
+
 #ifndef NAVIGATION_BUTTON_H_
 #define NAVIGATION_BUTTON_H_
 

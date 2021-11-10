@@ -1,3 +1,12 @@
+/**
+ * @file main.cpp
+ * @author Maren Skårestuen Grindal
+ * @version 0.1
+ * @date 2021-11-09
+ *
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ */
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <vector>

@@ -1,3 +1,12 @@
+/**
+ * @file Colors.h
+ * @author Maren Skårestuen Grindal
+ * @version 0.1
+ * @date 2021-11-09
+ *
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ */
+
 #ifndef COLORS_H_
 #define COLORS_H_
 
