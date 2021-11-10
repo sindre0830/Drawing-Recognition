@@ -38,12 +38,12 @@ dict.printDivider()
 datasets = []
 for dataset in dict.DATASET_INTEGER_CONVERTER:
     datasets.append(dataset)
-# get dataset files with URLs from API
-getDatasets(datasets)
 # check if data is cached
 if isCached():
     data, labels = loadCachedData()
 else:
+    # get dataset files with URLs from API
+    getDatasets(datasets)
     downloadDatasets(datasets)
     data, labels = parseDatasets(datasets)
     data = resizeImages(data)

@@ -131,6 +131,7 @@ def saveModel(model: keras.models.Sequential):
     inp = input("Do you want to save the model? Y/N: ")
     if inp.lower() == "y":
         dict.printOperation("Saving model...")
+        model.save("../Data/model")
         model.save("../Data/model.h5", save_format='h5')
         # convert model to tensorflow lite and save it
         # source: https://www.tensorflow.org/lite/convert/
