@@ -1,5 +1,5 @@
-#ifndef DRAWING_PROGRAM_TEXT_FONT_H_
-#define DRAWING_PROGRAM_TEXT_FONT_H_
+#ifndef TEXT_FONT_H_
+#define TEXT_FONT_H_
 
 /**
  * @file Font.h
@@ -49,4 +49,4 @@ class Font {
     void RenderText(std::string text, float x, float y, float scale, glm::vec3 color);
 };
 
-#endif  // DRAWING_PROGRAM_TEXT_FONT_H_
+#endif  // TEXT_FONT_H_
