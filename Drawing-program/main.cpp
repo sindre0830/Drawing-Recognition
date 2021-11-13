@@ -85,6 +85,11 @@ int main() {
 		else if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) paintbrush->setNewColor(green);
 		else if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) paintbrush->setNewColor(blue);
 		else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
+
+		// send data to model
+		int* pixels[4 * 128 * 128];
+		glReadPixels(0, 0, 128, 128, GL_BGR, GL_FLOAT, pixels);
+		model->predict(pixels);
 	
 		// Limit to 60 fps
 		while (glfwGetTime() < t + 1.0 / 60) {
