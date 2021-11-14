@@ -9,13 +9,8 @@
 
 #include "SceneManager.h"
 
-#include "MenuScene.h"
-#include "GameScene.h"
-
 SceneManager::SceneManager() {
-
 }
 
 SceneManager::~SceneManager() {
-
 }

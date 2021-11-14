@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
-#ifndef SCENES_SCENE_H
-#define SCENES_SCENE_H
+#ifndef SCENES_SCENE_H_
+#define SCENES_SCENE_H_
 
 /**
  * Base class for all scenes.
@@ -20,4 +20,4 @@ class Scene {
      ~Scene();
 };
 
-#endif  // SCENES_SCENE_H
+#endif  // SCENES_SCENE_H_

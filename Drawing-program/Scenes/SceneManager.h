@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
-#ifndef SCENES_SCENEMANAGER_H
-#define SCENES_SCENEMANAGER_H
+#ifndef SCENES_SCENEMANAGER_H_
+#define SCENES_SCENEMANAGER_H_
 
 #include "Scene.h"
 
@@ -28,4 +28,4 @@ class SceneManager {
      void setScene(int newScene) { currentScene = scenes[newScene]; }
 };
 
-#endif  // SCENES_SCENEMANAGER_H
+#endif  // SCENES_SCENEMANAGER_H_
