@@ -14,3 +14,10 @@ SceneManager::SceneManager() {
 
 SceneManager::~SceneManager() {
 }
+
+/**
+ *  Draw the current scene.
+ */
+void SceneManager::draw() {
+    currentScene->draw();
+}

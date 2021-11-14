@@ -26,6 +26,7 @@ class SceneManager {
      ~SceneManager();
 
      void setScene(int newScene) { currentScene = scenes[newScene]; }
+     void draw();
 };
 
 #endif  // SCENES_SCENEMANAGER_H_

@@ -9,9 +9,20 @@
 
 #include "Scene.h"
 
+/**
+ *  Constructor.
+ */
 Scene::Scene() {
 }
 
+/** 
+ *  Deconstructor.
+ */
 Scene::~Scene() {
 }
 
+/**
+ *  Draw the screen.
+ */
+void Scene::draw() {
+}

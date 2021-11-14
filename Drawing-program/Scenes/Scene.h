@@ -18,6 +18,8 @@ class Scene {
  public:
      Scene();
      ~Scene();
+
+     void draw();
 };
 
 #endif  // SCENES_SCENE_H_
