@@ -12,6 +12,10 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <vector>
 #include "../Colors.h"
 
@@ -39,6 +43,7 @@ class Button {
     GLuint vao, vbo, ebo, shader;
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
+    glm::mat4 projection;
  public:
     Button() {}
     Button(Rect rect, Color color, ButtonType type);

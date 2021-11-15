@@ -10,6 +10,7 @@
 #include "Button.h"
 #include <iostream>
 #include "../functions.h"
+#include "../const.h"
 #include "../shaders/buttonShader.h"
 
 /**
@@ -20,6 +21,11 @@ Button::Button(Rect rect, Color color, ButtonType type) {
     this->color = color;
     this->type = type;
     shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
+    projection = glm::ortho(
+        0.0f,
+        static_cast<float>(WINDOW_WIDTH),
+        0.0f,
+        static_cast<float>(WINDOW_HEIGHT));
     createRect();
 }
 
@@ -112,6 +118,12 @@ void Button::createRect() {
  */
 void Button::draw() {
     glUseProgram(shader);
+    glUniformMatrix4fv(glGetUniformLocation(
+        shader,
+        "projection"),
+        1,
+        GL_FALSE,
+        glm::value_ptr(projection));
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 }

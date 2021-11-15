@@ -11,12 +11,15 @@ layout(location = 1) in vec3 aColor;
 // Outputs
 out vec3 vsColor;
 
+// Uniform
+uniform mat4 projection;
+
 void main() {
 	// Pass color to fragment shader
 	vsColor = aColor;
 
 	// Set position
-	gl_Position = vec4(aPosition, 1.0f, 1.0f);
+	gl_Position = projection * vec4(aPosition, 1.0f, 1.0f);
 }
 	
 )";
