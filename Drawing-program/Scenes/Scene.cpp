@@ -9,10 +9,15 @@
 
 #include "Scene.h"
 
+#include <GLFW/glfw3.h>
+
 /**
  *  Constructor.
  */
 Scene::Scene() {
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    width = mode->width;
+    height = mode->height;
 }
 
 /** 

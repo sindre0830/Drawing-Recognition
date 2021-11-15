@@ -15,11 +15,15 @@
  */
 class Scene {
  private:
+     int width, height;
  public:
      Scene();
      ~Scene();
 
-     void draw();
+     int getWidth() { return width; }
+     int getHeight() { return height; }
+
+     virtual void draw();
 };
 
 #endif  // SCENES_SCENE_H_
