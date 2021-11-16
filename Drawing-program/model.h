@@ -1,5 +1,9 @@
 #ifndef MODEL_H_
 #define MODEL_H_
+/* external libraries */
+#include <string>
+
+void initPythonScript(std::string filename);
 
 /**
  *	Class for controlling points.
@@ -11,7 +15,7 @@ class Model {
  public:
     Model();
     ~Model();
-    int init();
+    void initScript();
     void predict(int* data[4 * 128 * 128]);
 };
 

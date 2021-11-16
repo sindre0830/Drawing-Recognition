@@ -10,14 +10,12 @@
 #include <vector>
 #include <string>
 #include <iostream>
-
+#include <thread>
 
 int main() {
 	// initialize model
 	Model* model = new Model();
-	if (model->init() == EXIT_FAILURE) {
-		return EXIT_FAILURE;
-	}
+	std::thread t1(initPythonScript, "../predict.py");
 
 	// Initialize glfw
 	glfwInit();

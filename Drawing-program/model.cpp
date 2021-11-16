@@ -4,17 +4,16 @@
 #include <Python.h>
 
 Model::Model() {
+	std::cout << "Python Version: " << PY_VERSION << std::endl;
 }
 
 Model::~Model() {
 }
 
-int Model::init() {
-	std::cout << "Python Version: " << PY_VERSION << std::endl;
+void initPythonScript(std::string filename) {
     Py_Initialize();
-    PyRun_SimpleString("exec(open(\"../predict.py\").read())");
+    PyRun_SimpleString(("exec(open(\"" + filename + "\").read())").c_str());
     Py_Finalize();
-    return EXIT_SUCCESS;
 }
 
 void Model::predict(int* data[4 * 128 * 128]) {
