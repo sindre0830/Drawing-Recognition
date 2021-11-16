@@ -3,8 +3,9 @@ cmake_minimum_required(VERSION 3.15)
 project(drawing-recognition)
 
 find_package(OpenGL REQUIRED)
-find_package(Armadillo REQUIRED)
-find_package(mlpack REQUIRED)
+find_package(PythonLibs REQUIRED)
+
+include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -43,6 +44,5 @@ target_link_libraries(${PROJECT_NAME}
   glm
   freetype
   OpenGL::GL
-  ${ARMADILLO_LIBRARIES}
-  ${MLPACK_LIBRARIES}
+  ${PYTHON_LIBRARIES}
 )

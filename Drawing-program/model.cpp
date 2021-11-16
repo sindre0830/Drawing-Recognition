@@ -1,6 +1,7 @@
 #include "model.h"
 /* external libraries */
 #include <iostream>
+#include <Python.h>
 
 Model::Model() {
 }
@@ -9,7 +10,7 @@ Model::~Model() {
 }
 
 int Model::init() {
-	std::cout << "TensorFlow Version: " << mlpack::util::GetVersion() << std::endl;
+	std::cout << "Python Version: " << PY_VERSION << std::endl;
     return EXIT_SUCCESS;
 }
 

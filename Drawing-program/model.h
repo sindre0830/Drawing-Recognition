@@ -2,8 +2,6 @@
 #define MODEL_H_
 /* external libraries */
 #include <mlpack/core.hpp>
-#include <armadillo>
-#include <vector>
 
 /**
  *	Class for controlling points.
