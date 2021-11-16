@@ -12,15 +12,17 @@
 
 #include "Button.h"
 #include "../Text/Font.h"
+#include <string>
 
 /**
  *	Class for creating and interacting with buttons.
  */
 class NavButton : public Button {
  private:
-     Font* text;
+     Font* textRender;
+     std::string text;
  public:
-     NavButton(Rect rect, Color color, ButtonType type);
+     NavButton(std::string text, Rect rect, Color color, ButtonType type);
     ~NavButton();
 
     void draw();

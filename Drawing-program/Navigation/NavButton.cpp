@@ -21,15 +21,15 @@
  *	@param type - The button type
  *	@see Button::Button
  */
-NavButton::NavButton(Rect rect, Color color, ButtonType type): Button(rect, color, type) {
-    text = new Font("../fonts/arial.ttf", 48);
+NavButton::NavButton(std::string text, Rect rect, Color color, ButtonType type): Button(rect, color, type) {
+    this->text = text;
+    textRender = new Font("../fonts/arial.ttf", 48);
 }
 
 /**
  *  Deconstructor.
  */
 NavButton::~NavButton() {
-    delete text;
 }
 
 /**
@@ -38,5 +38,5 @@ NavButton::~NavButton() {
 void NavButton::draw() {
     Button::draw();
     // Set the star point of the text at the lower left corner of the rectangle
-    text->RenderText("Start game", getRect().x1, getRect().y1, 1.f, glm::vec3(0.f, 0.f, 0.f));
+    textRender->RenderText(text, getRect().x1, getRect().y1, 1.f, glm::vec3(0.f, 0.f, 0.f));
 }
