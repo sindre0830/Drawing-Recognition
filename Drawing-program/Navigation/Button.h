@@ -48,6 +48,8 @@ class Button {
     Button(Rect rect, Color color, ButtonType type);
     ~Button();
 
+    Rect getRect() { return rect; }
+
     void createRect();
     void draw();
     bool detectClick(double x, double y);
