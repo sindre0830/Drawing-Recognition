@@ -1,8 +1,8 @@
 # Drawing program
 
 ## Dependencies
-- Requires Git, CMake, Python (devel), and OpenGL
-    - Python for windows: When running the installer, enable "Download debug binaries".
+- Requires Git, CMake, Python 3.9.7 (devel), and OpenGL
+    - Python for windows: When running the installer, enable "Download debug binaries". Also needs to add it to PATH
     - Linux: ```sudo dnf install python-devel```
 - Fetch submodules ```git submodule update --init --recursive .```
 
