@@ -1,7 +1,7 @@
 # Drawing program
 
 ## Dependencies
-1. Requires Git, CMake, Armadillo, mlpack, and OpenGL
+1. Requires Git, CMake, and OpenGL
 1. Fetch submodules ```git submodule update --init --recursive .```
 
 ## Instructions
