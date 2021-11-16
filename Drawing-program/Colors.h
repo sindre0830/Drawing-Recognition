@@ -26,7 +26,8 @@ enum Color {
     black,
     red,
     green,
-    blue
+    blue,
+    yellow
 };
 
 extern std::map<Color, RGB> colors;
