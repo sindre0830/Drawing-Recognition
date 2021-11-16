@@ -21,11 +21,15 @@ Button::Button(Rect rect, Color color, ButtonType type) {
     this->color = color;
     this->type = type;
     shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
+    
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    int width = mode->width;
+    int height = mode->height;
     projection = glm::ortho(
         0.0f,
-        static_cast<float>(WINDOW_WIDTH),
+        static_cast<float>(width),
         0.0f,
-        static_cast<float>(WINDOW_HEIGHT));
+        static_cast<float>(height));
     createRect();
 }
 
