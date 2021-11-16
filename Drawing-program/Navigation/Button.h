@@ -12,12 +12,11 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <vector>
+#include "../Colors.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-#include <vector>
-#include "../Colors.h"
 
 struct Rect {
     float x1, y1,
