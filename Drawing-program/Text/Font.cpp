@@ -8,10 +8,9 @@
  */
 
 #include "Font.h"
-
+#include <GLFW/glfw3.h>
 #include <iostream>
 #include <utility>
-
 #include "../functions.h"
 #include "../const.h"
 #include "../shaders/textShader.h"
@@ -27,14 +26,19 @@ Font::Font(std::string path, int size) {
     this->size = size;
     loadFont();
 
+    // Get the monitor's dimensions to set orthographic matrix
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    int width = mode->width;
+    int height = mode->height;
+
     // compile and setup the shader
     // ----------------------------
     shader = CompileShader(textVertexShaderSrc, textFragmentShaderSrc, "");
     projection = glm::ortho(
         0.0f,
-        static_cast<float>(WINDOW_WIDTH),
+        static_cast<float>(width),
         0.0f,
-        static_cast<float>(WINDOW_HEIGHT));
+        static_cast<float>(height));
 
     // configure VAO/VBO for texture quads
     // -----------------------------------
