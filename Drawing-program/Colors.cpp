@@ -20,12 +20,14 @@ void initColors() {
     RGB redVal = { 1.f, 0.f, 0.f };
     RGB greenVal = { 0.f, 1.f, 0.f };
     RGB blueVal = { 0.f, 0.f, 1.f };
+    RGB yellowVal = { 0.96f, 0.81f, 0.004 };
 
     // Insert them to map with their names as the key
     colors.insert({ black, blackVal });
     colors.insert({ red, redVal });
     colors.insert({ green, greenVal });
     colors.insert({ blue, blueVal });
+    colors.insert({ yellow, yellowVal });
 }
 
 /**
