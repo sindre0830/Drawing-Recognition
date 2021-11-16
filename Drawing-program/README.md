@@ -1,8 +1,10 @@
 # Drawing program
 
 ## Dependencies
-1. Requires Git, CMake, and OpenGL
-1. Fetch submodules ```git submodule update --init --recursive .```
+- Requires Git, CMake, Python (devel), and OpenGL
+    - Python for windows: When running the installer, enable "Download debug binaries".
+    - Linux: ```sudo dnf install python-devel```
+- Fetch submodules ```git submodule update --init --recursive .```
 
 ## Instructions
 
