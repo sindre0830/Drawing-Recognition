@@ -1,7 +1,5 @@
 #ifndef MODEL_H_
 #define MODEL_H_
-/* external libraries */
-#include <mlpack/core.hpp>
 
 /**
  *	Class for controlling points.
