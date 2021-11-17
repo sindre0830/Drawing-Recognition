@@ -36,7 +36,7 @@ int main() {
 			  << "\n\t\ta - black"
 			  << "\n\t\tr - red"
 			  << "\n\t\tg - green"
-			  << "\n\t\tb - blue";
+			  << "\n\t\tb - blue\n";
 
 	glfwMakeContextCurrent(window);
 
@@ -54,10 +54,18 @@ int main() {
 
 	float t = 0.f; // Total time elapsed since start of program
 
+	// setup timer
+	static double limitFPS = 1.0 / 60.0;
+	double lastTime = glfwGetTime(), nowTime = 0, timer = lastTime, deltaTime = 0; 
+
 	while (!glfwWindowShouldClose(window)) {
 		// Time management
 		float dt = glfwGetTime() - t;
 		t += dt;
+
+		nowTime = glfwGetTime();
+		deltaTime += (nowTime - lastTime) / limitFPS;
+		lastTime = nowTime;
 
 		glfwPollEvents();
 
@@ -84,10 +92,13 @@ int main() {
 		else if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) paintbrush->setNewColor(blue);
 		else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
 
-		// send data to model
-		int* pixels[4 * 128 * 128];
-		glReadPixels(0, 0, 128, 128, GL_BGR, GL_FLOAT, pixels);
-		model->predict(pixels);
+		// branch if there has been one second since game loop started
+		if (glfwGetTime() - timer > 1.0f) {
+			model->predict();
+			timer++;
+		}
+		// reset delta time 
+		if(deltaTime >= 1.0) deltaTime -= 1.0;
 	
 		// Limit to 60 fps
 		while (glfwGetTime() < t + 1.0 / 60) {

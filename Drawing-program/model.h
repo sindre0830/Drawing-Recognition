@@ -16,7 +16,7 @@ class Model {
     Model();
     ~Model();
     void initScript();
-    void predict(int* data[4 * 128 * 128]);
+    void predict();
 };
 
 #endif  // MODEL_H_
