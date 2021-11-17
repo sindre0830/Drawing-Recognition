@@ -29,12 +29,12 @@ void Model::predict(GLFWwindow* window) {
 	GLubyte* pixels = new GLubyte[3 * WINDOW_WIDTH * WINDOW_HEIGHT];
 
 	// Read screen pixels
-	glReadPixels(0, 0, 800.f, 800.f, GL_RGB, GL_UNSIGNED_BYTE, pixels);
+	glReadPixels(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
 	stbi_flip_vertically_on_write(true);
 
 	// Save to file
-	stbi_write_jpg("../Data/test.jpg", 800.f, 800.f, 3, pixels, 3 * 800.f);
+	stbi_write_jpg("../Data/test.jpg", WINDOW_WIDTH, WINDOW_HEIGHT, 3, pixels, 100);
 
 	delete[] pixels;
 }
