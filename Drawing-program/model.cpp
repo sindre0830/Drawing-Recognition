@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <iostream>
 #include <Python.h>
-#include <FreeImage.h>
+#include "external/stb_image_write.h"
 #include <GLFW/glfw3.h>
 
 Model::Model() {
@@ -21,26 +21,20 @@ void initPythonScript(std::string filename) {
     Py_Finalize();
 }
 
-void Model::predict() {
-    std::cout << "oi" << std::endl;
-    std::filesystem::create_directories("../Data");
+void Model::predict(GLFWwindow* window) {
+	int width, height;
+	glfwGetWindowSize(window, &width, &height);
 
-    BYTE* pixels = new BYTE[3 * WINDOW_WIDTH * WINDOW_HEIGHT];
-    glReadPixels(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, GL_BGR, GL_UNSIGNED_BYTE, pixels);
+	std::filesystem::create_directories("../Data");
+	GLubyte* pixels = new GLubyte[3 * WINDOW_WIDTH * WINDOW_HEIGHT];
 
-    FIBITMAP* image = FreeImage_ConvertFromRawBits(
-        pixels,
-        WINDOW_WIDTH,
-        WINDOW_HEIGHT,
-        3 * WINDOW_WIDTH,
-        24,
-        0x0000FF,
-        0x00FF00,
-        0xFF0000,
-        false
-    );
-    FreeImage_Save(FIF_BMP, image, "../Data/tmp.png", 0);
+	// Read screen pixels
+	glReadPixels(0, 0, 800.f, 800.f, GL_RGB, GL_UNSIGNED_BYTE, pixels);
 
-    FreeImage_Unload(image);
-    delete[] pixels;
+	stbi_flip_vertically_on_write(true);
+
+	// Save to file
+	stbi_write_jpg("../Data/test.jpg", 800.f, 800.f, 3, pixels, 3 * 800.f);
+
+	delete[] pixels;
 }

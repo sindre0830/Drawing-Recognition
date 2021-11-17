@@ -1,16 +1,25 @@
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 #include "const.h"
 #include "functions.h"
 #include "Paintbrush/Paintbrush.h"
 #include "Colors.h"
 #include "model.h"
+#include "external/stb_image_write.h"
 
 #include <vector>
 #include <string>
 #include <iostream>
 #include <thread>
+#include <filesystem>
 
 int main() {
 	// initialize model
@@ -47,6 +56,8 @@ int main() {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	initColors();
+
+	glm::ortho(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT);
 
 	Paintbrush* paintbrush = new Paintbrush();
 
@@ -94,7 +105,7 @@ int main() {
 
 		// branch if there has been one second since game loop started
 		if (glfwGetTime() - timer > 1.0f) {
-			model->predict();
+			model->predict(window);
 			timer++;
 		}
 		// reset delta time 
