@@ -80,7 +80,8 @@
         "unordered_set": "cpp",
         "netfwd": "cpp",
         "regex": "cpp",
-        "scoped_allocator": "cpp"
+        "scoped_allocator": "cpp",
+        "*.ipp": "cpp"
     },
     "cmake.configureOnOpen": true
 }

@@ -115,11 +115,12 @@ int main() {
 		while (glfwGetTime() < t + 1.0 / 60) {
 		}
 	}
-
+	// clean up
 	glUseProgram(0);
-
 	glfwDestroyWindow(window);
 	glfwTerminate();
+	model->terminate();
+	t1.join();
 }
 
 

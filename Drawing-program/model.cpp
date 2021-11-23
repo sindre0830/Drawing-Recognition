@@ -7,13 +7,14 @@
 #include <Python.h>
 #include "external/stb_image_write.h"
 #include <GLFW/glfw3.h>
+#include <zmq.hpp>
+#include <string>
 
 Model::Model() {
 	std::cout << "Python Version: " << PY_VERSION << std::endl;
 }
 
-Model::~Model() {
-}
+Model::~Model() {}
 
 void initPythonScript(std::string filename) {
     Py_Initialize();
@@ -37,4 +38,19 @@ void Model::predict(GLFWwindow* window) {
 	stbi_write_jpg("../Data/test.jpg", WINDOW_WIDTH, WINDOW_HEIGHT, 3, pixels, 100);
 
 	delete[] pixels;
+
+	ping("do something...");
+}
+
+void Model::ping(const std::string cmd) {
+	// setup connection
+	zmq::context_t ctx(1);
+	zmq::socket_t sock(ctx, zmq::socket_type::req);
+	sock.connect("tcp://localhost:5959");
+	// ping server
+	sock.send(zmq::buffer(cmd), zmq::send_flags::dontwait);
+}
+
+void Model::terminate() {
+	ping("terminate");
 }

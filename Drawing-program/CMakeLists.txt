@@ -4,6 +4,7 @@ project(drawing-recognition)
 
 find_package(OpenGL REQUIRED)
 find_package(PythonLibs REQUIRED)
+find_package(cppzmq REQUIRED)
 
 include_directories(${PYTHON_INCLUDE_DIRS})
 
@@ -45,4 +46,5 @@ target_link_libraries(${PROJECT_NAME}
 	freetype
 	OpenGL::GL
 	${PYTHON_LIBRARIES}
+	cppzmq
 )
