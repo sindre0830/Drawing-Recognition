@@ -12,9 +12,10 @@
 #include <GLFW/glfw3.h>
 
 AboutScene::AboutScene() {
-    text = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
+    heading = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
+    text = new Font("../fonts/arial.ttf", 48);
 
-    int x1 = getWidth() / 2.f, y1 = getHeight() / 2.f - 300,
+    int x1 = getWidth() / 2.f, y1 = 200,
         x2 = getWidth() / 2.f + 100, y2 = y1 - 150;
     Rect rect = {
         x1, y1,
@@ -44,8 +45,13 @@ AboutScene::~AboutScene() {
  */
 void AboutScene::draw() {
     // Render title
-    text->RenderText("About", getWidth() / 2.f, getHeight() - 100.f, 1.f,
-                     glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
+    heading->RenderText("About", getWidth() / 2.f, getHeight() - 100.f, 1.f,
+                        glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
+
+    // Render about text
+    text->RenderText("You have 30 seconds to draw the word that shows up on the screen.\n" 
+                     "For each drawing the game guesses what are, you will get a point.",
+                      getWidth() / 2.f, getHeight() / 2.f, 1.f, glm::vec3(0.f, 0.f, 0.f));
 
     // Draw buttons
     for (auto it = navigation.begin(); it != navigation.end(); ++it)
