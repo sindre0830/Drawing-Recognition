@@ -12,6 +12,7 @@
 
 Model::Model() {
 	std::cout << "Python Version: " << PY_VERSION << std::endl;
+	prediction = "Unknown";
 }
 
 Model::~Model() {}
@@ -49,6 +50,10 @@ void Model::ping(const std::string cmd) {
 	sock.connect("tcp://localhost:5959");
 	// ping server
 	sock.send(zmq::buffer(cmd), zmq::send_flags::dontwait);
+	// get prediction
+	zmq::message_t msg;
+	sock.recv(msg);
+	prediction = msg.to_string();
 }
 
 void Model::terminate() {

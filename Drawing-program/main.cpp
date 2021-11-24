@@ -106,6 +106,7 @@ int main() {
 		// branch if there has been one second since game loop started
 		if (glfwGetTime() - timer > 1.0f) {
 			model->predict(window);
+			std::cout << model->prediction << std::endl;
 			timer++;
 		}
 		// reset delta time 

@@ -23,19 +23,19 @@ socket.bind("tcp://*:5959")
 
 model = keras.models.load_model("../../Data/model")
 
-labels = ["unknown", "apple", "banana", "strawberry", "clock", "ghost", "cupcake"]
+labels = ["Unknown", "Apple", "Banana", "Strawberry", "Clock", "Ghost", "Cupcake"]
 
 while True:
     #  Wait for next request from client
     message = socket.recv()
 
     if message == b"terminate":
-        print("Terminating program...")
+        socket.send(b"")
         break
 
     img = cv2.imread("../Data/test.jpg")
     if img is None:
-        print("error")
+        print("ERROR: Unable to read image...")
         socket.send(b"")
         continue
     
@@ -44,7 +44,5 @@ while True:
     predictions = model.predict(img)
     prediction = labels[np.argmax(predictions)]
 
-    print(prediction)
-
     #  Send reply back to client
-    socket.send(b"")
+    socket.send(prediction.encode())
