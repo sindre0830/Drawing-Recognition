@@ -67,7 +67,10 @@ int main() {
 
 	// setup timer
 	static double limitFPS = 1.0 / 60.0;
-	double lastTime = glfwGetTime(), nowTime = 0, timer = lastTime, deltaTime = 0; 
+	double lastTime = glfwGetTime(), nowTime = 0, timer = lastTime, deltaTime = 0;
+
+	// get first prediction
+	model->predict(window);
 
 	while (!glfwWindowShouldClose(window)) {
 		// Time management
@@ -103,11 +106,11 @@ int main() {
 		else if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) paintbrush->setNewColor(blue);
 		else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
 
-		// branch if there has been one second since game loop started
-		if (glfwGetTime() - timer > 1.0f) {
+		// branch if there has been two second since game loop started
+		if (glfwGetTime() - timer > 2.0f) {
 			model->predict(window);
 			std::cout << model->prediction << std::endl;
-			timer++;
+			timer += 2;
 		}
 		// reset delta time 
 		if(deltaTime >= 1.0) deltaTime -= 1.0;
