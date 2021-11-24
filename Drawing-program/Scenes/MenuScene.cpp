@@ -48,3 +48,16 @@ MenuScene::~MenuScene() {
         navigation.erase(it);
     }
 }
+
+/**
+ *  Draw the menu on screen.
+ */
+void MenuScene::draw() {
+    // Render title
+    text->RenderText("Drawing Recognition", getWidth() / 2.f, getHeight() - 100.f, 1.f,
+                     glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
+
+    // Draw buttons
+    for (auto it = navigation.begin(); it != navigation.end(); ++it)
+        (*it)->draw();
+}
