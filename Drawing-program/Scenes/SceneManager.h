@@ -14,6 +14,7 @@
 
 #include <vector>
 #include <iostream>
+
 /**
  * Base class for all scenes.
  */
@@ -25,7 +26,6 @@ class SceneManager {
      SceneManager();
      ~SceneManager();
 
-     void setScene(int newScene) { currentScene = scenes[newScene]; }
      void draw();
 };
 
