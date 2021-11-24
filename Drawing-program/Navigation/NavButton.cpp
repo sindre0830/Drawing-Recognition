@@ -22,9 +22,10 @@
  *	@param type - The button type
  *	@see Button::Button
  */
-NavButton::NavButton(std::string text, Rect rect, Color color, ButtonType type):
+NavButton::NavButton(std::string text, SceneType scene, Rect rect, Color color, ButtonType type):
                      Button(rect, color, type) {
     this->text = text;
+    this->scene = scene;
     textRender = new Font("../fonts/arial.ttf", 48);
 }
 

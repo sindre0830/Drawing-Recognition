@@ -13,7 +13,7 @@
 #include <string>
 #include "Button.h"
 #include "../Text/Font.h"
-#include "../Scenes/SceneManager.h"
+#include "../Scenes/Scene.h"
 
 /**
  *	Class for creating and interacting with buttons.
@@ -22,11 +22,13 @@ class NavButton : public Button {
  private:
      Font* textRender;
      std::string text;
+     SceneType scene;
  public:
-     NavButton(std::string text, Rect rect, Color color, ButtonType type);
+     NavButton(std::string text, SceneType scene, Rect rect, Color color, ButtonType type);
     ~NavButton();
 
     void draw();
+    SceneType getScene() { return scene; }
 };
 
 #endif  // NAVIGATION_NAVBUTTON_H_

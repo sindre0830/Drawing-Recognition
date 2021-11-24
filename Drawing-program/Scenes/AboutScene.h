@@ -20,6 +20,7 @@
  */
 class AboutScene : public Scene {
  private:
+     Font* heading;
      Font* text;
      std::vector<NavButton*> navigation;
  public:
