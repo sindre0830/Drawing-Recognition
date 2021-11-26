@@ -2,13 +2,21 @@
  * @file Scene.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-14
+ * @date 2021-11-26
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #ifndef SCENES_SCENE_H_
 #define SCENES_SCENE_H_
+
+#include <vector>
+
+enum SceneType {
+    menu,
+    about,
+    word
+};
 
 /**
  * Base class for all scenes.
@@ -24,6 +32,7 @@ class Scene {
      int getHeight() { return height; }
 
      virtual void draw();
+     virtual SceneType checkButtonClick(double x, double y) { return menu; }
 };
 
 #endif  // SCENES_SCENE_H_

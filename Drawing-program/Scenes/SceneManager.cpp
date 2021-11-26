@@ -11,6 +11,7 @@
 #include "MenuScene.h"
 #include "AboutScene.h"
 #include "WordScene.h"
+#include "GameScene.h"
 
 SceneManager::SceneManager() {
     MenuScene* menu = new MenuScene();
@@ -22,7 +23,10 @@ SceneManager::SceneManager() {
     WordScene* word = new WordScene();
     scenes.push_back(word);
 
-    currentScene = word;
+    GameScene* game = new GameScene();
+    scenes.push_back(game);
+
+    currentScene = game;
 }
 
 SceneManager::~SceneManager() {
