@@ -138,8 +138,9 @@ void Button::draw() {
  *	@param y - The mouse's y position
  */
 bool Button::detectClick(double x, double y) {
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     float xf = x,
-          yf = 1080 - y;
+          yf = mode->height - y;
 
     // Checks if the coordinates are in the range of the rectangle
     if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {

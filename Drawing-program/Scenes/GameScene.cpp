@@ -8,6 +8,9 @@
  */
 
 #include "GameScene.h"
+#include <iostream>
+#include <string>
+#include <sstream>
 
 GameScene::GameScene() {
     text = new Font("../fonts/arial.ttf", 48);
@@ -55,18 +58,20 @@ GameScene::~GameScene() {
 }
 
 void GameScene::draw(GLFWwindow* window) {
-    double x = 0,  // Mouse position
+    double x = 0,
            y = 0;
-                   // Paintbrush CHECK IF IT IS IN THE CORRECT PART OF THE SCENE
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-        // Get mouse position
-        glfwGetCursorPos(window, &x, &y);
 
-        // Create point on mouse position
-        paintbrush->createPoint(x, y);
-        // scenes->changeScene(x, y);
-    } else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-        paintbrush->setNewPos(true);
+    // Get mouse position
+    glfwGetCursorPos(window, &x, &y);
+
+    // Check if the mouse is touching the top or bottom part of the screen (where it is text)
+    if (y >= 80 && y <= 950) {
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+            // Create point on mouse position
+            paintbrush->createPoint(x, y);
+        } else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+            paintbrush->setNewPos(true);
+        }
     }
 
     paintbrush->draw();
