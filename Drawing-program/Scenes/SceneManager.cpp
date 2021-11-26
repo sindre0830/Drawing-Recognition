@@ -1,8 +1,8 @@
 /**
- * @file Scene.cpp
+ * @file SceneManager.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-24
+ * @date 2021-11-26
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -10,6 +10,7 @@
 #include "SceneManager.h"
 #include "MenuScene.h"
 #include "AboutScene.h"
+#include "WordScene.h"
 
 SceneManager::SceneManager() {
     MenuScene* menu = new MenuScene();
@@ -18,7 +19,10 @@ SceneManager::SceneManager() {
     AboutScene* about = new AboutScene();
     scenes.push_back(about);
 
-    currentScene = menu;
+    WordScene* word = new WordScene();
+    scenes.push_back(word);
+
+    currentScene = word;
 }
 
 SceneManager::~SceneManager() {
