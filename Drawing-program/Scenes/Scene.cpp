@@ -9,8 +9,6 @@
 
 #include "Scene.h"
 
-#include <GLFW/glfw3.h>
-
 /**
  *  Constructor.
  */
@@ -29,5 +27,5 @@ Scene::~Scene() {
 /**
  *  Draw the screen.
  */
-void Scene::draw() {
+void Scene::draw(GLFWwindow* window) {
 }

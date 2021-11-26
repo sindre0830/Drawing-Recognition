@@ -10,6 +10,9 @@
 #ifndef SCENES_SCENE_H_
 #define SCENES_SCENE_H_
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include <vector>
 
 enum SceneType {
@@ -31,7 +34,7 @@ class Scene {
      int getWidth() { return width; }
      int getHeight() { return height; }
 
-     virtual void draw();
+     virtual void draw(GLFWwindow* window);
      virtual SceneType checkButtonClick(double x, double y) { return menu; }
 };
 

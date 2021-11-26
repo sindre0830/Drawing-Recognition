@@ -8,6 +8,7 @@
  */
 
 #include "SceneManager.h"
+
 #include "MenuScene.h"
 #include "AboutScene.h"
 #include "WordScene.h"
@@ -40,8 +41,8 @@ SceneManager::~SceneManager() {
 /**
  *  Draw the current scene.
  */
-void SceneManager::draw() {
-    currentScene->draw();
+void SceneManager::draw(GLFWwindow* window) {
+    currentScene->draw(window);
 }
 
 /**

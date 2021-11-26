@@ -2,13 +2,12 @@
  * @file Button.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-26
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "Button.h"
-#include <iostream>
 #include "../functions.h"
 #include "../const.h"
 #include "../shaders/buttonShader.h"
@@ -21,7 +20,7 @@ Button::Button(Rect rect, Color color, ButtonType type) {
     this->color = color;
     this->type = type;
     shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
-    
+
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     int width = mode->width;
     int height = mode->height;
@@ -139,8 +138,8 @@ void Button::draw() {
  *	@param y - The mouse's y position
  */
 bool Button::detectClick(double x, double y) {
-    float xf = calculateXCoordinate(x),
-          yf = calculateYCoordinate(y);
+    float xf = x,
+          yf = 1080 - y;
 
     // Checks if the coordinates are in the range of the rectangle
     if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {

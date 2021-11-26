@@ -9,8 +9,6 @@
 
 #include "GameScene.h"
 
-#include <iostream>
-
 GameScene::GameScene() {
     text = new Font("../fonts/arial.ttf", 48);
 
@@ -44,18 +42,48 @@ GameScene::GameScene() {
 
         colors.push_back(color);
     }
+
+    // Create the paintrbrush
+    paintbrush = new Paintbrush();
 }
 
-void GameScene::draw() {
+/** 
+ *  Deconstructor.
+ */
+GameScene::~GameScene() {
+    delete paintbrush;
+}
+
+void GameScene::draw(GLFWwindow* window) {
+    double x = 0,  // Mouse position
+           y = 0;
+                   // Paintbrush CHECK IF IT IS IN THE CORRECT PART OF THE SCENE
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+        // Get mouse position
+        glfwGetCursorPos(window, &x, &y);
+
+        // Create point on mouse position
+        paintbrush->createPoint(x, y);
+        // scenes->changeScene(x, y);
+    } else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
+        paintbrush->setNewPos(true);
+    }
+
+    paintbrush->draw();
+
     // Render all text in the scene
     text->RenderText("Your word is:", 0, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
     text->RenderText("Timer", getWidth() / 2.f, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
     text->RenderText("Round", getWidth() - 200, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(".. is it WORD", getWidth() - 350, 50, 1.f, glm::vec3(0, 0, 0));
 
-    // Color buttons
-    for (auto it = colors.begin(); it != colors.end(); ++it)
+    // Draw the color buttons and check if one of them is clicked
+    for (auto it = colors.begin(); it != colors.end(); ++it) {
         (*it)->draw();
 
-    // Paintbrush CHECK IF IT IS IN THE CORRECT PART OF THE SCENE
+
+        if ((*it)->detectClick(x, y)) {
+            paintbrush->setNewColor((*it)->getColor());
+        }
+    }
 }

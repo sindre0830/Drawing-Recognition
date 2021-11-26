@@ -2,14 +2,16 @@
  * @file functions.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-26
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "functions.h"
+
+#include <GLFW/glfw3.h>
 #include <iostream>
-#include "const.h"
+#include "./const.h"
 
 /**
  *  Transforms x coordinate.
@@ -18,7 +20,8 @@
  *  @return The new x value
  */
 float calculateXCoordinate(float x) {
-    return (x / WINDOW_WIDTH - 0.5f) * 2.f;
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    return (x / mode->width - 0.5f) * 2.f;
 }
 
 /**
@@ -28,7 +31,8 @@ float calculateXCoordinate(float x) {
  *  @return The new y value
  */
 float calculateYCoordinate(float y) {
-    return -(y / WINDOW_HEIGHT - 0.5f) * 2.f;
+    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    return -(y / mode->height - 0.5f) * 2.f;
 }
 
 GLuint CompileShader(const std::string& vertexShaderSrc,

@@ -18,6 +18,7 @@
 class ColorButton : public Button {
  private:
     RGB colorValue;
+    Color color;
  public:
     ColorButton(Rect rect, Color color, ButtonType type);
     ~ColorButton();

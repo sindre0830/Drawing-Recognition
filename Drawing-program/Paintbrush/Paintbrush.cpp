@@ -2,7 +2,7 @@
  * @file Paintbrush.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-26
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -161,7 +161,8 @@ void Paintbrush::createPoint(double x, double y) {
         case black: rgb = findColor(black); break;
         case red: rgb = findColor(red); break;
         case green: rgb = findColor(green); break;
-        case blue: rgb = findColor(blue);
+        case blue: rgb = findColor(blue); break;
+        case yellow: rgb = findColor(yellow); break;
     }
 
     Point* point = new Point(

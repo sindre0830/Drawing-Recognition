@@ -2,7 +2,7 @@
  * @file Button.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-26
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -49,6 +49,7 @@ class Button {
     ~Button();
 
     Rect getRect() { return rect; }
+    Color getColor() { return color; }
 
     void createRect();
     void draw();

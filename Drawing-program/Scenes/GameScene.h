@@ -13,6 +13,7 @@
 #include <vector>
 #include "Scene.h"
 #include "../Text/Font.h"
+#include "../Paintbrush/Paintbrush.h"
 #include "../Navigation/ColorButton.h"
 
 /**
@@ -21,12 +22,13 @@
 class GameScene : public Scene {
  private:
      Font* text;
+     Paintbrush* paintbrush;
      std::vector<ColorButton*> colors;
  public:
      GameScene();
      ~GameScene();
 
-     void draw();
+     void draw(GLFWwindow* window);
 };
 
 #endif  // SCENES_GAMESCENE_H
