@@ -4,14 +4,13 @@ project(drawing-recognition)
 
 find_package(OpenGL REQUIRED)
 find_package(PythonLibs REQUIRED)
-find_package(cppzmq REQUIRED)
 
 include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -lzmq")
 
 add_subdirectory(external/glad)
 add_subdirectory(external/glfw)
@@ -34,7 +33,8 @@ add_executable(${PROJECT_NAME}
 	Navigation/Button.cpp
 	Navigation/ColorButton.h
 	Navigation/ColorButton.cpp
-    model.h model.cpp)
+    model.h model.cpp
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
@@ -46,5 +46,4 @@ target_link_libraries(${PROJECT_NAME}
 	freetype
 	OpenGL::GL
 	${PYTHON_LIBRARIES}
-	cppzmq
 )
