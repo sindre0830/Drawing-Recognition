@@ -67,9 +67,8 @@ GameScene::~GameScene() {
 void GameScene::draw(GLFWwindow* window) {
     // Set a timer
     t = glfwGetTime();
-    std::cout << t;
     if (timer >= 0) {
-        timer = 15 - (t + 1);
+        timer = 31 - (t + 1);
     }
 
     // Check if timer has run out
