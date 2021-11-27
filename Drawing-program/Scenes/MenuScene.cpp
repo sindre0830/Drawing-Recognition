@@ -20,21 +20,29 @@ MenuScene::MenuScene() {
     std::vector<std::string> headings{ "Exit", "High scores", "About", "Start game" };
     std::vector<SceneType> types{ about, about, about, about };
 
-    int x1 = getWidth() / 2.f, y1 = getHeight() / 2.f - 300,
-        x2 = getWidth() / 2.f + 100, y2 = y1 - 150;
+    float x1 = getWidth() / 2.f - 150.f, y1 = getHeight() / 2.f - 400.f,
+          x2 = x1 + 250.f, y2 = y1 + 50.f;
     Rect rect = {
         x1, y1,
         x1, y2,
-        y2, y2,
-        y2, x1
+        x2, y2,
+        x2, y1
     };
 
     NavButton* nav = nullptr;
     for (int i = 0; i < headings.size(); i++) {
         nav = new NavButton(headings[i], types[i], rect, yellow, navType);
         navigation.push_back(nav);
-        rect.y1 += 150;
-        rect.y2 += 150;
+
+        // Change height coordinates so the buttons are spread out
+        y2 += 200.f;
+        y1 += 200.f;
+        rect = {
+            x1, y1,
+            x1, y2,
+            x2, y2,
+            x2, y1
+        };
     }
 }
 
@@ -53,9 +61,9 @@ MenuScene::~MenuScene() {
 /**
  *  Draw the menu on screen.
  */
-void MenuScene::draw() {
+void MenuScene::draw(GLFWwindow* window) {
     // Render title
-    text->RenderText("Drawing Recognition", getWidth() / 2.f, getHeight() - 100.f, 1.f,
+    text->RenderText("Drawing Recognition", getWidth() / 2.f - 350.f, getHeight() - 150.f, 1.f,
                      glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
 
     // Draw buttons
