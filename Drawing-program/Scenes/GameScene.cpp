@@ -8,12 +8,14 @@
  */
 
 #include "GameScene.h"
-#include <iostream>
+#include <stdlib.h>
 #include <string>
-#include <sstream>
+#include <iostream>
 
 GameScene::GameScene() {
     text = new Font("../fonts/arial.ttf", 48);
+
+    timer = 0;
 
     // Add color buttons
     std::vector<Color> colorName = { red, green, blue, yellow, black };
@@ -46,6 +48,11 @@ GameScene::GameScene() {
         colors.push_back(color);
     }
 
+    // Initialize words that can be chosen, and set one of them as current word
+    words = { "strawberry", "banana", "apple", "ghost", "grape" };
+    int randIndex = rand() % words.size();
+    currentWord = words[randIndex];
+
     // Create the paintrbrush
     paintbrush = new Paintbrush();
 }
@@ -58,6 +65,18 @@ GameScene::~GameScene() {
 }
 
 void GameScene::draw(GLFWwindow* window) {
+    // Set a timer
+    t = glfwGetTime();
+    std::cout << t;
+    if (timer >= 0) {
+        timer = 15 - (t + 1);
+    }
+
+    // Check if timer has run out
+    if (timer == 0) {
+        // Change scene
+    }
+
     double x = 0,
            y = 0;
 
@@ -76,9 +95,9 @@ void GameScene::draw(GLFWwindow* window) {
 
     paintbrush->draw();
 
-    // Render all text in the scene
-    text->RenderText("Your word is:", 0, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
-    text->RenderText("Timer", getWidth() / 2.f, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText("Your word is: " + currentWord, 0, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText(std::to_string(timer), getWidth() / 2.f,
+                     getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
     text->RenderText("Round", getWidth() - 200, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(".. is it WORD", getWidth() - 350, 50, 1.f, glm::vec3(0, 0, 0));
 
