@@ -11,7 +11,6 @@
 
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "./const.h"
 
 /**
  *  Transforms x coordinate.
@@ -20,8 +19,7 @@
  *  @return The new x value
  */
 float calculateXCoordinate(float x) {
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    return (x / mode->width - 0.5f) * 2.f;
+    return (x / glfwGetVideoMode(glfwGetPrimaryMonitor())->width - 0.5f) * 2.f;
 }
 
 /**
@@ -31,8 +29,7 @@ float calculateXCoordinate(float x) {
  *  @return The new y value
  */
 float calculateYCoordinate(float y) {
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    return -(y / mode->height - 0.5f) * 2.f;
+    return -(y / glfwGetVideoMode(glfwGetPrimaryMonitor())->height - 0.5f) * 2.f;
 }
 
 GLuint CompileShader(const std::string& vertexShaderSrc,

@@ -27,9 +27,8 @@ Font::Font(std::string path, int size) {
     loadFont();
 
     // Get the monitor's dimensions to set orthographic matrix
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    int width = mode->width;
-    int height = mode->height;
+    int width = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
+    int height = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
 
     // compile and setup the shader
     // ----------------------------

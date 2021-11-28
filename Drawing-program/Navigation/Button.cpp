@@ -22,9 +22,8 @@ Button::Button(Rect rect, Color color) {
     this->color = color;
     shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
 
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    int width = mode->width;
-    int height = mode->height;
+    int width = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
+    int height = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
     projection = glm::ortho(
         0.0f,
         static_cast<float>(width),
@@ -139,9 +138,8 @@ void Button::draw() {
  *	@param y - The mouse's y position
  */
 bool Button::detectClick(double x, double y) {
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     float xf = x,
-          yf = mode->height - y;
+          yf = glfwGetVideoMode(glfwGetPrimaryMonitor())->height - y;
 
     // Checks if the coordinates are in the range of the rectangle
     if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {
