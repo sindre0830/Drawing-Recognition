@@ -12,10 +12,9 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include <vector>
 #include "../Navigation/NavButton.h"
 #include "../functions.h"
-#include <vector>
 
 /**
  * Base class for all scenes.

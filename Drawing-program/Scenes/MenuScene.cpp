@@ -2,19 +2,16 @@
  * @file Scene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-24
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "MenuScene.h"
-
-#include "../Navigation/NavButton.h"
-
 #include <GLFW/glfw3.h>
-
 #include <string>
 #include <iostream>
+#include "../Navigation/NavButton.h"
 
 MenuScene::MenuScene() {
     text = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
@@ -63,7 +60,5 @@ void MenuScene::draw(GLFWwindow* window) {
     // Render title
     text->RenderText("Drawing Recognition", getWidth() / 2.f - 350.f, getHeight() - 150.f, 1.f,
                      glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
-
-    
 }
 

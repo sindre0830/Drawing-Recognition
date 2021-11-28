@@ -10,11 +10,11 @@
 #ifndef SCENES_WORDSCENE_H_
 #define SCENES_WORDSCENE_H_
 
+#include <GLFW/glfw3.h>
 #include <vector>
 #include "Scene.h"
 #include "../Text/Font.h"
 #include "../Navigation/NavButton.h"
-#include <GLFW/glfw3.h>
 
 /**
  * Class for rendering the About scene.

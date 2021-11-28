@@ -55,5 +55,6 @@ void WordScene::draw(GLFWwindow* window) {
     Scene::draw(window);
     text->RenderText("Your new word is:", getWidth() / 2.f - 200.f, getHeight() / 2.f + 100.f,
                       1.f, glm::vec3(0, 0, 0));
-    text->RenderText("BANANA", getWidth() / 2.f - 200.f, getHeight() / 2.f, 2.f, glm::vec3(0, 0, 0));
+    text->RenderText("BANANA", getWidth() / 2.f - 200.f, getHeight() / 2.f,
+                     2.f, glm::vec3(0, 0, 0));
 }

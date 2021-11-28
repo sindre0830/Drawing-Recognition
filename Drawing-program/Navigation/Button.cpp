@@ -2,17 +2,14 @@
  * @file Button.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-26
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "Button.h"
 #include "../functions.h"
-#include "../const.h"
 #include "../shaders/buttonShader.h"
-
-#include <iostream>
 
 /**
  *	Constructor.
