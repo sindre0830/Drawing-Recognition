@@ -2,7 +2,7 @@
  * @file Scene.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-24
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -27,7 +27,6 @@ class AboutScene : public Scene {
      ~AboutScene();
 
      void draw(GLFWwindow* window);
-     SceneType checkButtonClick(double x, double y);
 };
 
 #endif  // SCENES_ABOUTSCENE_H_
