@@ -9,7 +9,6 @@
 
 #include "WordScene.h"
 
-#include <GLFW/glfw3.h>
 #include <string>
 
 WordScene::WordScene() {
@@ -18,45 +17,43 @@ WordScene::WordScene() {
     std::vector<std::string> headings{ "Main menu", "Start"  };
     std::vector<SceneType> types{ menu, menu };
 
-    int x1 = getWidth() / 2.f, y1 = 200,
-        x2 = getWidth() / 2.f + 100, y2 = y1 - 150;
+    float x1 = getWidth() / 2.f - 250.f, y1 = 200.f,
+          x2 = x1 + 250.f, y2 = y1 + 50.f;
     Rect rect = {
-        x1, y1,
         x1, y2,
-        y2, y2,
-        y2, x1
+        x1, y1,
+        x2, y1,
+        x2, y2
     };
 
     // Create all navigation buttons in the scene
     NavButton* nav = new NavButton("Main menu", menu, rect, yellow, navType);
-    navigation.push_back(nav);
-    rect.y1 += 150;
-    rect.y2 += 150;
+    addButton(nav);
+    // Change height coordinates so the buttons are spread out
+    x1 += 300.f;
+    x2 += 300.f;
+    rect = {
+        x1, y2,
+        x1, y1,
+        x2, y1,
+        x2, y2
+    };
     nav = new NavButton("Start", menu, rect, yellow, navType);
-    navigation.push_back(nav);
+    addButton(nav);
 }
 
 /**
  *  Deconstructor.
  */
 WordScene::~WordScene() {
-    // Delete navigation buttons
-    while (!navigation.empty()) {
-        auto it = navigation.begin();
-        delete (*it);
-        navigation.erase(it);
-    }
 }
 
 /**
  *  Draw the about scene on screen.
  */
-void WordScene::draw() {
-    text->RenderText("Your new word is:", getWidth() / 2.f, getHeight() / 2.f,
+void WordScene::draw(GLFWwindow* window) {
+    Scene::draw(window);
+    text->RenderText("Your new word is:", getWidth() / 2.f - 200.f, getHeight() / 2.f + 100.f,
                       1.f, glm::vec3(0, 0, 0));
-    text->RenderText("BANANA", getWidth() / 2.f, getHeight() / 2.f - 100, 2.f, glm::vec3(0, 0, 0));
-
-    // Draw buttons
-    for (auto it = navigation.begin(); it != navigation.end(); ++it)
-        (*it)->draw();
+    text->RenderText("BANANA", getWidth() / 2.f - 200.f, getHeight() / 2.f, 2.f, glm::vec3(0, 0, 0));
 }

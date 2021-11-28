@@ -13,7 +13,7 @@
 #include <string>
 #include "Button.h"
 #include "../Text/Font.h"
-#include "../Scenes/Scene.h"
+#include "../functions.h"
 
 /**
  *	Class for creating and interacting with buttons.

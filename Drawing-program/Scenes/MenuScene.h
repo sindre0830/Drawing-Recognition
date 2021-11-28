@@ -13,7 +13,6 @@
 #include <vector>
 #include "Scene.h"
 #include "../Text/Font.h"
-#include "../Navigation/NavButton.h"
 
 /**
  * Base class for all scenes.
@@ -21,13 +20,11 @@
 class MenuScene : public Scene {
  private:
      Font* text;
-     std::vector<NavButton*> navigation;
  public:
      MenuScene();
      ~MenuScene();
 
-     void draw();
-     SceneType checkButtonClick(double x, double y);
+     void draw(GLFWwindow* window);
 };
 
 #endif  // SCENES_MENUSCENE_H_

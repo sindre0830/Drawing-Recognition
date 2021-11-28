@@ -13,13 +13,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include "../Navigation/NavButton.h"
+#include "../functions.h"
 #include <vector>
-
-enum SceneType {
-    menu,
-    about,
-    word
-};
 
 /**
  * Base class for all scenes.
@@ -27,6 +23,7 @@ enum SceneType {
 class Scene {
  private:
      int width, height;
+     std::vector<NavButton*> navigation;
  public:
      Scene();
      ~Scene();
@@ -34,8 +31,9 @@ class Scene {
      int getWidth() { return width; }
      int getHeight() { return height; }
 
+     void addButton(NavButton* nav) { navigation.push_back(nav); }
      virtual void draw(GLFWwindow* window);
-     virtual SceneType checkButtonClick(double x, double y) { return menu; }
+     SceneType checkButtonClick(double x, double y);
 };
 
 #endif  // SCENES_SCENE_H_

@@ -27,7 +27,7 @@ SceneManager::SceneManager() {
     GameScene* game = new GameScene();
     scenes.push_back(game);
 
-    currentScene = game;
+    currentScene = menu;
 }
 
 SceneManager::~SceneManager() {
@@ -43,6 +43,18 @@ SceneManager::~SceneManager() {
  */
 void SceneManager::draw(GLFWwindow* window) {
     currentScene->draw(window);
+
+    double x, y;
+    glfwGetCursorPos(window, &x, &y);
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+        SceneType scene = currentScene->checkButtonClick(x, y);
+
+        switch (scene) {
+        case menu: setScene(scenes[0]); break;
+        case about: setScene(scenes[1]); break;
+        case word: setScene(scenes[2]); break;
+        }
+    }
 }
 
 /**

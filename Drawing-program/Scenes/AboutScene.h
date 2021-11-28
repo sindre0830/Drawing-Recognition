@@ -22,12 +22,12 @@ class AboutScene : public Scene {
  private:
      Font* heading;
      Font* text;
-     std::vector<NavButton*> navigation;
  public:
      AboutScene();
      ~AboutScene();
 
-     void draw();
+     void draw(GLFWwindow* window);
+     SceneType checkButtonClick(double x, double y);
 };
 
 #endif  // SCENES_ABOUTSCENE_H_

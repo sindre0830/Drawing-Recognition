@@ -9,39 +9,42 @@
 
 #include "MenuScene.h"
 
+#include "../Navigation/NavButton.h"
+
 #include <GLFW/glfw3.h>
 
 #include <string>
+#include <iostream>
 
 MenuScene::MenuScene() {
     text = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
 
     // Create navigation buttons
-    std::vector<std::string> headings{ "Exit", "High scores", "About", "Start game" };
-    std::vector<SceneType> types{ about, about, about, about };
+    std::vector<std::string> headings{ "Start game", "About", "High scores", "Exit" };
+    std::vector<SceneType> types{ word, about, about, about };
 
-    float x1 = getWidth() / 2.f - 150.f, y1 = getHeight() / 2.f - 400.f,
+    float x1 = getWidth() / 2.f - 150.f, y1 = getHeight() / 2.f + 200.f,
           x2 = x1 + 250.f, y2 = y1 + 50.f;
     Rect rect = {
-        x1, y1,
         x1, y2,
-        x2, y2,
-        x2, y1
+        x1, y1,
+        x2, y1,
+        x2, y2
     };
 
     NavButton* nav = nullptr;
     for (int i = 0; i < headings.size(); i++) {
         nav = new NavButton(headings[i], types[i], rect, yellow, navType);
-        navigation.push_back(nav);
+        addButton(nav);
 
         // Change height coordinates so the buttons are spread out
-        y2 += 200.f;
-        y1 += 200.f;
+        y2 -= 200.f;
+        y1 -= 200.f;
         rect = {
-            x1, y1,
             x1, y2,
-            x2, y2,
-            x2, y1
+            x1, y1,
+            x2, y1,
+            x2, y2
         };
     }
 }
@@ -50,38 +53,17 @@ MenuScene::MenuScene() {
  *  Deconstructor.
  */
 MenuScene::~MenuScene() {
-    // Delete navigation buttons
-    while (!navigation.empty()) {
-        auto it = navigation.begin();
-        delete (*it);
-        navigation.erase(it);
-    }
 }
 
 /**
  *  Draw the menu on screen.
  */
 void MenuScene::draw(GLFWwindow* window) {
+    Scene::draw(window);
     // Render title
     text->RenderText("Drawing Recognition", getWidth() / 2.f - 350.f, getHeight() - 150.f, 1.f,
                      glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
 
-    // Draw buttons
-    for (auto it = navigation.begin(); it != navigation.end(); ++it)
-        (*it)->draw();
+    
 }
 
-/**
- *  Check if one of the navigation butttons are clicked.
- * 
- *  @param x - The x coordinate of the mouse
- *  @param y - The y coordinate of the mouse
- */
-SceneType MenuScene::checkButtonClick(double x, double y) {
-    for (auto it = navigation.begin(); it != navigation.end(); ++it) {
-        if ((*it)->detectClick(x, y))
-            return (*it)->getScene();
-    }
-
-    return menu;
-}

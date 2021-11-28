@@ -13,6 +13,14 @@
 #include <glad/glad.h>
 #include <string>
 
+enum SceneType {
+    menu,
+    about,
+    word,
+    game,
+    none
+};
+
 float calculateXCoordinate(float x);
 float calculateYCoordinate(float y);
 

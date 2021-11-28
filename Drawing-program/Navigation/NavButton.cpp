@@ -38,7 +38,7 @@ NavButton::~NavButton() {
  *  Draw the button with text on screen.
  */
 void NavButton::draw() {
-    // Button::draw();
+    Button::draw();
     // Set the start point of the text at the lower left corner of the rectangle
-    textRender->RenderText(text, getRect().x1, getRect().y1, 1.f, glm::vec3(0.f, 0.f, 0.f));
+    textRender->RenderText(text, getRect().x1, getRect().y2, 1.f, glm::vec3(0.f, 0.f, 0.f));
 }

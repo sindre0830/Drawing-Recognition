@@ -14,6 +14,7 @@
 #include "Scene.h"
 #include "../Text/Font.h"
 #include "../Navigation/NavButton.h"
+#include <GLFW/glfw3.h>
 
 /**
  * Class for rendering the About scene.
@@ -21,12 +22,11 @@
 class WordScene : public Scene {
  private:
      Font* text;
-     std::vector<NavButton*> navigation;
  public:
      WordScene();
      ~WordScene();
 
-     void draw();
+     void draw(GLFWwindow* window);
 };
 
 #endif  // SCENES_WORDSCENE_H_

@@ -12,6 +12,8 @@
 #include "../const.h"
 #include "../shaders/buttonShader.h"
 
+#include <iostream>
+
 /**
  *	Constructor.
  */
