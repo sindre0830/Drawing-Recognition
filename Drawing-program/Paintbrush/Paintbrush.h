@@ -40,7 +40,6 @@ class Paintbrush {
     ~Paintbrush();
 
     std::vector<Point*> getPoints() { return points; }
-    int getPointsSize() { return points.size(); }
     void setNewPos(bool newPos) { this->newPos = newPos; }
     void setNewColor(Color color) { this->color = color; }
 
@@ -50,6 +49,7 @@ class Paintbrush {
     void createLine();
     std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
     void draw();
+    void clearPoints();
 };
 
 #endif  // PAINTBRUSH_PAINTBRUSH_H_

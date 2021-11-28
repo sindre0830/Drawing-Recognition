@@ -29,12 +29,7 @@ Paintbrush::Paintbrush() {
  *	Deconstructor.
  */
 Paintbrush::~Paintbrush() {
-    while (!points.empty()) {
-        auto it = points.begin();
-        delete* it;
-        points.erase(it);
-    }
-
+    clearPoints();
     glDeleteProgram(shader);
 }
 
@@ -85,7 +80,7 @@ void Paintbrush::init() {
  *	Create either the very first position, or the first position after the mouse button is released.
  */
 void Paintbrush::createFirstPos() {
-    Point* point = points[getPointsSize() - 1];
+    Point* point = points[points.size() - 1];
     float x = point->getX(), y = point->getY();
     float size = point->getSize();
     float r = point->getR(), g = point->getG(), b = point->getB();
@@ -260,7 +255,7 @@ void Paintbrush::createLine() {
         vertices.push_back(prevPoint->getY() - orth.second * prevPoint->getSize());
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-        // ... And their corresponding indices
+        // Their corresponding indices
         indices.push_back(indices_lastIndex);
         indices.push_back(indices_lastIndex + 1);
         indices.push_back(indices_lastIndex + 2);
@@ -322,4 +317,18 @@ void Paintbrush::draw() {
     glUseProgram(shader);
     glBindVertexArray(vao);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+}
+
+/**
+ *  Clear all points.
+ */
+void Paintbrush::clearPoints() {
+    while (!points.empty()) {
+        auto it = points.begin();
+        delete* it;
+        points.erase(it);
+    }
+    vertices.clear();
+    indices.clear();
+    indices_lastIndex = 0;
 }
