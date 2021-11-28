@@ -21,7 +21,7 @@ MenuScene::MenuScene() {
     std::vector<SceneType> types{ word, about, about, about };
 
     float x1 = getWidth() / 2.f - 150.f, y1 = getHeight() / 2.f + 200.f,
-          x2 = x1 + 250.f, y2 = y1 + 50.f;
+          x2 = x1 + 270.f, y2 = y1 + 65.f;
     Rect rect = {
         x1, y2,
         x1, y1,

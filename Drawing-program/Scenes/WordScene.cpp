@@ -18,7 +18,7 @@ WordScene::WordScene() {
     std::vector<SceneType> types{ menu, menu };
 
     float x1 = getWidth() / 2.f - 250.f, y1 = 200.f,
-          x2 = x1 + 250.f, y2 = y1 + 50.f;
+          x2 = x1 + 260.f, y2 = y1 + 65.f;
     Rect rect = {
         x1, y2,
         x1, y1,

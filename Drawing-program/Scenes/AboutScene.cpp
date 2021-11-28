@@ -16,7 +16,7 @@ AboutScene::AboutScene() {
     text = new Font("../fonts/arial.ttf", 48);
 
     float x1 = getWidth() / 2.f - 150.f, y1 = 200.f,
-          x2 = x1 + 250.f, y2 = y1 + 50.f;
+          x2 = x1 + 260.f, y2 = y1 + 65.f;
     Rect rect = {
         x1, y2,
         x1, y1,
