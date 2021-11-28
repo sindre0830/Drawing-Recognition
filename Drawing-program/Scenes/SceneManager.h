@@ -2,7 +2,7 @@
  * @file Scene.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-26
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -25,8 +25,6 @@ class SceneManager {
      ~SceneManager();
 
      void draw(GLFWwindow* window);
-     void changeScene(double x, double y);
-     void setScene(Scene* newScene) { currentScene = newScene; }
 };
 
 #endif  // SCENES_SCENEMANAGER_H_

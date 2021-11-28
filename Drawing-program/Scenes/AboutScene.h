@@ -10,10 +10,8 @@
 #ifndef SCENES_ABOUTSCENE_H_
 #define SCENES_ABOUTSCENE_H_
 
-#include <vector>
 #include "Scene.h"
 #include "../Text/Font.h"
-#include "../Navigation/NavButton.h"
 
 /**
  * Class for rendering the About scene.

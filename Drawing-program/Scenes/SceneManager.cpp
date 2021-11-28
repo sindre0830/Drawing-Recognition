@@ -2,19 +2,19 @@
  * @file SceneManager.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-26
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "SceneManager.h"
-
 #include "MenuScene.h"
 #include "AboutScene.h"
 #include "WordScene.h"
 #include "GameScene.h"
 
 SceneManager::SceneManager() {
+    // Create all scenes
     MenuScene* menu = new MenuScene();
     scenes.push_back(menu);
 
@@ -31,6 +31,7 @@ SceneManager::SceneManager() {
 }
 
 SceneManager::~SceneManager() {
+    // Delete all scenes
     while (!scenes.empty()) {
         auto it = scenes.begin();
         delete (*it);
@@ -42,35 +43,19 @@ SceneManager::~SceneManager() {
  *  Draw the current scene.
  */
 void SceneManager::draw(GLFWwindow* window) {
-    currentScene->draw(window);
-
+    // Change scene if one of the navigation buttons in the current scene are pressed
     double x, y;
     glfwGetCursorPos(window, &x, &y);
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
         SceneType scene = currentScene->checkButtonClick(x, y);
 
         switch (scene) {
-        case menu: setScene(scenes[0]); break;
-        case about: setScene(scenes[1]); break;
-        case word: setScene(scenes[2]); break;
+        case menu: currentScene = scenes[0]; break;
+        case about: currentScene = scenes[1]; break;
+        case word: currentScene = scenes[2]; break;
+        case game: currentScene = scenes[3]; break;
         }
     }
-}
 
-/**
- *  Check if a button is clicked in the current scene.
- *
- *  @param x - The x coordinate of the mouse
- *  @param y - The y coordinate of the mouse
- */
-void SceneManager::changeScene(double x, double y) {
-    SceneType scene;
-    // This function needs to return a sceneType
-    scene = currentScene->checkButtonClick(x, y);
-
-    // Switch to set current scene based on sceneType
-    switch (scene) {
-    case menu: setScene(scenes[0]); break;
-    case about: setScene(scenes[1]); break;
-    }
+    currentScene->draw(window);
 }

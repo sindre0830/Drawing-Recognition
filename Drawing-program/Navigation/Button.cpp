@@ -36,6 +36,9 @@ Button::Button(Rect rect, Color color) {
  *	Deconstructor.
  */
 Button::~Button() {
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
     glDeleteProgram(shader);
 }
 

@@ -2,7 +2,7 @@
  * @file Font.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-12
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -12,7 +12,6 @@
 #include <iostream>
 #include <utility>
 #include "../functions.h"
-#include "../const.h"
 #include "../shaders/textShader.h"
 
  /**
@@ -50,6 +49,15 @@ Font::Font(std::string path, int size) {
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+/**
+ *  Deconstructor.
+ */
+Font::~Font() {
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shader);
 }
 
 /**

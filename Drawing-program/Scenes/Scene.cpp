@@ -2,7 +2,7 @@
  * @file Scene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-14
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -22,6 +22,11 @@ Scene::Scene() {
  *  Deconstructor.
  */
 Scene::~Scene() {
+    while (!navigation.empty()) {
+        auto it = navigation.begin();
+        delete (*it);
+        navigation.erase(it);
+    }
 }
 
 /**

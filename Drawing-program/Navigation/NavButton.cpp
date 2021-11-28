@@ -8,7 +8,6 @@
  */
 
 #include "NavButton.h"
-#include "../const.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -31,6 +30,7 @@ NavButton::NavButton(std::string text, SceneType scene, Rect rect, Color color):
  *  Deconstructor.
  */
 NavButton::~NavButton() {
+    delete textRender;
 }
 
 /**

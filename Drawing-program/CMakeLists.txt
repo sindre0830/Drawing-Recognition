@@ -15,7 +15,6 @@ add_subdirectory(external/freetype)
 
 add_executable(${PROJECT_NAME}
 	main.cpp
-	const.h
 	functions.h
 	functions.cpp
 	Colors.h

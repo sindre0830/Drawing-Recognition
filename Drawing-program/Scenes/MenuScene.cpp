@@ -8,8 +8,8 @@
  */
 
 #include "MenuScene.h"
-#include <GLFW/glfw3.h>
 #include <string>
+#include <vector>
 #include "../Navigation/NavButton.h"
 
 MenuScene::MenuScene() {
@@ -19,7 +19,10 @@ MenuScene::MenuScene() {
     std::vector<std::string> headings{ "Start game", "About", "High scores", "Exit" };
     std::vector<SceneType> types{ word, about, about, about };
 
-    float x1 = getWidth() / 2.f - 150.f, y1 = getHeight() / 2.f + 200.f,
+    int width = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
+    int height = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
+
+    float x1 = width / 2.f - 150.f, y1 = height / 2.f + 200.f,
           x2 = x1 + 270.f, y2 = y1 + 65.f;
     Rect rect = {
         x1, y2,
@@ -49,6 +52,7 @@ MenuScene::MenuScene() {
  *  Deconstructor.
  */
 MenuScene::~MenuScene() {
+    delete text;
 }
 
 /**

@@ -28,10 +28,12 @@ AboutScene::AboutScene() {
     addButton(nav);
 }
 
-/**
+/** 
  *  Deconstructor.
  */
 AboutScene::~AboutScene() {
+    delete heading;
+    delete text;
 }
 
 /**

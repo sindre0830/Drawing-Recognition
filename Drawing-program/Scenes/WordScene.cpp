@@ -9,13 +9,8 @@
 
 #include "WordScene.h"
 
-#include <string>
-
 WordScene::WordScene() {
     text = new Font("../fonts/arial.ttf", 48);
-
-    std::vector<std::string> headings{ "Main menu", "Start"  };
-    std::vector<SceneType> types{ menu, menu };
 
     float x1 = getWidth() / 2.f - 250.f, y1 = 200.f,
           x2 = x1 + 260.f, y2 = y1 + 65.f;
@@ -38,7 +33,7 @@ WordScene::WordScene() {
         x2, y1,
         x2, y2
     };
-    nav = new NavButton("Start", menu, rect, yellow);
+    nav = new NavButton("Start", game, rect, yellow);
     addButton(nav);
 }
 
@@ -46,6 +41,7 @@ WordScene::WordScene() {
  *  Deconstructor.
  */
 WordScene::~WordScene() {
+    delete text;
 }
 
 /**
