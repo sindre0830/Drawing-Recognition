@@ -83,10 +83,10 @@ void Paintbrush::init() {
  *	Create either the very first position, or the first position after the mouse button is released.
  */
 void Paintbrush::createFirstPos() {
-    Point* point = points[points.size() - 1];
-    float x = point->getX(), y = point->getY();
-    float size = point->getSize();
-    float r = point->getR(), g = point->getG(), b = point->getB();
+    Point point = points[points.size() - 1];
+    float x = point.x, y = point.y;
+    float size = point.size;
+    float r = point.r, g = point.g, b = point.b;
 
     // Bottom left corner
     vertices.push_back(x - size);
@@ -163,10 +163,13 @@ void Paintbrush::createPoint(double x, double y) {
         case yellow: rgb = findColor(yellow); break;
     }
 
-    Point* point = new Point(
+    Point point = {
         calculateXCoordinate(xf),
         calculateYCoordinate(yf),
-        size, rgb.r, rgb.g, rgb.b);
+        rgb.r, rgb.g, rgb.b,
+        size
+    };
+
     points.push_back(point);
 
     // Generate buffers if this is the first point in the vector
@@ -187,33 +190,33 @@ void Paintbrush::createLine() {
     int pointsSize = points.size();
 
     // Get all involved points and their attributes
-    Point* newPoint = points[pointsSize - 1];
-    float nR = newPoint->getR(), nG = newPoint->getG(), nB = newPoint->getB();
-    float newPointSize = newPoint->getSize();
+    Point newPoint = points[pointsSize - 1];
+    float nR = newPoint.r, nG = newPoint.g, nB = newPoint.b;
+    float newPointSize = newPoint.size;
 
-    Point* prevPoint = points[pointsSize - 2];
-    float pR = prevPoint->getR(), pG = prevPoint->getG(), pB = prevPoint->getB();
-    float prevPointSize = newPoint->getSize();
+    Point prevPoint = points[pointsSize - 2];
+    float pR = prevPoint.r, pG = prevPoint.g, pB = prevPoint.b;
+    float prevPointSize = newPoint.size;
 
     // Create a vector from the previous point to the newest
     std::pair<float, float> orth = findOrthogonal(newPoint, prevPoint);
 
     // Push starting points (L and R)
-    vertices.push_back(prevPoint->getX() - orth.first * prevPointSize);
-    vertices.push_back(prevPoint->getY() - orth.second * prevPointSize);
+    vertices.push_back(prevPoint.x - orth.first * prevPointSize);
+    vertices.push_back(prevPoint.y - orth.second * prevPointSize);
     vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-    vertices.push_back(prevPoint->getX() + orth.first * prevPointSize);
-    vertices.push_back(prevPoint->getY() + orth.second * prevPointSize);
+    vertices.push_back(prevPoint.x + orth.first * prevPointSize);
+    vertices.push_back(prevPoint.y + orth.second * prevPointSize);
     vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
     // Push ending points (L and R)
-    vertices.push_back(newPoint->getX() + orth.first * newPointSize);
-    vertices.push_back(newPoint->getY() + orth.second * newPointSize);
+    vertices.push_back(newPoint.x + orth.first * newPointSize);
+    vertices.push_back(newPoint.y + orth.second * newPointSize);
     vertices.push_back(nR); vertices.push_back(nG); vertices.push_back(nB);
 
-    vertices.push_back(newPoint->getX() - orth.first * newPointSize);
-    vertices.push_back(newPoint->getY() - orth.second * newPointSize);
+    vertices.push_back(newPoint.x - orth.first * newPointSize);
+    vertices.push_back(newPoint.y - orth.second * newPointSize);
     vertices.push_back(nR); vertices.push_back(nG); vertices.push_back(nB);
 
     indices.push_back(indices_lastIndex);
@@ -229,33 +232,33 @@ void Paintbrush::createLine() {
     // Create filler triangles so the lines looks connected
     if (points.size() > 2) {
         // The third last point, part of the line to connect this line with
-        Point* prev2Point = points[points.size() - 3];
+        Point prev2Point = points[points.size() - 3];
 
         std::pair<float, float> orth2 = findOrthogonal(prevPoint, prev2Point);
 
         // Push back filler triangles
-        vertices.push_back(prevPoint->getX());
-        vertices.push_back(prevPoint->getY());
+        vertices.push_back(prevPoint.x);
+        vertices.push_back(prevPoint.y);
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-        vertices.push_back(prevPoint->getX() + orth2.first * prevPoint->getSize());
-        vertices.push_back(prevPoint->getY() + orth2.second * prevPoint->getSize());
+        vertices.push_back(prevPoint.x + orth2.first * prevPoint.size);
+        vertices.push_back(prevPoint.y + orth2.second * prevPoint.size);
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-        vertices.push_back(prevPoint->getX() + orth.first * prevPoint->getSize());
-        vertices.push_back(prevPoint->getY() + orth.second * prevPoint->getSize());
+        vertices.push_back(prevPoint.x + orth.first * prevPoint.size);
+        vertices.push_back(prevPoint.y + orth.second * prevPoint.size);
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-        vertices.push_back(prevPoint->getX());
-        vertices.push_back(prevPoint->getY());
+        vertices.push_back(prevPoint.x);
+        vertices.push_back(prevPoint.y);
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-        vertices.push_back(prevPoint->getX() - orth2.first * prevPoint->getSize());
-        vertices.push_back(prevPoint->getY() - orth2.second * prevPoint->getSize());
+        vertices.push_back(prevPoint.x - orth2.first * prevPoint.size);
+        vertices.push_back(prevPoint.y - orth2.second * prevPoint.size);
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
-        vertices.push_back(prevPoint->getX() - orth.first * prevPoint->getSize());
-        vertices.push_back(prevPoint->getY() - orth.second * prevPoint->getSize());
+        vertices.push_back(prevPoint.x - orth.first * prevPoint.size);
+        vertices.push_back(prevPoint.y - orth.second * prevPoint.size);
         vertices.push_back(pR); vertices.push_back(pG); vertices.push_back(pB);
 
         // Their corresponding indices
@@ -293,11 +296,11 @@ void Paintbrush::createLine() {
  *	@param point2 - The second point
  *	@return The orthogonal
  */
-std::pair<float, float> Paintbrush::findOrthogonal(Point* point1, Point* point2) {
+std::pair<float, float> Paintbrush::findOrthogonal(Point point1, Point point2) {
     // Vector between third last point and second last point
     std::pair<float, float> v = {
-        point1->getX() - point2->getX(),
-        point1->getY() - point2->getY()
+        point1.x - point2.x,
+        point1.y - point2.y
     };
 
     // Normalize
@@ -326,11 +329,7 @@ void Paintbrush::draw() {
  *  Clear all points.
  */
 void Paintbrush::clearPoints() {
-    while (!points.empty()) {
-        auto it = points.begin();
-        delete* it;
-        points.erase(it);
-    }
+    points.clear();
     vertices.clear();
     indices.clear();
     indices_lastIndex = 0;
