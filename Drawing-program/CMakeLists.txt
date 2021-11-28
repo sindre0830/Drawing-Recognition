@@ -19,8 +19,6 @@ add_executable(${PROJECT_NAME}
 	functions.cpp
 	Colors.h
 	Colors.cpp
-	Paintbrush/Point.h
-	Paintbrush/Point.cpp
 	Paintbrush/Paintbrush.h
 	Paintbrush/Paintbrush.cpp
 	Navigation/Button.h
