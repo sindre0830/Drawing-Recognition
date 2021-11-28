@@ -28,8 +28,24 @@ add_executable(${PROJECT_NAME}
 	Navigation/Button.cpp
 	Navigation/ColorButton.h
 	Navigation/ColorButton.cpp
+	Navigation/NavButton.h
+	Navigation/NavButton.cpp
 	Text/Font.h
 	Text/Font.cpp
+	Window.h
+	Window.cpp
+	Scenes/SceneManager.h
+	Scenes/SceneManager.cpp
+	Scenes/Scene.h
+	Scenes/Scene.cpp
+	Scenes/AboutScene.h
+	Scenes/AboutScene.cpp
+	Scenes/MenuScene.h
+	Scenes/MenuScene.cpp
+	Scenes/GameScene.h
+	Scenes/GameScene.cpp
+	Scenes/WordScene.h
+	Scenes/WordScene.cpp
 	shaders/pointShader.h
 	shaders/textShader.h
 	shaders/buttonShader.h)
