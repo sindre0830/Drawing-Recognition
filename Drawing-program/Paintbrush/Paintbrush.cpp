@@ -20,7 +20,7 @@ Paintbrush::Paintbrush() {
     indices_lastIndex = 0;
     newPos = true;
     vao = vbo = ebo = 0;
-    shader = CompileShader(pointVertexShaderSrc, pointFragmentShaderSrc, "");
+    shader = compileShader(pointVertexShaderSrc, pointFragmentShaderSrc);
     size = 0.005f;
     color = black;
 }

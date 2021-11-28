@@ -32,7 +32,7 @@ Font::Font(std::string path, int size) {
 
     // compile and setup the shader
     // ----------------------------
-    shader = CompileShader(textVertexShaderSrc, textFragmentShaderSrc, "");
+    shader = compileShader(textVertexShaderSrc, textFragmentShaderSrc);
     projection = glm::ortho(
         0.0f,
         static_cast<float>(width),

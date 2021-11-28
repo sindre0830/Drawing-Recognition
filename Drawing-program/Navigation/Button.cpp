@@ -20,7 +20,7 @@
 Button::Button(Rect rect, Color color) {
     this->rect = rect;
     this->color = color;
-    shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
+    shader = compileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc);
 
     int width = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
     int height = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;

@@ -24,8 +24,7 @@ enum SceneType {
 float calculateXCoordinate(float x);
 float calculateYCoordinate(float y);
 
-GLuint CompileShader(const std::string& vertexShaderSrc,
-                     const std::string& fragmentShaderSrc,
-                     const std::string& geometryShaderSrc/*=""*/);
+GLuint compileShader(const std::string& vertexShaderSrc,
+                     const std::string& fragmentShaderSrc);
 
 #endif  // FUNCTIONS_H_
