@@ -2,7 +2,7 @@
  * @file ColorButton.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -20,7 +20,7 @@ class ColorButton : public Button {
     RGB colorValue;
     Color color;
  public:
-    ColorButton(Rect rect, Color color, ButtonType type);
+    ColorButton(Rect rect, Color color);
     ~ColorButton();
 
     RGB getRGB() { return colorValue; }

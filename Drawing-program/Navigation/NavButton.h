@@ -2,7 +2,7 @@
  * @file NavButton.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-24
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -24,7 +24,7 @@ class NavButton : public Button {
      std::string text;
      SceneType scene;
  public:
-     NavButton(std::string text, SceneType scene, Rect rect, Color color, ButtonType type);
+     NavButton(std::string text, SceneType scene, Rect rect, Color color);
     ~NavButton();
 
     void draw();

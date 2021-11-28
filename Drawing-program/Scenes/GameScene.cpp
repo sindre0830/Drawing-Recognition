@@ -2,7 +2,7 @@
  * @file GameScene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-26
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -10,7 +10,6 @@
 #include "GameScene.h"
 #include <stdlib.h>
 #include <string>
-#include <iostream>
 
 GameScene::GameScene() {
     text = new Font("../fonts/arial.ttf", 48);
@@ -32,7 +31,7 @@ GameScene::GameScene() {
     ColorButton* color = nullptr;
 
     for (int i = 0; i < colorName.size(); i++) {
-        color = new ColorButton(rect, colorName[i], colorType);
+        color = new ColorButton(rect, colorName[i]);
 
         // Move the rectangle to draw the colors in different places
         x1 += 100.f;

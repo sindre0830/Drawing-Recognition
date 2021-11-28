@@ -2,7 +2,7 @@
  * @file WordScene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-26
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -27,7 +27,7 @@ WordScene::WordScene() {
     };
 
     // Create all navigation buttons in the scene
-    NavButton* nav = new NavButton("Main menu", menu, rect, yellow, navType);
+    NavButton* nav = new NavButton("Main menu", menu, rect, yellow);
     addButton(nav);
     // Change height coordinates so the buttons are spread out
     x1 += 300.f;
@@ -38,7 +38,7 @@ WordScene::WordScene() {
         x2, y1,
         x2, y2
     };
-    nav = new NavButton("Start", menu, rect, yellow, navType);
+    nav = new NavButton("Start", menu, rect, yellow);
     addButton(nav);
 }
 

@@ -13,11 +13,13 @@
 
 /**
  *	Constructor.
+ * 
+ *	@param rect - The area of the button
+ *	@param color - The color of the button
  */
-Button::Button(Rect rect, Color color, ButtonType type) {
+Button::Button(Rect rect, Color color) {
     this->rect = rect;
     this->color = color;
-    this->type = type;
     shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
 
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());

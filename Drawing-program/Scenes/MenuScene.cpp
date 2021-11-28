@@ -10,7 +10,6 @@
 #include "MenuScene.h"
 #include <GLFW/glfw3.h>
 #include <string>
-#include <iostream>
 #include "../Navigation/NavButton.h"
 
 MenuScene::MenuScene() {
@@ -31,7 +30,7 @@ MenuScene::MenuScene() {
 
     NavButton* nav = nullptr;
     for (int i = 0; i < headings.size(); i++) {
-        nav = new NavButton(headings[i], types[i], rect, yellow, navType);
+        nav = new NavButton(headings[i], types[i], rect, yellow);
         addButton(nav);
 
         // Change height coordinates so the buttons are spread out

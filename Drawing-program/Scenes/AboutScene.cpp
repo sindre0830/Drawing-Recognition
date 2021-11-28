@@ -2,7 +2,7 @@
  * @file Scene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-24
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -24,7 +24,7 @@ AboutScene::AboutScene() {
         x2, y2
     };
 
-    NavButton* nav = new NavButton("Main menu", menu, rect, yellow, navType);
+    NavButton* nav = new NavButton("Main menu", menu, rect, yellow);
     addButton(nav);
 }
 
