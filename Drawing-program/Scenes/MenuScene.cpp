@@ -16,14 +16,14 @@ MenuScene::MenuScene() {
     text = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
 
     // Create navigation buttons
-    std::vector<std::string> headings{ "Start game", "About", "High scores", "Exit" };
-    std::vector<SceneType> types{ word, about, about, about };
+    std::vector<std::string> headings{ "Start game", "About", "Exit" };
+    std::vector<SceneType> types{ word, about, none };
 
-    int width = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
-    int height = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
+    int width = 800;
+    int height = 900;
 
-    float x1 = width / 2.f - 150.f, y1 = height / 2.f + 200.f,
-          x2 = x1 + 270.f, y2 = y1 + 65.f;
+    float x1 = width / 2.f - 60.f, y1 = height / 2.f + 60.f,
+          x2 = x1 + 140.f, y2 = y1 + 50.f;
     Rect rect = {
         x1, y2,
         x1, y1,
@@ -61,7 +61,7 @@ MenuScene::~MenuScene() {
 void MenuScene::draw(GLFWwindow* window) {
     Scene::draw(window);
     // Render title
-    text->RenderText("Drawing Recognition", getWidth() / 2.f - 350.f, getHeight() - 150.f, 1.f,
+    text->RenderText("Drawing Recognition", getWidth() / 2.f - 350.f, getHeight() - 200.f, 1.f,
                      glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
 }
 

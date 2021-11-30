@@ -8,18 +8,24 @@
  */
 
 #include "GameScene.h"
+#include "../build/global.h"
+
+bool timerUp;
 
 /**
  *  Constructor.
  */
 GameScene::GameScene() {
-    text = new Font("../fonts/arial.ttf", 48);
+    text = new Font("../fonts/arial.ttf", 24);
 
     // Add color buttons
     std::vector<Color> colorName = { red, green, blue, yellow, black };
 
-    float x1 = 50.f, y1 = 50.f,
-          x2 = x1 + 50.f, y2 = y1 + 50.f;
+    timer = 0;
+    timerUp = false;
+
+    float x1 = 40.f, y1 = 40.f,
+          x2 = x1 + 40.f, y2 = y1 + 40.f;
     Rect rect = {
         x1, y2,     // Top left
         x1, y1,     // Bottom left
@@ -33,8 +39,8 @@ GameScene::GameScene() {
         color = new ColorButton(rect, colorName[i]);
 
         // Move the rectangle to draw the colors in different places
-        x1 += 100.f;
-        x2 += 100.f;
+        x1 += 75.f;
+        x2 += 75.f;
 
         rect = {
             x1, y2,     // Top left
@@ -64,6 +70,15 @@ GameScene::~GameScene() {
 }
 
 void GameScene::draw(GLFWwindow* window) {
+    // Set a timer
+    t = glfwGetTime();
+    if (timer >= 0) {
+        timer = 61 - (t + 1);
+    }
+
+    if (timer <= 0)
+        timerUp = true;
+
     double x = 0,
            y = 0;
 
@@ -71,7 +86,7 @@ void GameScene::draw(GLFWwindow* window) {
     glfwGetCursorPos(window, &x, &y);
 
     // Check if the mouse is touching the top or bottom part of the screen (where it is text)
-    if (y >= 80 && y <= 950) {
+    if (y >= 50 && y <= 800) {
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
             // Create point on mouse position
             paintbrush->createPoint(x, y);
@@ -86,11 +101,11 @@ void GameScene::draw(GLFWwindow* window) {
 
     paintbrush->draw();
 
-    /*/text->RenderText("Your word is: " + currentWord, 0, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText("Your word is: ", 30.f, getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(std::to_string(timer), getWidth() / 2.f,
-                     getHeight() - 50, 1.f, glm::vec3(0, 0, 0));*/
-    text->RenderText("Round", getWidth() - 200, getHeight() - 50, 1.f, glm::vec3(0, 0, 0));
-    text->RenderText(".. is it WORD", getWidth() - 350, 50, 1.f, glm::vec3(0, 0, 0));
+                     getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText("Word", getWidth() - 100.f, getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText(".. is it", getWidth() - 100.f, 40.f, 1.f, glm::vec3(0, 0, 0));
 
     // Draw the color buttons and check if one of them is clicked
     for (auto it = colors.begin(); it != colors.end(); ++it) {

@@ -13,10 +13,10 @@
 
 AboutScene::AboutScene() {
     heading = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
-    text = new Font("../fonts/arial.ttf", 48);
+    text = new Font("../fonts/arial.ttf", 24);
 
-    float x1 = getWidth() / 2.f - 150.f, y1 = 200.f,
-          x2 = x1 + 260.f, y2 = y1 + 65.f;
+    float x1 = getWidth() / 2.f - 60.f, y1 = 200.f,
+          x2 = x1 + 140.f, y2 = y1 + 50.f;
     Rect rect = {
         x1, y2,
         x1, y1,
@@ -42,12 +42,12 @@ AboutScene::~AboutScene() {
 void AboutScene::draw(GLFWwindow* window) {
     Scene::draw(window);
     // Render title
-    heading->RenderText("About", getWidth() / 2.f - 100.f, getHeight() - 150.f, 1.f,
+    heading->RenderText("About", getWidth() / 2.f - 80.f, getHeight() - 200.f, 1.f,
                         glm::vec3(findColor(yellow).r, findColor(yellow).g, findColor(yellow).b));
 
     // Render about text
     text->RenderText("You have 30 seconds to draw the word that shows up on the screen.",
-                      getWidth() / 2.f - 700.f, getHeight() / 2.f + 100.f, 1.f, glm::vec3(0, 0, 0));
+                      getWidth() / 2.f - 360.f, getHeight() / 2.f + 50.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText("For each drawing the game guesses what are, you will get a point.",
-                      getWidth() / 2.f - 700.f, getHeight() / 2.f, 1.f, glm::vec3(0, 0, 0));
+                      getWidth() / 2.f - 360.f, getHeight() / 2.f - 50.f, 1.f, glm::vec3(0, 0, 0));
 }

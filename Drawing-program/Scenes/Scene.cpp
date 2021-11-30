@@ -8,14 +8,14 @@
  */
 
 #include "Scene.h"
+#include "../const.h"
 
 /**
  *  Constructor.
  */
 Scene::Scene() {
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    width = mode->width;
-    height = mode->height;
+    width = WINDOW_WIDTH;
+    height = WINDOW_HEIGHT;
 }
 
 /** 

@@ -24,6 +24,8 @@ class GameScene : public Scene {
      Font* text;
      Paintbrush* paintbrush;
      std::vector<ColorButton*> colors;
+     int t,
+         timer;
  public:
      GameScene();
      ~GameScene();

@@ -12,6 +12,7 @@
 #include "AboutScene.h"
 #include "WordScene.h"
 #include "GameScene.h"
+#include "../build/global.h"
 
 SceneManager::SceneManager() {
     // Create all scenes
@@ -27,7 +28,7 @@ SceneManager::SceneManager() {
     GameScene* game = new GameScene();
     scenes.push_back(game);
 
-    currentScene = menu;
+    currentScene = game;
 }
 
 SceneManager::~SceneManager() {
@@ -56,6 +57,9 @@ void SceneManager::draw(GLFWwindow* window) {
         case game: currentScene = scenes[3]; break;
         }
     }
+
+    if (timerUp)
+        currentScene = scenes[2];
 
     currentScene->draw(window);
 }

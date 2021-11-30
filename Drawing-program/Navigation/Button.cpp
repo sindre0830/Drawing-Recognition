@@ -10,6 +10,7 @@
 #include "Button.h"
 #include "../functions.h"
 #include "../shaders/buttonShader.h"
+#include "../const.h"
 
 /**
  *	Constructor.
@@ -22,13 +23,11 @@ Button::Button(Rect rect, Color color) {
     this->color = color;
     shader = compileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc);
 
-    int width = glfwGetVideoMode(glfwGetPrimaryMonitor())->width;
-    int height = glfwGetVideoMode(glfwGetPrimaryMonitor())->height;
     projection = glm::ortho(
         0.0f,
-        static_cast<float>(width),
+        static_cast<float>(WINDOW_WIDTH),
         0.0f,
-        static_cast<float>(height));
+        static_cast<float>(WINDOW_HEIGHT));
     createRect();
 }
 
@@ -142,7 +141,7 @@ void Button::draw() {
  */
 bool Button::detectClick(double x, double y) {
     float xf = x,
-          yf = glfwGetVideoMode(glfwGetPrimaryMonitor())->height - y;
+          yf = 900 - y;
 
     // Checks if the coordinates are in the range of the rectangle
     if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {

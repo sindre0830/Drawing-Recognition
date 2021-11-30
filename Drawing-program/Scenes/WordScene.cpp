@@ -26,7 +26,7 @@ WordScene::WordScene() {
     addButton(nav);
     // Change height coordinates so the buttons are spread out
     x1 += 300.f;
-    x2 += 300.f;
+    x2 += 175.f;
     rect = {
         x1, y2,
         x1, y1,
@@ -49,7 +49,7 @@ WordScene::~WordScene() {
  */
 void WordScene::draw(GLFWwindow* window) {
     Scene::draw(window);
-    text->RenderText("Your new word is:", getWidth() / 2.f - 200.f, getHeight() / 2.f + 100.f,
+    text->RenderText("Your word is:", getWidth() / 2.f - 150.f, getHeight() / 2.f + 100.f,
                       1.f, glm::vec3(0, 0, 0));
     text->RenderText("BANANA", getWidth() / 2.f - 200.f, getHeight() / 2.f,
                      2.f, glm::vec3(0, 0, 0));

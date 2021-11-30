@@ -23,7 +23,7 @@ NavButton::NavButton(std::string text, SceneType scene, Rect rect, Color color):
                      Button(rect, color) {
     this->text = text;
     this->scene = scene;
-    textRender = new Font("../fonts/arial.ttf", 48);
+    textRender = new Font("../fonts/arial.ttf", 24);
 }
 
 /**
