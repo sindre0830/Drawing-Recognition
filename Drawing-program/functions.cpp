@@ -12,6 +12,8 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "const.h"
+
 /**
  *  Transforms x coordinate.
  * 
@@ -19,7 +21,7 @@
  *  @return The new x value
  */
 float calculateXCoordinate(float x) {
-    return (x / glfwGetVideoMode(glfwGetPrimaryMonitor())->width - 0.5f) * 2.f;
+    return (x / WINDOW_WIDTH - 0.5f) * 2.f;
 }
 
 /**
@@ -29,7 +31,7 @@ float calculateXCoordinate(float x) {
  *  @return The new y value
  */
 float calculateYCoordinate(float y) {
-    return -(y / glfwGetVideoMode(glfwGetPrimaryMonitor())->height - 0.5f) * 2.f;
+    return -(y / WINDOW_HEIGHT - 0.5f) * 2.f;
 }
 
 /**
