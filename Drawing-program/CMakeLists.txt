@@ -15,6 +15,7 @@ add_subdirectory(external/freetype)
 
 add_executable(${PROJECT_NAME}
 	main.cpp
+	const.h
 	functions.h
 	functions.cpp
 	Colors.h
@@ -41,8 +42,6 @@ add_executable(${PROJECT_NAME}
 	Scenes/MenuScene.cpp
 	Scenes/GameScene.h
 	Scenes/GameScene.cpp
-	Scenes/WordScene.h
-	Scenes/WordScene.cpp
 	shaders/pointShader.h
 	shaders/textShader.h
 	shaders/buttonShader.h)
