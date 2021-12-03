@@ -15,6 +15,7 @@
 #include "AboutScene.h"
 #include "GameScene.h"
 #include <vector>
+#include <string>
 
 /**
  * Base class for all scenes.
@@ -29,7 +30,7 @@ class SceneManager {
      SceneManager();
      ~SceneManager();
 
-     void draw(GLFWwindow* window);
+     void draw(GLFWwindow* window, std::string guessedWord);
 };
 
 #endif  // SCENES_SCENEMANAGER_H_

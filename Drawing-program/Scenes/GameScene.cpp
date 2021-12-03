@@ -76,7 +76,7 @@ GameScene::~GameScene() {
     }
 }
 
-void GameScene::draw(GLFWwindow* window) {
+void GameScene::draw(GLFWwindow* window, std::string guessedWord) {
     // Set a timer
     t = glfwGetTime();
     if (timer >= 0) {
@@ -120,7 +120,7 @@ void GameScene::draw(GLFWwindow* window) {
                      getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText("Word: " + std::to_string(wordsUsed), getWidth() - 130.f,
                      getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
-    text->RenderText(".. is it", getWidth() - 100.f, 40.f, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText(".. is it " + guessedWord, getWidth() - 150.f, 40.f, 1.f, glm::vec3(0, 0, 0));
 
     // Draw the color buttons and check if one of them is clicked
     for (auto it = colors.begin(); it != colors.end(); ++it) {

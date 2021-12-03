@@ -51,6 +51,7 @@ int main() {
 
     float t = 0.f;  // Total time elapsed since start of program
 
+    std::string guessedWord = "ord";
 
     while (!glfwWindowShouldClose(window)) {
         // Time management
@@ -74,7 +75,7 @@ int main() {
 
 
         //paintbrush->draw();
-        scenes->draw(window);
+        scenes->draw(window, guessedWord);
         //scenes->changeScene(x, y);
 
         glfwSwapBuffers(window);

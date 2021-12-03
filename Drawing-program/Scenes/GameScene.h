@@ -33,7 +33,7 @@ class GameScene : public Scene {
      GameScene();
      ~GameScene();
 
-     void draw(GLFWwindow* window);
+     void draw(GLFWwindow* window, std::string guessedWord);
      void randomWord();
 };
 

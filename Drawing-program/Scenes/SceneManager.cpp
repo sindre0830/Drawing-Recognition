@@ -16,7 +16,7 @@ SceneManager::SceneManager() {
     menuScene = new MenuScene();
     aboutScene = new AboutScene();
     gameScene = new GameScene();
-    currentScene = menu;
+    currentScene = game;
 }
 
 SceneManager::~SceneManager() {
@@ -29,12 +29,12 @@ SceneManager::~SceneManager() {
 /**
  *  Draw the current scene.
  */
-void SceneManager::draw(GLFWwindow* window) {
+void SceneManager::draw(GLFWwindow* window, std::string guessedWord) {
     // Draw the current scene and check if one of them is clicked
     switch (currentScene) {
-    case menu: menuScene->draw(window); break;
-    case about: aboutScene->draw(window); break;
-    case game: gameScene->draw(window); break;
+    case menu: menuScene->draw(); break;
+    case about: aboutScene->draw(); break;
+    case game: gameScene->draw(window, guessedWord); break;
     }
 
     // Check if the scene is going to be changed
