@@ -2,7 +2,7 @@
  * @file Scene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-28
+ * @date 2021-12-03
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -14,6 +14,7 @@
  *  Constructor.
  */
 Scene::Scene() {
+    text = new Font("../fonts/arial.ttf", 24);
     width = WINDOW_WIDTH;
     height = WINDOW_HEIGHT;
 }
@@ -32,7 +33,7 @@ Scene::~Scene() {
 /**
  *  Draw the screen.
  */
-void Scene::draw(GLFWwindow* window) {
+void Scene::draw() {
     // Draw buttons
     for (auto it = navigation.begin(); it != navigation.end(); ++it)
         (*it)->draw();

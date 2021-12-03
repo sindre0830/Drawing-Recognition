@@ -2,7 +2,7 @@
  * @file GameScene.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-28
+ * @date 2021-12-03
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -10,7 +10,6 @@
 #include "GameScene.h"
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
 #include <algorithm>
 #include "../build/global.h"
 
@@ -20,8 +19,6 @@ bool timerUp;
  *  Constructor.
  */
 GameScene::GameScene() {
-    text = new Font("../fonts/arial.ttf", 24);
-
     // Add color buttons
     std::vector<Color> colorName = { red, green, blue, yellow, black };
 
