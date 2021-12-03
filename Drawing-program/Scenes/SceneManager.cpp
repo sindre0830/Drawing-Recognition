@@ -8,58 +8,45 @@
  */
 
 #include "SceneManager.h"
-#include "MenuScene.h"
-#include "AboutScene.h"
-#include "WordScene.h"
-#include "GameScene.h"
+
 #include "../build/global.h"
 
 SceneManager::SceneManager() {
     // Create all scenes
-    MenuScene* menu = new MenuScene();
-    scenes.push_back(menu);
-
-    AboutScene* about = new AboutScene();
-    scenes.push_back(about);
-
-    WordScene* word = new WordScene();
-    scenes.push_back(word);
-
-    GameScene* game = new GameScene();
-    scenes.push_back(game);
-
-    currentScene = game;
+    menuScene = new MenuScene();
+    aboutScene = new AboutScene();
+    gameScene = new GameScene();
+    currentScene = menu;
 }
 
 SceneManager::~SceneManager() {
     // Delete all scenes
-    while (!scenes.empty()) {
-        auto it = scenes.begin();
-        delete (*it);
-        scenes.erase(it);
-    }
+    delete menuScene;
+    delete aboutScene;
+    delete gameScene;
 }
 
 /**
  *  Draw the current scene.
  */
 void SceneManager::draw(GLFWwindow* window) {
-    // Change scene if one of the navigation buttons in the current scene are pressed
+    // Draw the current scene and check if one of them is clicked
+    switch (currentScene) {
+    case menu: menuScene->draw(window); break;
+    case about: aboutScene->draw(window); break;
+    case game: gameScene->draw(window); break;
+    }
+
+    // Check if the scene is going to be changed
+    SceneType next = none;
     double x, y;
     glfwGetCursorPos(window, &x, &y);
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-        SceneType scene = currentScene->checkButtonClick(x, y);
-
-        switch (scene) {
-        case menu: currentScene = scenes[0]; break;
-        case about: currentScene = scenes[1]; break;
-        case word: currentScene = scenes[2]; break;
-        case game: currentScene = scenes[3]; break;
+        switch (currentScene) {
+        case menu: next = menuScene->checkButtonClick(x, y); break;
+        case about: next = aboutScene->checkButtonClick(x, y); break;
         }
+
+        if (next != none && next != currentScene) currentScene = next;
     }
-
-    if (timerUp)
-        currentScene = scenes[2];
-
-    currentScene->draw(window);
 }

@@ -31,7 +31,7 @@ class Scene {
      int getHeight() { return height; }
 
      void addButton(NavButton* nav) { navigation.push_back(nav); }
-     virtual void draw(GLFWwindow* window);
+     void draw(GLFWwindow* window);
      SceneType checkButtonClick(double x, double y);
 };
 

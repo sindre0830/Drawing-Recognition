@@ -17,7 +17,7 @@ MenuScene::MenuScene() {
 
     // Create navigation buttons
     std::vector<std::string> headings{ "Start game", "About", "Exit" };
-    std::vector<SceneType> types{ word, about, none };
+    std::vector<SceneType> types{ game, about, none };
 
     int width = 800;
     int height = 900;

@@ -8,6 +8,10 @@
  */
 
 #include "GameScene.h"
+#include <cstdlib>
+#include <ctime>
+#include <iostream>
+#include <algorithm>
 #include "../build/global.h"
 
 bool timerUp;
@@ -21,6 +25,7 @@ GameScene::GameScene() {
     // Add color buttons
     std::vector<Color> colorName = { red, green, blue, yellow, black };
 
+    wordsUsed = 0;
     timer = 0;
     timerUp = false;
 
@@ -54,6 +59,11 @@ GameScene::GameScene() {
 
     // Create the paintrbrush
     paintbrush = new Paintbrush();
+
+    // Initialize list with words available
+    words = { "banana", "strawberry", "apple", "ghost" };
+
+    randomWord();
 }
 
 /** 
@@ -76,8 +86,14 @@ void GameScene::draw(GLFWwindow* window) {
         timer = 61 - (t + 1);
     }
 
-    if (timer <= 0)
-        timerUp = true;
+    /*/ Stop the round if the timer reaches 0
+    if (timer <= 0) {
+        // Clear the canvas
+        paintbrush->clearPoints();
+        // Choose new word
+        randomWord();
+        // Restart timer
+    }*/
 
     double x = 0,
            y = 0;
@@ -101,19 +117,42 @@ void GameScene::draw(GLFWwindow* window) {
 
     paintbrush->draw();
 
-    text->RenderText("Your word is: ", 30.f, getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText("Your word is: " + currentWord, 30.f,
+                     getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(std::to_string(timer), getWidth() / 2.f,
                      getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
-    text->RenderText("Word", getWidth() - 100.f, getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText("Word: " + std::to_string(wordsUsed), getWidth() - 130.f,
+                     getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(".. is it", getWidth() - 100.f, 40.f, 1.f, glm::vec3(0, 0, 0));
 
     // Draw the color buttons and check if one of them is clicked
     for (auto it = colors.begin(); it != colors.end(); ++it) {
         (*it)->draw();
-
-
         if ((*it)->detectClick(x, y)) {
             paintbrush->setNewColor((*it)->getColor());
         }
     }
+}
+
+/**
+ *  Get a random word from the vector of words.
+ */
+void GameScene::randomWord() {
+    // Set a random seed so it is true random
+    srand(static_cast<int> (time(0)));
+
+    if (usedWords.empty()) {
+        int wordIndex = (rand() % words.size());
+        currentWord = words[wordIndex];
+    } else {
+        // Make sure the word is not already used
+        do {
+            int wordIndex = (rand() % words.size());
+            currentWord = words[wordIndex];
+        } while (!(std::find(usedWords.begin(), usedWords.end(), currentWord) != usedWords.end()));
+    }
+
+    // Add the word to the used words list, so the player does not get the same word several times
+    usedWords.push_back(currentWord);
+    wordsUsed++;
 }

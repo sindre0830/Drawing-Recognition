@@ -11,6 +11,7 @@
 #define SCENES_GAMESCENE_H_
 
 #include <vector>
+#include <string>
 #include "Scene.h"
 #include "../Text/Font.h"
 #include "../Paintbrush/Paintbrush.h"
@@ -24,6 +25,10 @@ class GameScene : public Scene {
      Font* text;
      Paintbrush* paintbrush;
      std::vector<ColorButton*> colors;
+     std::vector<std::string> words;
+     std::vector<std::string> usedWords;
+     std::string currentWord;
+     int wordsUsed;
      int t,
          timer;
  public:
@@ -31,6 +36,7 @@ class GameScene : public Scene {
      ~GameScene();
 
      void draw(GLFWwindow* window);
+     void randomWord();
 };
 
 #endif  // SCENES_GAMESCENE_H_

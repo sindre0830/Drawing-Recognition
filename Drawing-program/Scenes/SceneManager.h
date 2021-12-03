@@ -11,6 +11,9 @@
 #define SCENES_SCENEMANAGER_H_
 
 #include "Scene.h"
+#include "MenuScene.h"
+#include "AboutScene.h"
+#include "GameScene.h"
 #include <vector>
 
 /**
@@ -18,8 +21,10 @@
  */
 class SceneManager {
  private:
-     Scene* currentScene;
-     std::vector<Scene*> scenes;
+     MenuScene* menuScene;
+     AboutScene* aboutScene;
+     GameScene* gameScene;
+     SceneType currentScene;
  public:
      SceneManager();
      ~SceneManager();
