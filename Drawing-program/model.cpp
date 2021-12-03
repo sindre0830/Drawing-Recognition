@@ -12,13 +12,14 @@
 
 Model::Model() {
 	std::cout << "Python Version: " << PY_VERSION << std::endl;
+	filename = "../predict.py";
 	prediction = "Unknown";
 }
 
 Model::~Model() {}
 
-void initPythonScript(std::string filename) {
-    Py_Initialize();
+void Model::initScript() {
+	Py_Initialize();
     PyRun_SimpleString(("exec(open(\"" + filename + "\").read())").c_str());
     Py_Finalize();
 }

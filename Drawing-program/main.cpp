@@ -24,7 +24,7 @@
 int main() {
 	// initialize model
 	Model* model = new Model();
-	std::thread t1(initPythonScript, "../predict.py");
+	std::thread t1(&Model::initScript, model);
 
 	// Initialize glfw
 	glfwInit();
