@@ -23,6 +23,7 @@ Scene::Scene() {
  *  Deconstructor.
  */
 Scene::~Scene() {
+    delete text;
     while (!navigation.empty()) {
         auto it = navigation.begin();
         delete (*it);

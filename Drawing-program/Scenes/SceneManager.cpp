@@ -15,7 +15,7 @@ SceneManager::SceneManager() {
     aboutScene = new AboutScene();
     gameScene = new GameScene();
     endScene = new EndScene();
-    currentScene = end;
+    currentScene = menu;
     points = 0;
 }
 

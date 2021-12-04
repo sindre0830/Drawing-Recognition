@@ -75,17 +75,17 @@ GameScene::~GameScene() {
  *  @param guessedWord - The word that is currently guessed
  */
 void GameScene::draw(GLFWwindow* window, std::string guessedWord) {
-    double x = 0,
-           y = 0;
-    // Get mouse position
-    glfwGetCursorPos(window, &x, &y);
-
     // Set a timer
     float dt = glfwGetTime() - t;
     t += dt;
     if (timer >= 0) {
         timer -= dt;
     }
+
+    // Get mouse position
+    double x = 0,
+           y = 0;
+    glfwGetCursorPos(window, &x, &y);
 
     // It is only possible to draw with the paintbrush if the timer is running
     if (timer > 1) {
@@ -102,6 +102,10 @@ void GameScene::draw(GLFWwindow* window, std::string guessedWord) {
         paintbrush->draw();
     }
 
+    // Make sure the guessed word is in lowercase
+    std::for_each(guessedWord.begin(), guessedWord.end(), [](char& c) {
+        c = ::tolower(c);
+    });
     // Check if the words is guessed correctly
     if (currentWord == guessedWord) {
         points++;
@@ -109,6 +113,7 @@ void GameScene::draw(GLFWwindow* window, std::string guessedWord) {
         randomWord();
     }
 
+    // Text rendering
     text->RenderText("Your word is: " + currentWord, 30.f,
                      getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(std::to_string(static_cast<int>(timer)), getWidth() / 2.f,

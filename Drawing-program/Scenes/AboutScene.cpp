@@ -35,7 +35,6 @@ AboutScene::AboutScene() {
  */
 AboutScene::~AboutScene() {
     delete heading;
-    delete text;
 }
 
 /**

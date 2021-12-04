@@ -43,7 +43,6 @@ EndScene::EndScene() {
  */
 EndScene::~EndScene() {
     delete heading;
-    delete text;
 }
 
 /**
