@@ -4,13 +4,14 @@ project(drawing-recognition)
 
 find_package(OpenGL REQUIRED)
 find_package(PythonLibs REQUIRED)
+find_package(cppzmq REQUIRED)
 
 include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -lzmq")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 add_subdirectory(external/glad)
 add_subdirectory(external/glfw)
@@ -62,4 +63,5 @@ target_link_libraries(${PROJECT_NAME}
 	freetype
 	OpenGL::GL
 	${PYTHON_LIBRARIES}
+	cppzmq
 )

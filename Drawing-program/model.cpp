@@ -7,7 +7,7 @@
 #include <Python.h>
 #include "external/stb_image_write.h"
 #include <GLFW/glfw3.h>
-#include "external/zmq.hpp"
+#include <zmq.hpp>
 #include <string>
 
 Model::Model() {
