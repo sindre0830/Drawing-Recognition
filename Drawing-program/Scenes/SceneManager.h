@@ -28,6 +28,7 @@ class SceneManager {
      GameScene* gameScene;
      EndScene* endScene;
      SceneType currentScene;
+     int points;
  public:
      SceneManager();
      ~SceneManager();

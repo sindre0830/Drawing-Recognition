@@ -15,7 +15,8 @@ SceneManager::SceneManager() {
     aboutScene = new AboutScene();
     gameScene = new GameScene();
     endScene = new EndScene();
-    currentScene = game;
+    currentScene = end;
+    points = 0;
 }
 
 SceneManager::~SceneManager() {
@@ -35,7 +36,7 @@ void SceneManager::draw(GLFWwindow* window, std::string guessedWord) {
     case menu: menuScene->draw(); break;
     case about: aboutScene->draw(); break;
     case game: gameScene->draw(window, guessedWord); break;
-    case end: endScene->draw(gameScene->getPoints()); break;
+    case end: endScene->draw(points); break;
     }
 
     // Check if the scene is going to be changed
@@ -46,14 +47,16 @@ void SceneManager::draw(GLFWwindow* window, std::string guessedWord) {
         switch (currentScene) {
         case menu: next = menuScene->checkButtonClick(x, y); break;
         case about: next = aboutScene->checkButtonClick(x, y); break;
+        case end: next = endScene->checkButtonClick(x, y); break;
         }
 
         if (next != none && next != currentScene) currentScene = next;
     }
 
-    // Check if the timer is up, and the round is ending
-    if (gameScene->getTimer() <= 0) {
-        gameScene->endRound();
+    // Check if current round is ending, by either the timer has run out or all words are used
+    if ((gameScene->getTimer() <= 0) || gameScene->getAllUsed()) {
+        points = gameScene->getPoints();
+        gameScene->endRound();  // Reset game round
         currentScene = end;
     }
 }

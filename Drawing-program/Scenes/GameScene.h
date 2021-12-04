@@ -29,6 +29,7 @@ class GameScene : public Scene {
      int points;
      float t,
            timer;
+     bool allUsed;
  public:
      GameScene();
      ~GameScene();
@@ -38,6 +39,7 @@ class GameScene : public Scene {
      void endRound();
      float getTimer() { return timer; }
      int getPoints() { return points; }
+     bool getAllUsed() { return allUsed; }
 };
 
 #endif  // SCENES_GAMESCENE_H_
