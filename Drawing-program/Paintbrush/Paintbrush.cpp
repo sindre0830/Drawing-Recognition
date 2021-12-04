@@ -333,4 +333,5 @@ void Paintbrush::clearPoints() {
     vertices.clear();
     indices.clear();
     indices_lastIndex = 0;
+    newPos = true;
 }
