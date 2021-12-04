@@ -30,8 +30,6 @@ add_executable(${PROJECT_NAME}
 	Navigation/NavButton.cpp
 	Text/Font.h
 	Text/Font.cpp
-	Window.h
-	Window.cpp
 	Scenes/SceneManager.h
 	Scenes/SceneManager.cpp
 	Scenes/Scene.h
