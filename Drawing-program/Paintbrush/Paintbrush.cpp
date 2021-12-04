@@ -1,10 +1,10 @@
 /**
  * @file Paintbrush.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-11-28
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
 
 #include "Paintbrush.h"
@@ -21,7 +21,7 @@ Paintbrush::Paintbrush() {
     newPos = true;
     vao = vbo = ebo = 0;
     shader = compileShader(pointVertexShaderSrc, pointFragmentShaderSrc);
-    size = 0.005f;
+    size = 0.010f;
     color = black;
 }
 
