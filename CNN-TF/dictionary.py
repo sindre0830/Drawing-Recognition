@@ -1,6 +1,6 @@
 # dataset to integer code
 DATASET_INTEGER_CONVERTER = {
-    "red_apple_drawing": 1,
+    "green_apple_drawing": 1,
     "single_yellow_banana_isolated": 2,
     "single_strawberry_isolated": 3,
     "campfire_cartoon": 4,

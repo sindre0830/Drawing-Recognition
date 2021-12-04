@@ -23,7 +23,7 @@ socket.bind("tcp://*:5959")
 
 model = keras.models.load_model("../../Data/model")
 
-labels = ["Unknown", "Apple", "Banana", "Strawberry", "Campfire", "Watermelon", "Umbrella", "Blueberry", "Star"]
+labels = ["Unknown", "Green Apple", "Banana", "Strawberry", "Campfire", "Watermelon", "Umbrella", "Blueberry", "Star"]
 
 while True:
     #  Wait for next request from client
