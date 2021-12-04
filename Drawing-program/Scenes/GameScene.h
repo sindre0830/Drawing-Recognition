@@ -27,17 +27,14 @@ class GameScene : public Scene {
      std::vector<std::string> usedWords;
      std::string currentWord;
      int points;
-     float t,
-           timer;
      bool allUsed;
  public:
      GameScene();
      ~GameScene();
 
-     void draw(GLFWwindow* window, std::string guessedWord);
+     void draw(GLFWwindow* window, std::string guessedWord, int timer);
      void randomWord();
      void endRound();
-     float getTimer() { return timer; }
      int getPoints() { return points; }
      bool getAllUsed() { return allUsed; }
 };

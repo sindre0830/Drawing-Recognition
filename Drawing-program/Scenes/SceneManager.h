@@ -30,10 +30,12 @@ class SceneManager {
      SceneType currentScene;
      int points;
  public:
+     bool gameStarted;
+
      SceneManager();
      ~SceneManager();
 
-     void draw(GLFWwindow* window, std::string guessedWord);
+     void draw(GLFWwindow* window, std::string guessedWord, int timer);
      SceneType getCurrentScene() { return currentScene; }
 };
 

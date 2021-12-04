@@ -11,15 +11,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
-#include <iostream>
 
 /**
  *  Constructor.
  */
 GameScene::GameScene() {
     points = 0;
-    timer = 60;
-    t = 0;
 
     // Create the paintrbrush
     paintbrush = new Paintbrush();
@@ -46,7 +43,6 @@ GameScene::GameScene() {
         // Move the rectangle to draw the colors in different places
         x1 += 75.f;
         x2 += 75.f;
-
         rect = {
             x1, y2,     // Top left
             x1, y1,     // Bottom left
@@ -74,21 +70,14 @@ GameScene::~GameScene() {
  *  @param window - The game window
  *  @param guessedWord - The word that is currently guessed
  */
-void GameScene::draw(GLFWwindow* window, std::string guessedWord) {
-    // Set a timer
-    float dt = glfwGetTime() - t;
-    t += dt;
-    if (timer >= 0) {
-        timer -= dt;
-    }
-
+void GameScene::draw(GLFWwindow* window, std::string guessedWord, int timer) {
     // Get mouse position
     double x = 0,
            y = 0;
     glfwGetCursorPos(window, &x, &y);
 
     // It is only possible to draw with the paintbrush if the timer is running
-    if (timer > 1) {
+    if (timer > 0) {
         // Check if the mouse is touching the top or bottom part of the screen (where it is text)
         if (y >= 50 && y <= 800) {
             if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
@@ -98,7 +87,6 @@ void GameScene::draw(GLFWwindow* window, std::string guessedWord) {
                 paintbrush->setNewPos(true);
             }
         }
-
         paintbrush->draw();
     }
 
@@ -165,7 +153,5 @@ void GameScene::endRound() {
     points = 0;
     paintbrush->clearPoints();
     randomWord();
-    t = 0;
-    timer = 60;
     allUsed = false;
 }
