@@ -42,6 +42,8 @@ add_executable(${PROJECT_NAME}
 	Scenes/MenuScene.cpp
 	Scenes/GameScene.h
 	Scenes/GameScene.cpp
+	Scenes/EndScene.h
+	Scenes/EndScene.cpp
 	shaders/pointShader.h
 	shaders/textShader.h
 	shaders/buttonShader.h)

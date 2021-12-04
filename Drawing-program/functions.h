@@ -17,6 +17,7 @@ enum SceneType {
     menu,
     about,
     game,
+    end,
     exitGame,
     none
 };

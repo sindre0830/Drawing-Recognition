@@ -14,6 +14,7 @@
 #include "MenuScene.h"
 #include "AboutScene.h"
 #include "GameScene.h"
+#include "EndScene.h"
 #include <vector>
 #include <string>
 
@@ -25,6 +26,7 @@ class SceneManager {
      MenuScene* menuScene;
      AboutScene* aboutScene;
      GameScene* gameScene;
+     EndScene* endScene;
      SceneType currentScene;
  public:
      SceneManager();

@@ -2,7 +2,7 @@
  * @file GameScene.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-12-03
+ * @date 2021-12-04
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -26,15 +26,18 @@ class GameScene : public Scene {
      std::vector<std::string> words;
      std::vector<std::string> usedWords;
      std::string currentWord;
-     int wordsUsed;
-     int t,
-         timer;
+     int points;
+     float t,
+           timer;
  public:
      GameScene();
      ~GameScene();
 
      void draw(GLFWwindow* window, std::string guessedWord);
      void randomWord();
+     void endRound();
+     float getTimer() { return timer; }
+     int getPoints() { return points; }
 };
 
 #endif  // SCENES_GAMESCENE_H_
