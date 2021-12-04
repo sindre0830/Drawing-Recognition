@@ -7,7 +7,8 @@ DATASET_INTEGER_CONVERTER = {
     "single_watermelon_slice": 5,
     "single_umbrella_drawing_isloated": 6,
     "single_blueberry_isolated": 7,
-    "single_isolated_yellow_star": 8
+    "cheese_cartoon": 8,
+    "single_isolated_yellow_star": 9
 }
 # status messages
 DONE = 'DONE'

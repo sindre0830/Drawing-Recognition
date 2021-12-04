@@ -23,26 +23,42 @@ socket.bind("tcp://*:5959")
 
 model = keras.models.load_model("../../Data/model")
 
-labels = ["Unknown", "Green Apple", "Banana", "Strawberry", "Campfire", "Watermelon", "Umbrella", "Blueberry", "Star"]
+labels = [
+    "Unknown", 
+    "Green Apple", 
+    "Banana", 
+    "Strawberry", 
+    "Campfire", 
+    "Watermelon", 
+    "Umbrella", 
+    "Blueberry", 
+    "Cheese",
+    "Star"
+]
+
+lastGuessedIndex = 0
 
 while True:
-    #  Wait for next request from client
+    # wait for next request from client
     message = socket.recv()
-
+    # branch if terminate command is sent and break loop
     if message == b"terminate":
         socket.send(b"")
         break
-
+    # read image and predict
     img = cv2.imread("../Data/test.jpg")
     if img is None:
         print("ERROR: Unable to read image...")
         socket.send(b"")
         continue
-    
     img = np.array(skimage.transform.resize(img, (128, 128), mode="constant"))
     img = np.expand_dims(img, axis=0)
     predictions = model.predict(img)
-    prediction = labels[np.argmax(predictions)]
-
-    #  Send reply back to client
+    # branch if last prediction is the same as this prediction and go for the next one
+    if lastGuessedIndex == np.argmax(predictions):
+        lastGuessedIndex = (-predictions).argsort()[0][1]
+    else:
+        lastGuessedIndex = np.argmax(predictions)
+    prediction = labels[lastGuessedIndex]
+    # send reply back to client with prediction
     socket.send(prediction.encode())

@@ -23,7 +23,7 @@ GameScene::GameScene() {
     paintbrush = new Paintbrush();
 
     // Initialize list with words available
-    words = { "green apple", "banana", "strawberry", "campfire", "watermelon", "umbrella", "blueberry", "star" };
+    words = { "green apple", "banana", "strawberry", "campfire", "watermelon", "umbrella", "blueberry", "cheese", "star" };
     allUsed = false;    // If all words are used or not
     randomWord();
 
