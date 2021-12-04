@@ -2,25 +2,27 @@
  * @file Button.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "Button.h"
-#include <iostream>
 #include "../functions.h"
-#include "../const.h"
 #include "../shaders/buttonShader.h"
+#include "../const.h"
 
 /**
  *	Constructor.
+ * 
+ *	@param rect - The area of the button
+ *	@param color - The color of the button
  */
-Button::Button(Rect rect, Color color, ButtonType type) {
+Button::Button(Rect rect, Color color) {
     this->rect = rect;
     this->color = color;
-    this->type = type;
-    shader = CompileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc, "");
+    shader = compileShader(buttonVertexShaderSrc, buttonFragmentShaderSrc);
+
     projection = glm::ortho(
         0.0f,
         static_cast<float>(WINDOW_WIDTH),
@@ -33,6 +35,9 @@ Button::Button(Rect rect, Color color, ButtonType type) {
  *	Deconstructor.
  */
 Button::~Button() {
+    glDeleteVertexArrays(1, &vao);
+    glDeleteBuffers(1, &vbo);
+    glDeleteBuffers(1, &ebo);
     glDeleteProgram(shader);
 }
 
@@ -135,8 +140,8 @@ void Button::draw() {
  *	@param y - The mouse's y position
  */
 bool Button::detectClick(double x, double y) {
-    float xf = calculateXCoordinate(x),
-          yf = calculateYCoordinate(y);
+    float xf = x,
+          yf = 900 - y;
 
     // Checks if the coordinates are in the range of the rectangle
     if (xf >= rect.x1 && xf <= rect.x4 && yf <= rect.y1 && yf >= rect.y2) {

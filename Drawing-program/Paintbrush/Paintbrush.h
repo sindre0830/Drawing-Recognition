@@ -2,7 +2,7 @@
  * @file Paintbrush.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -15,16 +15,23 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include "Point.h"
 #include "../Colors.h"
 
+/**
+ *  Struct for storing a point's attributes.
+ */
+struct Point {
+    float x, y,
+          r, g, b,
+          size;
+};
 
 /**
  *	Class for controlling points.
  */
 class Paintbrush {
  private:
-    std::vector<Point*> points;
+    std::vector<Point> points;
     std::vector<GLfloat> vertices;
     std::vector<GLuint> indices;
 
@@ -39,8 +46,7 @@ class Paintbrush {
     Paintbrush();
     ~Paintbrush();
 
-    std::vector<Point*> getPoints() { return points; }
-    int getPointsSize() { return points.size(); }
+    std::vector<Point> getPoints() { return points; }
     void setNewPos(bool newPos) { this->newPos = newPos; }
     void setNewColor(Color color) { this->color = color; }
 
@@ -48,8 +54,9 @@ class Paintbrush {
     void createPoint(double x, double y);
     void createFirstPos();
     void createLine();
-    std::pair<float, float> findOrthogonal(Point* point1, Point* point2);
+    std::pair<float, float> findOrthogonal(Point point1, Point point2);
     void draw();
+    void clearPoints();
 };
 
 #endif  // PAINTBRUSH_PAINTBRUSH_H_

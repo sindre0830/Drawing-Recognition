@@ -2,13 +2,16 @@
  * @file functions.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "functions.h"
+
+#include <GLFW/glfw3.h>
 #include <iostream>
+
 #include "const.h"
 
 /**
@@ -31,75 +34,66 @@ float calculateYCoordinate(float y) {
     return -(y / WINDOW_HEIGHT - 0.5f) * 2.f;
 }
 
-GLuint CompileShader(const std::string& vertexShaderSrc,
-    const std::string& fragmentShaderSrc,
-    const std::string& geometryShaderSrc/*=""*/) {
+/**
+ *  Compiles shader.
+ * 
+ *  @param vertexShaderSrc - The source code for the vertex shader
+ *  @param fragmentShaderSrc - The source code of the fragment shader
+ *  @return The shader program
+ */
+GLuint compileShader(const std::string& vertexShaderSrc,
+                     const std::string& fragmentShaderSrc) {
+    // Get the vertex and fragment shader source
+    const char* vertexSrc = vertexShaderSrc.c_str();
+    const char* fragmentSrc = fragmentShaderSrc.c_str();
 
-    auto vertexSrc = vertexShaderSrc.c_str();
-    auto fragmentSrc = fragmentShaderSrc.c_str();
-    auto geometrySrc = geometryShaderSrc.c_str();
+    // Create the program
+    GLuint program = glCreateProgram();
 
-    // Create program
-    auto shaderProgram = glCreateProgram();
-
-    // Vertex shader
-    auto vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexSrc, nullptr);
+    // Compile the vertex shader
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexSrc, NULL);
     glCompileShader(vertexShader);
 
-    int bufflen;
-    glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &bufflen);
-    if (bufflen > 1) {
-        GLchar* log_string = new char[bufflen + 1];
-        glGetShaderInfoLog(vertexShader, bufflen, 0, log_string);
-
-        std::cerr << log_string << std::endl;
-        std::cin.get();
+    int success;
+    GLchar* infoLog = new char[1024];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            glGetShaderInfoLog(vertexShader, 1024, NULL, infoLog);
+            std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: VERTEX" << "\n" << infoLog
+                      << "\n -- --------------------------------------------------- -- "
+                      << std::endl;
+        }
         return EXIT_FAILURE;
     }
 
-    glAttachShader(shaderProgram, vertexShader);
-
-    // Geometry shader (if there is any)
-    auto geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
-    if (geometryShaderSrc != "") {
-        glShaderSource(geometryShader, 1, &geometrySrc, nullptr);
-        glCompileShader(geometryShader);
-        glGetShaderiv(geometryShader, GL_INFO_LOG_LENGTH, &bufflen);
-        if (bufflen > 1) {
-            GLchar* log_string = new char[bufflen + 1];
-            glGetShaderInfoLog(geometryShader, bufflen, 0, log_string);
-
-            std::cerr << log_string << std::endl;
-            std::cin.get();
-            return EXIT_FAILURE;
-        }
-
-        glAttachShader(shaderProgram, geometryShader);
-    }
-
-    // Fragment shader
+    // Compile the fragment shader
     auto fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentSrc, nullptr);
     glCompileShader(fragmentShader);
-    glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &bufflen);
-    if (bufflen > 1) {
-        GLchar* log_string = new char[bufflen + 1];
-        glGetShaderInfoLog(fragmentShader, bufflen, 0, log_string);
 
-        std::cerr << log_string << std::endl;
-        std::cin.get();
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+        if (!success) {
+            glGetShaderInfoLog(fragmentShader, 1024, NULL, infoLog);
+            std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: FRAGMENT" << "\n" << infoLog
+                      << "\n -- --------------------------------------------------- -- "
+                      << std::endl;
+        }
         return EXIT_FAILURE;
     }
 
-    glAttachShader(shaderProgram, fragmentShader);
+    // Attach the shaders to the program and link
+    glAttachShader(program, vertexShader);
+    glAttachShader(program, fragmentShader);
+    glLinkProgram(program);
 
-    // Link
-    glLinkProgram(shaderProgram);
-
+    // The shaders are not necessary anymore, so they can be deleted
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-    glDeleteShader(geometryShader);
 
-    return shaderProgram;
+    return program;
 }

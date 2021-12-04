@@ -2,7 +2,7 @@
  * @file Button.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-11-28
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -25,11 +25,6 @@ struct Rect {
           x4, y4;
 };
 
-enum ButtonType {
-    colorType,
-    navType
-};
-
 /**
  *	Class for creating and interacting with buttons.
  */
@@ -37,7 +32,6 @@ class Button {
  private:
     Rect rect;
     Color color;
-    ButtonType type;
 
     GLuint vao, vbo, ebo, shader;
     std::vector<GLfloat> vertices;
@@ -45,10 +39,11 @@ class Button {
     glm::mat4 projection;
  public:
     Button() {}
-    Button(Rect rect, Color color, ButtonType type);
+    Button(Rect rect, Color color);
     ~Button();
 
     Rect getRect() { return rect; }
+    Color getColor() { return color; }
 
     void createRect();
     void draw();

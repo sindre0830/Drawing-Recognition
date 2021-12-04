@@ -16,6 +16,7 @@ jobs:
     - name: Setup Environment
       working-directory: ./Drawing-program
       run: |
+        sudo apt-get update
         sudo apt-get install g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev
         mkdir Build
         sudo apt-get install python3-pip
@@ -35,4 +36,3 @@ jobs:
     - name: Linting Checker
       working-directory: ./Drawing-program
       run: cpplint --root=. --linelength=100 --filter=-build/include_subdir --recursive --exclude=external/* --exclude=Build/* --exclude=shaders/* *
-  
