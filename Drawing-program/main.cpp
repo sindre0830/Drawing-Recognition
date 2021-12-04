@@ -11,19 +11,43 @@
 #include <GLFW/glfw3.h>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <iostream>
+#include "./const.h"
 #include "Scenes/SceneManager.h"
 
 int main() {
     // Initialize glfw
-    glfwInit();
+    if (!glfwInit()) {
+        std::cerr << "Initialization of GLFW failed.";
+        std::cin.get();
+        return EXIT_FAILURE;
+    }
 
-    const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    GLFWwindow* window = glfwCreateWindow(800, 900, "Drawing Recognition", NULL, NULL);
+    // Set window hints
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                          "Drawing Recognition", NULL, NULL);
+    if (window == nullptr) {
+        std::cerr << "Window creation failed";
+        std::cin.get();
+        glfwTerminate();
+        return EXIT_FAILURE;
+    }
     glfwMakeContextCurrent(window);
 
     // Load glad configurations for OpenGL
-    gladLoadGL();
+    if (!gladLoadGL()) {
+        std::cerr << "Initialization of Glad failed.";
+        std::cin.get();
+        glfwTerminate();
+        return EXIT_FAILURE;
+    }
 
     // Enable blend so text is text
     glEnable(GL_BLEND);
@@ -38,7 +62,7 @@ int main() {
 
     float t = 0.f;  // Total time elapsed since start of program
 
-    std::string guessedWord = "strawberry";
+    std::string guessedWord = "sTRAWberry";
 
     while (!glfwWindowShouldClose(window)) {
         // Time management
@@ -63,7 +87,6 @@ int main() {
 
     glUseProgram(0);
 
-  //  delete paintbrush;
     delete scenes;
     glfwDestroyWindow(window);
     glfwTerminate();
