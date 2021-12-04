@@ -101,6 +101,9 @@ void GameScene::draw(GLFWwindow* window, std::string guessedWord, int timer) {
         randomWord();
     }
 
+    // Clear canvas if C is pressed
+    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) paintbrush->clearPoints();
+
     // Text rendering
     text->RenderText("Your word is: " + currentWord, 30.f,
                      getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
@@ -109,6 +112,7 @@ void GameScene::draw(GLFWwindow* window, std::string guessedWord, int timer) {
     text->RenderText("Points: " + std::to_string(points), getWidth() - 130.f,
                      getHeight() - 40.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText(".. is it " + guessedWord, getWidth() - 200.f, 40.f, 1.f, glm::vec3(0, 0, 0));
+    text->RenderText("Press 'C' to clear the canvas.", 40.f, 15.f, 0.75f, glm::vec3(0, 0, 0));
 
     // Draw the color buttons and check if one of them is clicked
     for (auto it = colors.begin(); it != colors.end(); ++it) {
