@@ -16,7 +16,7 @@ jobs:
     - name: Setup Environment
       working-directory: ./Drawing-program
       run: |
-        sudo apt-get clean
+        sudo apt-get update
         sudo apt-get install g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev
         mkdir Build
         sudo apt-get install python3-pip
