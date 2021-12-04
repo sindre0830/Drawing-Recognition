@@ -17,17 +17,21 @@ std::map<Color, RGB> colors;
 void initColors() {
     // Create the available colors
     RGB blackVal = { 0.f, 0.f, 0.f };
+    RGB grayVal = { 0.75f, 0.75f, 0.75f };
     RGB redVal = { 1.f, 0.f, 0.f };
     RGB greenVal = { 0.f, 1.f, 0.f };
     RGB blueVal = { 0.f, 0.f, 1.f };
-    RGB yellowVal = { 0.96f, 0.81f, 0.004 };
+    RGB yellowVal = { 0.96f, 0.81f, 0.004f };
+    RGB brownVal = { 0.46f, 0.3f, 0.21f };
 
     // Insert them to map with their names as the key
     colors.insert({ black, blackVal });
+    colors.insert({ gray, grayVal });
     colors.insert({ red, redVal });
     colors.insert({ green, greenVal });
     colors.insert({ blue, blueVal });
     colors.insert({ yellow, yellowVal });
+    colors.insert({ brown, brownVal });
 }
 
 /**
