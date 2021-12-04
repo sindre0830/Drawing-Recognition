@@ -10,6 +10,7 @@
 #include "EndScene.h"
 
 #include <GLFW/glfw3.h>
+#include <string>
 
 /**
  *  Constructor.
@@ -25,7 +26,6 @@ EndScene::EndScene() {
         x2, y1,
         x2, y2
     };
-
     navigation.push_back(new NavButton("Play again", game, rect, yellow));
     x2 += 175.f;
     x1 += 175.f;
@@ -64,6 +64,8 @@ void EndScene::draw(int points) {
                          getHeight() / 2.f + 50.f, 1.f, glm::vec3(0, 0, 0));
     }
 
-    text->RenderText("You got " + std::to_string(points) + " points",
+    // Write "point" if there is only one point
+    std::string pointsText = (points == 1) ? " point" : " points";
+    text->RenderText("You got " + std::to_string(points) + pointsText,
                       getWidth() / 2.f - 70.f, getHeight() / 2.f - 50.f, 1.f, glm::vec3(0, 0, 0));
 }

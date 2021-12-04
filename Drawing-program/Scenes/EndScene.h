@@ -19,7 +19,6 @@
 class EndScene : public Scene {
  private:
      Font* heading;
-     int points;
  public:
      EndScene();
      ~EndScene();
