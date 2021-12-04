@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <iostream>
 
 /**
  *  Constructor.
@@ -27,9 +28,9 @@ GameScene::GameScene() {
     randomWord();
 
     // Add color buttons
-    std::vector<Color> colorName = { red, green, blue, yellow, black };
+    std::vector<Color> colorName = { red, green, blue, yellow, brown, gray, black };
     float x1 = 40.f, y1 = 40.f,
-          x2 = x1 + 40.f, y2 = y1 + 40.f;
+          x2 = x1 + 30.f, y2 = y1 + 30.f;
     Rect rect = {
         x1, y2,     // Top left
         x1, y1,     // Bottom left
@@ -41,8 +42,8 @@ GameScene::GameScene() {
         colors.push_back(new ColorButton(rect, colorName[i]));
 
         // Move the rectangle to draw the colors in different places
-        x1 += 75.f;
-        x2 += 75.f;
+        x1 += 50.f;
+        x2 += 50.f;
         rect = {
             x1, y2,     // Top left
             x1, y1,     // Bottom left

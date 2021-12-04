@@ -24,10 +24,12 @@ struct RGB {
  */
 enum Color {
     black,
+    gray,
     red,
     green,
     blue,
-    yellow
+    yellow,
+    brown
 };
 
 extern std::map<Color, RGB> colors;

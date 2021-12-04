@@ -21,7 +21,7 @@ Paintbrush::Paintbrush() {
     newPos = true;
     vao = vbo = ebo = 0;
     shader = compileShader(pointVertexShaderSrc, pointFragmentShaderSrc);
-    size = 0.010f;
+    size = 0.01f;
     color = black;
 }
 
@@ -157,10 +157,12 @@ void Paintbrush::createPoint(double x, double y) {
     // Set rgb for the new point
     switch (color) {
         case black: rgb = findColor(black); break;
+        case gray: rgb = findColor(gray); break;
         case red: rgb = findColor(red); break;
         case green: rgb = findColor(green); break;
         case blue: rgb = findColor(blue); break;
         case yellow: rgb = findColor(yellow); break;
+        case brown: rgb = findColor(brown); break;
     }
 
     Point point = {
