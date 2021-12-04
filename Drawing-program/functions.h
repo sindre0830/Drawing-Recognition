@@ -2,7 +2,7 @@
  * @file functions.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-09
+ * @date 2021-12-04
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -16,8 +16,8 @@
 enum SceneType {
     menu,
     about,
-    word,
     game,
+    exitGame,
     none
 };
 

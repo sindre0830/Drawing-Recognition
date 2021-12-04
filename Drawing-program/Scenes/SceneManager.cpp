@@ -2,14 +2,12 @@
  * @file SceneManager.cpp
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-28
+ * @date 2021-12-04
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
 
 #include "SceneManager.h"
-
-#include "../build/global.h"
 
 SceneManager::SceneManager() {
     // Create all scenes
@@ -48,5 +46,11 @@ void SceneManager::draw(GLFWwindow* window, std::string guessedWord) {
         }
 
         if (next != none && next != currentScene) currentScene = next;
+    }
+
+    // Check if the timer is up, and the round is ending
+    if (gameScene->getTimer() <= 0) {
+        currentScene = menu;
+        gameScene->endRound();
     }
 }

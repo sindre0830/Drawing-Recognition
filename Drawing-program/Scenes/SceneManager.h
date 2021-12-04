@@ -2,7 +2,7 @@
  * @file Scene.h
  * @author Maren Skårestuen Grindal
  * @version 0.1
- * @date 2021-11-28
+ * @date 2021-12-04
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
  */
@@ -31,6 +31,7 @@ class SceneManager {
      ~SceneManager();
 
      void draw(GLFWwindow* window, std::string guessedWord);
+     SceneType getCurrentScene() { return currentScene; }
 };
 
 #endif  // SCENES_SCENEMANAGER_H_
