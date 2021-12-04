@@ -17,10 +17,10 @@ jobs:
       working-directory: ./Drawing-program
       run: |
         sudo apt-get update
-        sudo apt-get install g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev libzmq3-dev
+        sudo apt-get install gcc g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev libzmq3-dev
         mkdir Build
         sudo apt-get install python3-pip
-        pip3 install cpplint
+        pip3 install cpplint pyzmq
 
     - name: Configure CMake
       working-directory: ./Drawing-program/Build
