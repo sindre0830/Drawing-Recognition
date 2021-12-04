@@ -1,0 +1,38 @@
+name: Drawing-program
+
+on: [push, pull_request]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup Environment
+      working-directory: ./Drawing-program
+      run: |
+        sudo apt-get update
+        sudo apt-get install g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev
+        mkdir Build
+        sudo apt-get install python3-pip
+        pip3 install cpplint
+
+    - name: Configure CMake
+      working-directory: ./Drawing-program/Build
+      run: |
+        git submodule init
+        git submodule update
+        cmake ./..
+
+    - name: Build
+      working-directory: ./Drawing-program/Build
+      run: cmake --build .
+
+    - name: Linting Checker
+      working-directory: ./Drawing-program
+      run: cpplint --root=. --linelength=100 --filter=-build/include_subdir --recursive --exclude=external/* --exclude=Build/* --exclude=shaders/* *

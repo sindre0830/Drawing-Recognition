@@ -1,3 +1,11 @@
+/**
+ * @file main.cpp
+ * @author Maren Sk�restuen Grindal
+ * @version 0.1
+ * @date 2021-12-04
+ *
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
+ */
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 
 #include <glad/glad.h>
@@ -6,125 +14,123 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-
-#include "const.h"
-#include "functions.h"
-#include "Paintbrush/Paintbrush.h"
-#include "Colors.h"
-#include "model.h"
-#include "external/stb_image_write.h"
-
-#include <vector>
 #include <string>
 #include <iostream>
 #include <thread>
 #include <filesystem>
 
+#include "./const.h"
+#include "Colors.h"
+#include "model.h"
+#include "external/stb_image_write.h"
+#include "Scenes/SceneManager.h"
+
 int main() {
+    // Initialize glfw
+    if (!glfwInit()) {
+        std::cerr << "Initialization of GLFW failed.";
+        std::cin.get();
+        return EXIT_FAILURE;
+    }
+
 	// initialize model
 	Model* model = new Model();
 	std::thread t1(&Model::initScript, model);
 
-	// Initialize glfw
-	glfwInit();
+    // Set window hints
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Tell which version is used
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                          "Drawing Recognition", NULL, NULL);
+    if (window == nullptr) {
+        std::cerr << "Window creation failed";
+        std::cin.get();
+        glfwTerminate();
+        return EXIT_FAILURE;
+    }
+    glfwMakeContextCurrent(window);
 
-	GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Drawing Recognition", NULL, NULL);
-	if (window == NULL) {
-		std::cout << "Failed to create GLFW window" << std::endl;
-		glfwTerminate();
-		return -1;
-	}
+    // Load glad configurations for OpenGL
+    if (!gladLoadGL()) {
+        std::cerr << "Initialization of Glad failed.";
+        std::cin.get();
+        glfwTerminate();
+        return EXIT_FAILURE;
+    }
 
-	std::cout << "\n\tChange color: "
-			  << "\n\t\ta - black"
-			  << "\n\t\tr - red"
-			  << "\n\t\tg - green"
-			  << "\n\t\tb - blue\n";
+    // Enable blend so text is text
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glfwMakeContextCurrent(window);
+    // Change background color
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	// Load glad configurations for OpenGL
-	gladLoadGL();
+    initColors();
 
-	// Change background color
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    SceneManager* scenes = new SceneManager();
 
-	initColors();
-
-	glm::ortho(0, WINDOW_WIDTH, 0, WINDOW_HEIGHT);
-
-	Paintbrush* paintbrush = new Paintbrush();
-
-	double x, y;	// Mouse position
-
-	float t = 0.f; // Total time elapsed since start of program
-
-	// setup timer
-	static double limitFPS = 1.0 / 60.0;
-	double lastTime = glfwGetTime(), nowTime = 0, timer = lastTime, deltaTime = 0;
+    float t = 0.f;  // Total time elapsed since start of program
 
 	// get first prediction
 	model->predict(window);
 
-	while (!glfwWindowShouldClose(window)) {
-		// Time management
-		float dt = glfwGetTime() - t;
-		t += dt;
+    // setup timer
+    static double limitFPS = 1.0 / 60.0;
+    double lastTime = glfwGetTime(), nowTime = 0, timer = lastTime, deltaTime = 0;
+    int countdown = 60, predictionTimer = 0;
 
-		nowTime = glfwGetTime();
-		deltaTime += (nowTime - lastTime) / limitFPS;
-		lastTime = nowTime;
 
-		glfwPollEvents();
+    while (!glfwWindowShouldClose(window)) {
+        nowTime = glfwGetTime();
+        deltaTime += (nowTime - lastTime) / limitFPS;
+        lastTime = nowTime;
 
-		glClear(GL_COLOR_BUFFER_BIT);
+        glfwPollEvents();
 
-		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
-			// Get mouse position
-			glfwGetCursorPos(window, &x, &y);
+        glClear(GL_COLOR_BUFFER_BIT);
 
-			// Create point on mouse position
-			paintbrush->createPoint(x, y);
-		} else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE) {
-			paintbrush->setNewPos(true);
-		}
+        scenes->draw(window, model->prediction, countdown);
 
-		paintbrush->draw();
+        glfwSwapBuffers(window);
 
-		glfwSwapBuffers(window);
+        // Exit the game
+        if (scenes->getCurrentScene() == exitGame) break;
 
-		// Change of colors, by pressing keys
-		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) paintbrush->setNewColor(black);
-		else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS) paintbrush->setNewColor(red);
-		else if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) paintbrush->setNewColor(green);
-		else if (glfwGetKey(window, GLFW_KEY_B) == GLFW_PRESS) paintbrush->setNewColor(blue);
-		else if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) break;
+        // branch if there has been two second since game loop started
+        if (glfwGetTime() - timer > 1.0f) {
+            timer++;
+			predictionTimer++;
+            if (scenes->gameStarted) countdown--;
+			if (predictionTimer >= 2 && scenes->gameStarted) {
+				model->predict(window);
+				std::cout << model->prediction << std::endl;
+				predictionTimer = 0;
+			}
+        }
 
-		// branch if there has been two second since game loop started
-		if (glfwGetTime() - timer > 2.0f) {
-			model->predict(window);
-			std::cout << model->prediction << std::endl;
-			timer += 2;
-		}
-		// reset delta time 
-		if(deltaTime >= 1.0) deltaTime -= 1.0;
-	
-		// Limit to 60 fps
-		while (glfwGetTime() < t + 1.0 / 60) {
-		}
-	}
-	// clean up
-	glUseProgram(0);
-	glfwDestroyWindow(window);
-	glfwTerminate();
+        // reset delta time
+        if (deltaTime >= 1.0) deltaTime -= 1.0;
+
+        // Reset countdown if the current round has ended
+        if (scenes->getCurrentScene() != game && scenes->gameStarted) {
+            countdown = 60;
+            scenes->gameStarted = false;
+        }
+
+        // Limit to 60 fps
+        while (glfwGetTime() < t + 1.0 / 60) {
+        }
+    }
+
+    glUseProgram(0);
+
+    delete scenes;
+    glfwDestroyWindow(window);
+    glfwTerminate();
 	model->terminate();
 	t1.join();
 }
-
-

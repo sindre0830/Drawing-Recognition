@@ -24,16 +24,32 @@ add_executable(${PROJECT_NAME}
 	functions.cpp
 	Colors.h
 	Colors.cpp
-	Paintbrush/Point.h
-	Paintbrush/Point.cpp
 	Paintbrush/Paintbrush.h
 	Paintbrush/Paintbrush.cpp
-	shaders/pointShader.h
 	Navigation/Button.h
 	Navigation/Button.cpp
 	Navigation/ColorButton.h
 	Navigation/ColorButton.cpp
     model.h model.cpp
+	Navigation/NavButton.h
+	Navigation/NavButton.cpp
+	Text/Font.h
+	Text/Font.cpp
+	Scenes/SceneManager.h
+	Scenes/SceneManager.cpp
+	Scenes/Scene.h
+	Scenes/Scene.cpp
+	Scenes/AboutScene.h
+	Scenes/AboutScene.cpp
+	Scenes/MenuScene.h
+	Scenes/MenuScene.cpp
+	Scenes/GameScene.h
+	Scenes/GameScene.cpp
+	Scenes/EndScene.h
+	Scenes/EndScene.cpp
+	shaders/pointShader.h
+	shaders/textShader.h
+	shaders/buttonShader.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
