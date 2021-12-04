@@ -132,12 +132,12 @@ void GameScene::randomWord() {
         return;
     }
     if (usedWords.empty()) {
-        int wordIndex = (rand() % words.size());
+        int wordIndex = (rand() % words.size());  // NOLINT(runtime/threadsafe_fn)
         currentWord = words[wordIndex];
     } else {
         // Make sure the word is not already used
         do {
-            int wordIndex = (rand() % words.size());
+            int wordIndex = (rand() % words.size());  // NOLINT(runtime/threadsafe_fn)
             currentWord = words[wordIndex];
         } while (std::find(usedWords.begin(), usedWords.end(), currentWord) != usedWords.end());
     }
