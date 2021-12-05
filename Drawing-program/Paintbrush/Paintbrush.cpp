@@ -152,18 +152,7 @@ void Paintbrush::createFirstPos() {
 void Paintbrush::createPoint(double x, double y) {
     // Cast to float
     float xf = x, yf = y;
-    RGB rgb{};
-
-    // Set rgb for the new point
-    switch (color) {
-        case black: rgb = findColor(black); break;
-        case gray: rgb = findColor(gray); break;
-        case red: rgb = findColor(red); break;
-        case green: rgb = findColor(green); break;
-        case blue: rgb = findColor(blue); break;
-        case yellow: rgb = findColor(yellow); break;
-        case brown: rgb = findColor(brown); break;
-    }
+    RGB rgb = findColor(color);
 
     Point point = {
         calculateXCoordinate(xf),
