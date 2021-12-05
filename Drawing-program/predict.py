@@ -47,7 +47,7 @@ while True:
         socket.send(b"")
         break
     # read image and predict
-    img = cv2.imread("../Data/test.jpg")
+    img = cv2.imread("../Data/screenshot.jpg")
     if img is None:
         print("ERROR: Unable to read image...")
         socket.send(b"")
