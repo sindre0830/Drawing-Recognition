@@ -24,7 +24,7 @@ NavButton::NavButton(std::string text, SceneType scene, Rect rect, Color color):
                      Button(rect, color) {
     this->text = text;
     this->scene = scene;
-    textRender = new Font("../External/Fonts/arial.ttf", 24);
+    textRender = new Font("../External/Fonts/Roboto-Regular.ttf", 24);
 }
 
 /**
