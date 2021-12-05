@@ -48,7 +48,7 @@ void AboutScene::draw() {
                         glm::vec3(txtColor.r, txtColor.g, txtColor.b));
 
     // Render about text
-    text->RenderText("You have 30 seconds to draw the word that shows up on the screen.",
+    text->RenderText("You have 60 seconds to draw the words that show up on the screen.",
                       getWidth() / 2.f - 360.f, getHeight() / 2.f + 50.f, 1.f, glm::vec3(0, 0, 0));
     text->RenderText("For each drawing the game guesses what are, you will get a point.",
                       getWidth() / 2.f - 360.f, getHeight() / 2.f - 50.f, 1.f, glm::vec3(0, 0, 0));

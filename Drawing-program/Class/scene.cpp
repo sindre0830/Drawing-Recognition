@@ -15,7 +15,7 @@
  *  Constructor.
  */
 Scene::Scene() {
-    text = new Font("../External/Fonts/arial.ttf", 24);
+    text = new Font("../External/Fonts/Roboto-Regular.ttf", 24);
     width = WINDOW_WIDTH;
     height = WINDOW_HEIGHT;
 }
