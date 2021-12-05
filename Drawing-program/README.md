@@ -16,5 +16,5 @@ cd Build
 cmake ..
 cmake --build .
 # Run binary
-bin/drawing-program
+bin/drawing-recognition
 ```
