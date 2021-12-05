@@ -9,8 +9,8 @@
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef TEXT_FONT_H_
-#define TEXT_FONT_H_
+#ifndef CLASS_HEADER_FONT_H_
+#define CLASS_HEADER_FONT_H_
 
 /* external libraries */
 #include <glad/glad.h>
@@ -51,4 +51,4 @@ class Font {
     void RenderText(std::string text, float x, float y, float scale, glm::vec3 color);
 };
 
-#endif  // TEXT_FONT_H_
+#endif  // CLASS_HEADER_FONT_H_

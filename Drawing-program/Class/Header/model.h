@@ -7,8 +7,8 @@
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef MODEL_H_
-#define MODEL_H_
+#ifndef CLASS_HEADER_MODEL_H_
+#define CLASS_HEADER_MODEL_H_
 
 /* external libraries */
 #include <GLFW/glfw3.h>
@@ -31,4 +31,4 @@ class Model {
     void terminate();
 };
 
-#endif  // MODEL_H_
+#endif  // CLASS_HEADER_MODEL_H_

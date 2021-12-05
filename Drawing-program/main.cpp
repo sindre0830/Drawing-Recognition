@@ -12,7 +12,7 @@
 #include <GLFW/glfw3.h>
 #include <string>
 #include <iostream>
-#include <thread>
+#include <thread>  // NOLINT(build/c++11)
 #include <filesystem>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -41,7 +41,8 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // create window
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Drawing Recognition", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT,
+                                          "Drawing Recognition", NULL, NULL);
     // branch if window isn't created and kill the application
     if (window == nullptr) {
         std::cerr << "GLFW failed on window creation.\n";
@@ -111,7 +112,7 @@ int main() {
         // break loop if exit button is pressed
         if (scenes->getCurrentScene() == exitGame) break;
     }
-    //clear memory before ending program
+    // clear memory before ending program
     glUseProgram(0);
     delete scenes;
     glfwDestroyWindow(window);

@@ -1,5 +1,5 @@
-#ifndef __SHADER_H
-#define __SHADER_H
+#ifndef CLASS_SHADER_TEXTSHADER_H_
+#define CLASS_SHADER_TEXTSHADER_H_
 /* external libraries */
 #include <string>
 
@@ -32,4 +32,4 @@ void main()
 }
 )";
 
-#endif
+#endif // CLASS_SHADER_TEXTSHADER_H_

@@ -2,13 +2,13 @@
  * @file GameScene.h
  * @author Maren Sk�restuen Grindal
  * @version 0.1
- * @date 2021-12-04
+ * @date 2021-12-05
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef SCENES_GAMESCENE_H_
-#define SCENES_GAMESCENE_H_
+#ifndef CLASS_HEADER_GAMESCENE_H_
+#define CLASS_HEADER_GAMESCENE_H_
 
 /* external libraries */
 #include <vector>
@@ -41,4 +41,4 @@ class GameScene : public Scene {
      bool getAllUsed() { return allUsed; }
 };
 
-#endif  // SCENES_GAMESCENE_H_
+#endif  // CLASS_HEADER_GAMESCENE_H_

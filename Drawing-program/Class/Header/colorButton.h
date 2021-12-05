@@ -2,13 +2,13 @@
  * @file ColorButton.h
  * @author Maren Sk�restuen Grindal
  * @version 0.1
- * @date 2021-11-28
+ * @date 2021-12-05
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef NAVIGATION_COLORBUTTON_H_
-#define NAVIGATION_COLORBUTTON_H_
+#ifndef CLASS_HEADER_COLORBUTTON_H_
+#define CLASS_HEADER_COLORBUTTON_H_
 
 /* local libraries */
 #include "./button.h"
@@ -26,4 +26,4 @@ class ColorButton : public Button {
     RGB getRGB() { return colorValue; }
 };
 
-#endif  // NAVIGATION_COLORBUTTON_H_
+#endif  // CLASS_HEADER_COLORBUTTON_H_

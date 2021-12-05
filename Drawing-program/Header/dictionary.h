@@ -2,13 +2,13 @@
  * @file const.h
  * @author Maren Sk�restuen Grindal
  * @version 0.1
- * @date 2021-11-30
+ * @date 2021-12-05
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef CONST_H_
-#define CONST_H_
+#ifndef HEADER_DICTIONARY_H_
+#define HEADER_DICTIONARY_H_
 
 /* external libraries */
 #include <map>
@@ -48,4 +48,4 @@ const std::map<Color, RGB> colors = {
     {BROWN, {0.46f, 0.3f, 0.21f}}
 };
 
-#endif  // CONST_H_
+#endif  // HEADER_DICTIONARY_H_

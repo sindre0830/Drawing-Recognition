@@ -2,13 +2,13 @@
  * @file Paintbrush.h
  * @author Maren Sk�restuen Grindal
  * @version 0.1
- * @date 2021-11-28
+ * @date 2021-12-05
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef PAINTBRUSH_PAINTBRUSH_H_
-#define PAINTBRUSH_PAINTBRUSH_H_
+#ifndef CLASS_HEADER_PAINTBRUSH_H_
+#define CLASS_HEADER_PAINTBRUSH_H_
 
 /* external libraries */
 #include <glad/glad.h>
@@ -61,4 +61,4 @@ class Paintbrush {
     void clearPoints();
 };
 
-#endif  // PAINTBRUSH_PAINTBRUSH_H_
+#endif  // CLASS_HEADER_PAINTBRUSH_H_

@@ -2,13 +2,13 @@
  * @file Scene.h
  * @author Maren Sk�restuen Grindal
  * @version 0.1
- * @date 2021-12-04
+ * @date 2021-12-05
  *
  * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
  */
 
-#ifndef SCENES_SCENEMANAGER_H_
-#define SCENES_SCENEMANAGER_H_
+#ifndef CLASS_HEADER_SCENEMANAGER_H_
+#define CLASS_HEADER_SCENEMANAGER_H_
 
 /* external libraries */
 #include <vector>
@@ -41,4 +41,4 @@ class SceneManager {
      SceneType getCurrentScene() { return currentScene; }
 };
 
-#endif  // SCENES_SCENEMANAGER_H_
+#endif  // CLASS_HEADER_SCENEMANAGER_H_

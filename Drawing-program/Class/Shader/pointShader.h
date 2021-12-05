@@ -1,5 +1,5 @@
-#ifndef __SHADER_H
-#define __SHADER_H
+#ifndef CLASS_SHADER_POINTSHADER_H_
+#define CLASS_SHADER_POINTSHADER_H_
 /* external libraries */
 #include <string>
 
@@ -36,4 +36,4 @@ void main()
 }
 )";
 
-#endif // !__SHADER_H
+#endif // CLASS_SHADER_POINTSHADER_H_

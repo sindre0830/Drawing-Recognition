@@ -1,5 +1,5 @@
-#ifndef __BUTTONSHADER_H
-#define __BUTTONSHADER_H
+#ifndef CLASS_SHADER_BUTTONSHADER_H_
+#define CLASS_SHADER_BUTTONSHADER_H_
 /* external libraries */
 #include <string>
 
@@ -39,4 +39,4 @@ void main()
 }
 )";
 
-#endif // !__SHADER_H
+#endif // CLASS_SHADER_BUTTONSHADER_H_
