@@ -1,9 +1,9 @@
-[submodule "Drawing-program/external/glfw"]
-	path = Drawing-program/external/glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "Drawing-program/external/freetype"]
-	path = Drawing-program/external/freetype
+[submodule "Drawing-program/External/freetype"]
+	path = Drawing-program/External/freetype
 	url = git://git.sv.nongnu.org/freetype/freetype2.git
-[submodule "Drawing-program/external/glm"]
-	path = Drawing-program/external/glm
+[submodule "Drawing-program/External/glm"]
+	path = Drawing-program/External/glm
 	url = https://github.com/g-truc/glm
+[submodule "Drawing-program/External/glfw"]
+	path = Drawing-program/External/glfw
+	url = https://github.com/glfw/glfw.git
