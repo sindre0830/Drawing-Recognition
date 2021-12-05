@@ -13,7 +13,7 @@ func GetGoogleImagesURL(searchQuery string) string {
 
 // GetGoogleImagesKey reads google images REST sevice key from file.
 func GetGoogleImagesKey() (string, error) {
-	//read file and branch if an error occurred
+	// read file and branch if an error occurred
 	key, err := ioutil.ReadFile("api-key")
 	if err != nil {
 		return "", err

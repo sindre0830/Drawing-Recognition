@@ -21,7 +21,7 @@ func (debug *Debug) Update(status int, loc string, err string, reason string) {
 	debug.StatusCode = status
 	debug.Location = loc
 	debug.RawError = err
-	//update reason if status code shows client error
+	// update reason if status code shows client error
 	if status == http.StatusBadRequest || status == http.StatusNotFound || status == http.StatusMethodNotAllowed {
 		debug.PossibleReason = reason
 	} else {
@@ -31,7 +31,7 @@ func (debug *Debug) Update(status int, loc string, err string, reason string) {
 
 // Print sends structure to console.
 func (debug *Debug) Print() {
-	//send output to console
+	// send output to console
 	fmt.Printf(
 		"%v {\n" +
 		"    status_code:     %v,\n" +
