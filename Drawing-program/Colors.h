@@ -25,6 +25,7 @@ struct RGB {
 enum Color {
     black,
     gray,
+    white,
     red,
     green,
     blue,

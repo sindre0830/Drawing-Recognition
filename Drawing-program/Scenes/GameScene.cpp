@@ -28,7 +28,7 @@ GameScene::GameScene() {
     randomWord();
 
     // Add color buttons
-    std::vector<Color> colorName = { red, green, blue, yellow, brown, gray, black };
+    std::vector<Color> colorName = { red, green, blue, yellow, brown, gray, black, white };
     float x1 = 40.f, y1 = 40.f,
           x2 = x1 + 30.f, y2 = y1 + 30.f;
     Rect rect = {
@@ -41,6 +41,19 @@ GameScene::GameScene() {
     for (int i = 0; i < colorName.size(); i++) {
         colors.push_back(new ColorButton(rect, colorName[i]));
 
+        // White needs a border around it to not blend in with the background
+        if (colorName[i] == white) {
+            colors.push_back(new ColorButton(rect, black));
+            x1 += 3.f; x2 -= 3.f;
+            y1 += 3.f; y2 -= 3.f;
+            rect = {
+                x1, y2,     // Top left
+                x1, y1,     // Bottom left
+                x2, y1,     // Bottom right
+                x2, y2      // Top right
+            };
+            colors.push_back(new ColorButton(rect, white));
+        }
         // Move the rectangle to draw the colors in different places
         x1 += 50.f;
         x2 += 50.f;
