@@ -1,10 +1,10 @@
 /**
  * @file EndScene.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-12-04
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
 
 #include "EndScene.h"
@@ -16,7 +16,7 @@
  *  Constructor.
  */
 EndScene::EndScene() {
-    heading = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
+    heading = new Font("../Fonts/CaveatBrush-Regular.ttf", 100);
 
     float x1 = getWidth() / 2.f - 150.f, y1 = 200.f,
           x2 = x1 + 140.f, y2 = y1 + 50.f;

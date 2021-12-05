@@ -1,10 +1,10 @@
 /**
  * @file Scene.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-12-03
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
 
 #include "Scene.h"
@@ -14,7 +14,7 @@
  *  Constructor.
  */
 Scene::Scene() {
-    text = new Font("../fonts/arial.ttf", 24);
+    text = new Font("../Fonts/arial.ttf", 24);
     width = WINDOW_WIDTH;
     height = WINDOW_HEIGHT;
 }

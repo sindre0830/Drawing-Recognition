@@ -1,19 +1,27 @@
 /**
  * @file main.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-12-04
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include <vector>
 #include <string>
-#include <algorithm>
 #include <iostream>
+#include <thread>
+#include <filesystem>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "./const.h"
+#include "Colors.h"
+#include "model.h"
+#include "external/stb_image_write.h"
 #include "Scenes/SceneManager.h"
 
 int main() {
@@ -23,6 +31,10 @@ int main() {
         std::cin.get();
         return EXIT_FAILURE;
     }
+
+    // initialize model
+    Model* model = new Model();
+    std::thread t1(&Model::initScript, model);
 
     // Set window hints
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
@@ -62,12 +74,14 @@ int main() {
 
     float t = 0.f;  // Total time elapsed since start of program
 
-    std::string guessedWord = "sTRAWberry";
+    // get first prediction
+    model->predict(window);
 
     // setup timer
     static double limitFPS = 1.0 / 60.0;
     double lastTime = glfwGetTime(), nowTime = 0, timer = lastTime, deltaTime = 0;
-    int countdown = 60;
+    int countdown = 60, predictionTimer = 0;
+
 
     while (!glfwWindowShouldClose(window)) {
         nowTime = glfwGetTime();
@@ -78,7 +92,7 @@ int main() {
 
         glClear(GL_COLOR_BUFFER_BIT);
 
-        scenes->draw(window, guessedWord, countdown);
+        scenes->draw(window, model->prediction, countdown);
 
         glfwSwapBuffers(window);
 
@@ -87,8 +101,14 @@ int main() {
 
         // branch if there has been two second since game loop started
         if (glfwGetTime() - timer > 1.0f) {
-            timer += 1;
+            timer++;
+            predictionTimer++;
             if (scenes->gameStarted) countdown--;
+            if (predictionTimer >= 2 && scenes->gameStarted) {
+                model->predict(window);
+                std::cout << model->prediction << std::endl;
+                predictionTimer = 0;
+            }
         }
 
         // reset delta time
@@ -110,4 +130,6 @@ int main() {
     delete scenes;
     glfwDestroyWindow(window);
     glfwTerminate();
+    model->terminate();
+    t1.join();
 }

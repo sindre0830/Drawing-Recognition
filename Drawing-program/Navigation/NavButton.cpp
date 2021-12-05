@@ -1,10 +1,10 @@
 /**
  * @file NavButton.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-11-28
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
 
 #include "NavButton.h"
@@ -23,7 +23,7 @@ NavButton::NavButton(std::string text, SceneType scene, Rect rect, Color color):
                      Button(rect, color) {
     this->text = text;
     this->scene = scene;
-    textRender = new Font("../fonts/arial.ttf", 24);
+    textRender = new Font("../Fonts/arial.ttf", 24);
 }
 
 /**

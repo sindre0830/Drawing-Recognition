@@ -3,10 +3,14 @@ cmake_minimum_required(VERSION 3.15)
 project(drawing-recognition)
 
 find_package(OpenGL REQUIRED)
+find_package(PythonLibs REQUIRED)
+
+include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread -lzmq")
 
 add_subdirectory(external/glad)
 add_subdirectory(external/glfw)
@@ -26,6 +30,7 @@ add_executable(${PROJECT_NAME}
 	Navigation/Button.cpp
 	Navigation/ColorButton.h
 	Navigation/ColorButton.cpp
+    model.h model.cpp
 	Navigation/NavButton.h
 	Navigation/NavButton.cpp
 	Text/Font.h
@@ -44,14 +49,17 @@ add_executable(${PROJECT_NAME}
 	Scenes/EndScene.cpp
 	shaders/pointShader.h
 	shaders/textShader.h
-	shaders/buttonShader.h)
+	shaders/buttonShader.h
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-  glad
-  glfw
-  glm
-  freetype
-  OpenGL::GL)
+	PRIVATE
+	glad
+	glfw
+	glm
+	freetype
+	OpenGL::GL
+	${PYTHON_LIBRARIES}
+)

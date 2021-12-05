@@ -1,10 +1,10 @@
 /**
  * @file Scene.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-12-03
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
 
 #include "MenuScene.h"
@@ -16,7 +16,7 @@
  *  Constructor.
  */
 MenuScene::MenuScene() {
-    heading = new Font("../fonts/CaveatBrush-Regular.ttf", 100);
+    heading = new Font("../Fonts/CaveatBrush-Regular.ttf", 100);
 
     // Create navigation buttons
     std::vector<std::string> headings{ "Start game", "About", "Exit" };

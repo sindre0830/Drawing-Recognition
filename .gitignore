@@ -7,3 +7,5 @@ Data-collection/main
 CNN-TF/__pycache__
 CNN-TF/Data
 Drawing-program/Build
+Drawing-program/external/tensorflow
+Drawing-program/Data

@@ -1,10 +1,10 @@
 /**
  * @file GameScene.cpp
- * @author Maren Skårestuen Grindal
+ * @author Maren Skï¿½restuen Grindal
  * @version 0.1
  * @date 2021-12-04
  *
- * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skårestuen Grindal
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Skï¿½restuen Grindal
  */
 
 #include "GameScene.h"
@@ -23,7 +23,18 @@ GameScene::GameScene() {
     paintbrush = new Paintbrush();
 
     // Initialize list with words available
-    words = { "banana", "strawberry", "apple", "ghost" };
+    words = {
+        "green apple",
+        "banana",
+        "strawberry",
+        "campfire",
+        "watermelon",
+        "umbrella",
+        "blueberry",
+        "cheese",
+        "star",
+        "cucumber"
+    };
     allUsed = false;    // If all words are used or not
     randomWord();
 

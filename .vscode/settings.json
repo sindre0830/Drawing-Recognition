@@ -72,7 +72,16 @@
         "csignal": "cpp",
         "valarray": "cpp",
         "any": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "csetjmp": "cpp",
+        "hash_map": "cpp",
+        "hash_set": "cpp",
+        "forward_list": "cpp",
+        "unordered_set": "cpp",
+        "netfwd": "cpp",
+        "regex": "cpp",
+        "scoped_allocator": "cpp",
+        "*.ipp": "cpp"
     },
     "cmake.configureOnOpen": true
 }
