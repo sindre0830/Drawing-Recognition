@@ -1,3 +1,11 @@
+/**
+ * @file model.h
+ * @author Sindre Eiklid
+ * @version 0.1
+ * @date 2021-12-05
+ *
+ * @copyright Copyright (c) 2021 Sindre Eiklid, Rickard Loland, Maren Sk�restuen Grindal
+ */
 #ifndef MODEL_H_
 #define MODEL_H_
 /* external libraries */
@@ -9,16 +17,16 @@
  */
 class Model {
  private:
-   std::string filename;
-   void ping(const std::string cmd);
+    std::string filename;
+    void ping(const std::string cmd);
 
  public:
-   std::string prediction;
-   Model();
-   ~Model();
-   void initScript();
-   void predict(GLFWwindow* window);
-   void terminate();
+    std::string prediction;
+    Model();
+    ~Model();
+    void initScript();
+    void predict(GLFWwindow* window);
+    void terminate();
 };
 
 #endif  // MODEL_H_
