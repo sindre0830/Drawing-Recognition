@@ -1,19 +1,20 @@
 # Drawing program
 
-## Dependencies
-- Requires Git, CMake, Python 3.9.7 (devel), and OpenGL
-    - Python for windows: When running the installer, enable "Download debug binaries". Also needs to add it to PATH
-    - Linux: ```sudo dnf install python-devel```
-- Fetch submodules ```git submodule update --init --recursive .```
+Works on Linux, issues on Windows because of ZeroMQ.
 
 ## Instructions
 
 ```sh
-git clone https://github.com/sindre0830/Drawing-Recognition
-mkdir Drawing-Recognition/Drawing-program/Build
-cd Drawing-Recognition/Drawing-program/Build
+# Install dependencies
+sudo apt-get install gcc g++ cmake libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libgl1-mesa-dev mesa-common-dev libzmq3-dev python3-pip
+pip3 install pyzmq opencv-python scikit-image tensorflow keras numpy
+# Fetch submodules
+git submodule update --init --recursive .
+# Compile program
+mkdir Build
+cd Build
 cmake ..
 cmake --build .
-# run binary
+# Run binary
 bin/drawing-program
 ```
