@@ -33,7 +33,8 @@ labels = [
     "Umbrella", 
     "Blueberry", 
     "Cheese",
-    "Star"
+    "Star",
+    "Cucumber"
 ]
 
 lastGuessedIndex = 0
