@@ -62,10 +62,10 @@ int main() {
         t1.join();
         return EXIT_FAILURE;
     }
-	// enable transparency on texture
+    // enable transparency on texture
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	// set background color white
+    // set background color white
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     // construct scene manager object
     SceneManager* scenes = new SceneManager();
@@ -75,15 +75,15 @@ int main() {
     int countdown = 60, predictionTimer = 0;
     // setup model prediction (takes 2 seconds)
     model->predict(window);
-	// loop until user closes window
+    // loop until user closes window
     while (!glfwWindowShouldClose(window)) {
-		// delta time managment
+        // delta time managment
         nowTime = glfwGetTime();
         deltaTime += (nowTime - lastTime) / limitFPS;
         lastTime = nowTime;
-		// processes all pending events
+        // processes all pending events
         glfwPollEvents();
-		// for every frame reset background color buffer
+        // for every frame reset background color buffer
         glClear(GL_COLOR_BUFFER_BIT);
         // draw scene
         scenes->draw(window, model->prediction, countdown);
@@ -92,13 +92,13 @@ int main() {
             countdown = 60;
             scenes->gameStarted = false;
         }
-		// branch if there has been one second since game loop started
+        // branch if there has been one second since game loop started
         if (glfwGetTime() - timer > 1.0f) {
             timer++;
             predictionTimer++;
             // branch if game scene is active and decrease counter
             if (scenes->gameStarted) countdown--;
-		    // branch if there has been two seconds since game loop started
+            // branch if there has been two seconds since game loop started
             if (predictionTimer >= 2 && scenes->gameStarted) {
                 model->predict(window);
                 predictionTimer = 0;
@@ -106,12 +106,12 @@ int main() {
         }
         // reset delta time
         if (deltaTime >= 1.0) deltaTime -= 1.0;
-		// go to next buffer
+        // go to next buffer
         glfwSwapBuffers(window);
         // break loop if exit button is pressed
         if (scenes->getCurrentScene() == exitGame) break;
     }
-	//clear memory before ending program
+    //clear memory before ending program
     glUseProgram(0);
     delete scenes;
     glfwDestroyWindow(window);
