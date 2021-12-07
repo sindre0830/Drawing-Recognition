@@ -13,7 +13,7 @@
 int readFile(const std::vector<std::string> filenames, std::vector<std::vector<std::string>>& urls) {
     //open file and exit upon error
     for(int i = 0; i < filenames.size(); i++) {
-        std::ifstream file("../../Data-collection/Data/" + filenames[i] + ".txt");
+        std::ifstream file("../../Data/Thumbnails/" + filenames[i] + ".txt");
         if (!file) {
             return -1;
         }
