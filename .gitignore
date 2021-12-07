@@ -1,8 +1,8 @@
 api-key
 .vscode
 !.vscode/settings.json
-CNN/Build
-CNN/Data
+CNN-CPP (deprecated)/Build
+CNN-CPP (deprecated)/Data
 Data-collection/main
 CNN-TF/__pycache__
 CNN-TF/Data
