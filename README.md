@@ -1,5 +1,7 @@
 # Drawing-Recognition
-PROG2052 Project
+Project for PROG2052 2021 Autumn course
+
+Full report (in norwegian): [report.pdf](report.pdf)
 
 ### Info
 - Authors:
